@@ -1,27 +1,55 @@
 .carousel-container {
   width: 100%;
-  // overflow: hidden;
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: row;
-  background-color: cyan;
+  background-color: var(--md-sys-color-surface);
+  border-radius: 8px;
+  box-shadow: var(--mat-app-elevation-shadow-level-1);
+
+  button {
+    margin: 3px;
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 .slide-container {
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  overflow: hidden;
 }
 
 .slide {
   display: flex;
   flex-direction: column;
-  // width: 100%;
-  position: relative;
-  flex: 0 0 100%;
+  gap: 5px;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  margin: 6px 16px;
+
+  :nth-child(2) {
+    color: var(--md-sys-color-surface-variant);
+  }
+
+  :nth-child(1) {
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+.blog-container {
+  margin: 0 0 1rem 0;
+}
+
+.experience-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .card {

@@ -65,7 +65,7 @@
   width: 100%;
 }
 
-@media (max-width: var.$medium-max-width) {
+@media (max-width: var.$small-max-width) {
   .about-me {
     flex-direction: column;
     justify-content: center;

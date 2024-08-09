@@ -15,6 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSnackBarModule,
     MatIconModule,
     MatChipsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatListModule
   ]
 })
 export class HomeModule { }

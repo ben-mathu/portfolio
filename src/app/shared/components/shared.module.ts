@@ -16,7 +16,6 @@ import { RouterModule } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MarkdownModule } from 'ngx-markdown';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
 import { SocialIconsComponent } from './social-icons/social-icons.component';
 import { MatChipsModule } from '@angular/material/chips';
 
@@ -50,7 +49,6 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     MarkdownModule,
     MatToolbarModule,
-    MatListModule,
     MatChipsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -30,20 +30,8 @@ interface Article {
     trigger('slideInOut', [
       state('left', style({ transform: 'translateX(-100%)'})),
       state('center', style({ transform: 'translateX(0)'})),
-      state('right', style({ transform: 'translateX(100%)'})),
+      state('right', style({ transform: 'translateX(105%)'})),
       transition('* => *', animate('800ms ease-in-out'))
-      // transition(':enter', [
-      //   style({ tranform: 'translateX({{ direction }}%)' }),
-      //   animate('400ms ease-in', style({ transform: 'translateX(0%)' }))
-      // ])
-      // state('void', style({ transform: 'translateX(100%)' })),
-      // transition(':enter', [
-      //   style({ transform: 'translateX(-100%)' }),
-      //   animate('0.5s ease-in-out', style({ transform: 'translateX(0)'}))
-      // ]),
-      // transition(':leave', [
-      //   animate('.5s ease-in-out', style({ transform: 'translateX(100%)' }))
-      // ])
     ])
   ]
 })
@@ -135,7 +123,7 @@ export class BlogComponent implements OnInit {
    *
    * @param title - Title of the article
    * @param type - Type of the article
-   * @param certificateId - Key Provided by firebase
+   * @param articleId - Key Provided by firebase
    * @param key - corresponds to the article type, a key for list of article
    */
   addToMap(title: string, type: string, articleId: string, key: string) {
@@ -304,7 +292,7 @@ export class BlogComponent implements OnInit {
       return 'left';
     } else if (index === this.currentIndex) {
       return 'center';
-    } else if (index === (this.currentIndex + 1) % this.carouselDeque.length) {
+    } else if (index === (this.currentIndex + 1) % this.articleCarousel.length) {
       return 'right';
     } else {
       return 'left';
@@ -312,10 +300,10 @@ export class BlogComponent implements OnInit {
   }
 
   nextSlide() {
-    this.currentIndex = (this.currentIndex + 1) % this.carouselDeque.length;
+    this.currentIndex = (this.currentIndex + 1) % this.articleCarousel.length;
   }
 
   previousSlide() {
-    this.currentIndex = (this.currentIndex - 1 + this.carouselDeque.length) % this.carouselDeque.length;
+    this.currentIndex = (this.currentIndex - 1 + this.articleCarousel.length) % this.articleCarousel.length;
   }
 }
