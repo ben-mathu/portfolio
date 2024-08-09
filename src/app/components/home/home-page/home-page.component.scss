@@ -1,5 +1,12 @@
 @use "../../../../styles/variables" as var;
 
+.home-wrapper {
+  background-color: var(--md-sys-color-surface);
+  padding: 1em;
+  border-radius: 8px;
+  margin: 0 0 1em 0;
+}
+
 /**
  * Header
  */
@@ -99,9 +106,9 @@
   margin: 20px 0;
 }
 
-mat-card {
-  border-width: 0 10px 10px 0;
-}
+// mat-card {
+//   border-width: 0 10px 10px 0;
+// }
 
 .card {
   // max-width: 400px;

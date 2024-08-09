@@ -4,6 +4,8 @@ mat-toolbar {
   display: flex;
   flex-direction: row;
   margin-right: 30px;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
 }
 
 .navbar-spacer {
