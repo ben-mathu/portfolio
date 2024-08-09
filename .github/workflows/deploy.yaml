@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - '*'
-    branches:
-      - develop
 
 jobs:
   deploy-github-pages:
@@ -20,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Serialize icon names
-        run: sh ./icons/serialize.sh
+        run: sh icons/serialize.sh
 
       - name: Setup for Deployments
         env:
