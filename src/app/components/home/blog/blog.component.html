@@ -14,19 +14,24 @@
   </button>
 </div>
 
-<div class="blog-container">
+<div class="blog-container {{ project || article ? 'add-margin' : ''}}">
   @if (project !== undefined || article !== undefined) {
     <div class="sidenav-container"><!-- Side nav for projects, Tools and articles -->
-      <mat-list>
-        <mat-list-item *ngFor="let category of articleMap | keyvalue;">
-          <button>
+      <mat-nav-list>
+        <ng-container *ngFor="let category of articleMap | keyvalue; index as i">
+          <mat-list-item>
             {{ utils.capitalize(category.key) }}
-          </button>
-          <mat-list>
-            <a mat-list-item href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded" *ngFor="let articles of category.value | keyvalue">{{ articles.value.get('title') }}</a>
+          </mat-list-item>
+          <mat-list style="margin-left: 12px;">
+            <ng-container *ngFor="let articles of category.value | keyvalue; index as j">
+              <mat-list-item [routerLink]="['../../', 'article', articles.value.get('key')]">
+                {{ articles.value.get('title') }}
+              </mat-list-item>
+            </ng-container>
           </mat-list>
-        </mat-list-item>
-      </mat-list>
+          <mat-divider *ngIf="i !== articleMap.size - 1" class="divider"></mat-divider>
+        </ng-container>
+      </mat-nav-list>
     </div>
   }
   <div class="blog-content-wrapper">
@@ -83,14 +88,15 @@
     }
 
     @if (project !== undefined) {
-      <div>
-        <h3>{{ project.projectName }}</h3>
-        <div>
-          <mat-icon class="h-auto">construction</mat-icon>
+      <div class="project-header">
+        <h1 *ngIf="!project.contentUrl">{{ project.projectName }}</h1>
+        <i *ngIf="project.contentUrl">{{ project.projectStatus }}</i>
+        <mat-chip>
+          <mat-icon matChipAvatar>construction</mat-icon>
           <span>{{ project.type }}</span>
-        </div>
+        </mat-chip>
       </div>
-      <i>{{ project.projectStatus }}</i>
+      <i *ngIf="!project.contentUrl">{{ project.projectStatus }}</i>
       <markdown ngPreserveWhitespaces [data]="project.projectDescription"></markdown>
       <a href="{{project.url}}" target="_blank">
         <button mat-button>Go to Project</button>

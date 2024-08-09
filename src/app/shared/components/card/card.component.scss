@@ -1,9 +1,9 @@
 .menu {
-  height: 5rem;
-  padding: 1rem;
+  height: 5em;
+  padding: 1em;
   text-decoration: none;
   transform-origin: 50% 100%;
-  border-radius: 0.5rem;
+  border-radius: 0.5em;
   display: flex;
   justify-content: flex-start center;
   align-items: flex-start center;
@@ -47,9 +47,9 @@
 
 @media (max-width: 567px) {
   .menu {
-    height: 5rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
+    height: 5em;
+    padding: 1em;
+    border-radius: 0.5em;
     text-decoration: none;
     // color: rgba(255, 255, 255, 0.397);
   }

@@ -144,6 +144,7 @@ export class BlogComponent implements OnInit {
       }
 
       articleById.set('title', title);
+      articleById.set('key', articleId);
 
       articles.set(articleId, articleById);
 
