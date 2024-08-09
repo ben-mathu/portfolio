@@ -13,5 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Make Script Executable
+
       - name: Serialize icon names
-        run: sh icons/serialize.sh
+        run: ./icons/serialize.sh
