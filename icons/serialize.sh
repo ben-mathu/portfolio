@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Create a directory if it does not exist
 data_dir=icons/data
