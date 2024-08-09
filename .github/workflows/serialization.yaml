@@ -20,4 +20,4 @@ jobs:
         run: ./icons/serialize.sh
 
       - name: Print File Gen
-        run: echo icons/data/svg_files.json
+        run: cat icons/data/svg_files.json
