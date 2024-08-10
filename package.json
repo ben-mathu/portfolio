@@ -11,7 +11,7 @@
     "start:dev": "nodemon -x 'sh ./icons/serialize.sh && ng serve'",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "deploy": "npx angular-cli-ghpages --branch=master --dir=dist/ben-mathu/browser --remote=upstream --no-silent",
+    "deploy": "npx angular-cli-ghpages --dir=dist/ben-mathu/browser --remote=upstream --no-silent",
     "test": "ng test"
   },
   "private": true,
