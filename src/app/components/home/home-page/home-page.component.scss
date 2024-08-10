@@ -1,8 +1,26 @@
-@import "/assets/styles/variables";
+@use "../../../../styles/variables" as var;
+
+.home-wrapper {
+  background-color: var(--md-sys-color-surface);
+  padding: 1em;
+  border-radius: 8px;
+  margin: 0 0 1em 0;
+}
+
+/**
+ * Header
+ */
+
+.about-me {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1em;
+}
 
 .my-avatar {
-  max-width: 270px;
-  max-height: 270px;
+  max-width: 300px;
+  max-height: 300px;
   border: 1px solid #3b4f58;
   border-radius: 15px;
   overflow: hidden;
@@ -15,7 +33,9 @@
 }
 
 .my-description {
-  max-width: 60%;
+  max-width: 75%;
+  display: flex;
+  flex-direction: column;
 
   .name {
     font-size: 25px;
@@ -24,15 +44,58 @@
 
   .headline {
     font-size: 18px;
+    margin-bottom: 1em;
   }
 
   .description {
-    border: 1px solid $borderColor;
+    border: 1px solid var.$borderColor;
     line-height: 25px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 16px;
+    margin-bottom: 1em;
+    padding: 10px;
   }
 }
+
+.skills-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.skill {
+  width: 100%;
+}
+
+@media (max-width: var.$small-max-width) {
+  .about-me {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .my-description {
+    max-width: fit-content;
+
+    .name {
+      text-align: center;
+    }
+
+    .headline {
+      text-align: center;
+    }
+  }
+}
+
+/*
+ * Grid
+ */
 
 .grid-wrapper {
   display: grid;
@@ -40,27 +103,21 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 200px;
   grid-auto-flow: dense;
-  margin: 20px 0px;
+  margin: 20px 0;
 }
+
+// mat-card {
+//   border-width: 0 10px 10px 0;
+// }
 
 .card {
   // max-width: 400px;
   // max-height: 600px;
   // margin-bottom: 20px;
-  overflow: auto;
-
+  overflow: hidden;
   display: flex;
   cursor: pointer;
-  background-color: #1b242979;
-  color: $fontColor;
   transition: .2s ease, -webkit-transform .3s ease;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-  }
 
   mat-card-header {
     display: flex;
@@ -81,29 +138,60 @@
 
 .card:hover {
   z-index: 1;
-  background-color: #13191d79;
   box-shadow: 0 4px 8px rgba(0,0,0, .4);
 }
 
-.grid-wrapper .wide {
-  grid-column: span 2;
+.grid-wrapper {
+  display: grid;
+
+  .wide {
+    grid-column: span 2;
+
+    .skill-content {
+      display: none;
+    }
+
+    button {
+      display: none;
+    }
+  }
+
+  .tall {
+    grid-row: span 2;
+
+    .skill-content {
+      display: none;
+    }
+
+    button {
+      display: none;
+    }
+  }
+
+  .big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .long {
+    grid-column: span 2;
+    grid-row: span 1;
+
+    .skill-content {
+      display: none;
+    }
+
+    button {
+      display: none;
+    }
+  }
 }
 
-.grid-wrapper .tall {
-  grid-row: span 2;
-}
-
-.grid-wrapper .big {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.grid-wrapper .long {
-  grid-column: span 2;
-  grid-row: span 1;
-
-  button {
-    width: 100%;
-    height: 100%;
+@media (max-width: var.$xsmall-max-width) {
+  .grid-wrapper {
+    max-width: var.$xsmall-max-width;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }

@@ -1,0 +1,59 @@
+<div class="footer bg-{{utils.getPreferredTheme()}}">
+  <div class="follow-me">
+    <div class="social-title sub-titles">Follow Me</div>
+    <div class="social-links">
+      <app-social-icons></app-social-icons>
+    </div>
+    <div class="social-universe">
+      <!-- <div class="twitter-profile-timeline">
+        <a class="twitter-timeline" data-width="470" data-height="400" data-theme="dark" href="https://twitter.com/beniemathu?ref_src=twsrc%5Etfw">Tweets by beniemathu</a>
+      </div> -->
+      <div class="spotify-playlist">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6ISGW6cNRUjbn1AWTHfACy?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="encrypted-media" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div> <!-- End of social-universe -->
+  </div>
+  <div class="links">
+    <div class="link-sections">
+      <div class="info-title sub-titles">Information</div>
+      <div class="info-links">
+        <mat-list>
+          <a mat-list-item *ngIf="myDetails !== undefined" href="{{ myDetails.cv_url }}" target="_blank">
+            <button mat-stroked-button>
+              <mat-icon>description</mat-icon>
+              <span class="info-label">CV</span>
+            </button>
+          </a>
+          <a mat-list-item *ngIf="myDetails !== undefined" href="#">
+            <button mat-stroked-button>
+              <mat-icon>phone</mat-icon>
+              <span class="info-label">{{ myDetails.phone }}</span>
+            </button>
+          </a>
+          <a mat-list-item *ngIf="myDetails !== undefined" href="mailto:{{myDetails.email}}">
+            <button mat-stroked-button>
+              <mat-icon>email</mat-icon>
+              <span class="info-label">{{ myDetails.email }}</span>
+            </button>
+          </a>
+        </mat-list>
+      </div>
+    </div>
+    <!-- <div class="projects link-sections">
+      <div class="project-title sub-titles">Projects</div>
+      <div class="project-links">
+        <ul>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+          <li>Project Something</li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+</div>

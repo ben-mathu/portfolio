@@ -1,22 +1,72 @@
-@import "/assets/styles/variables";
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  background-color: var(--md-sys-color-surface);
+  box-shadow: var(--mat-app-elevation-shadow-level-1);
 
-.carousel-item {
+  button {
+    margin: 3px;
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.slide-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 6px 16px;
   cursor: pointer;
+
+  :nth-child(1) {
+    color: var(--md-sys-color-on-surface);
+  }
+
+  :nth-child(2) {
+    color: var(--md-sys-color-on-surface-variant);
+    opacity: .4;
+  }
 }
 
-.carousel-control-prev, .carousel-control-next {
-  width: 2%;
-  right: 10px;
+.blog-container {
+  display: flex;
+  flex-direction: row;
 }
 
-.carousel-control-prev {
-  left: auto;
-  right: 40px;
+.blog-content-wrapper {
+  background-color: var(--md-sys-color-surface);
+  border-radius: 8px;
+  margin: 1em 0;
+  padding: 10px;
+
+  & {
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+.experience-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .card {
-  background-color: #1b242979;
-  color: $fontColor;
 
   mat-card-header {
     display: flex;
@@ -33,4 +83,23 @@
 
 mat-icon {
   font-size: 18px;
+}
+
+.sidenav-container {
+  margin: 0 1em 0 0;
+}
+
+.divider {
+  margin: 0 10px;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+  }
 }

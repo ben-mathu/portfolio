@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ProjectElement } from 'src/shared/models/header/portfolio.dto';
-import { ProjectDetail } from 'src/shared/models/header/portfolio.model';
-import { FirebaseService } from 'src/shared/services/firebase/firebase.service';
-import { showSnackBar } from 'src/shared/utils/utils';
+import { ProjectElement } from 'src/app/shared/models/header/portfolio.dto';
+import { ProjectDetail } from 'src/app/shared/models/header/portfolio.model';
+import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
+import { Utils } from 'src/app/shared/utils/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -36,12 +36,6 @@ export class AddProjectComponent implements OnInit {
 
     this.selectedProjectStatus = value.projectStatus;
     this.selectedProjectType = value.type;
-    // if (value.contentUrl)
-    //   this.retrieveContent(value.contentUrl);
-    // else {
-    //   this.contentFromUrl = value.projectDescription;
-    //   console.log('setting content with description')
-    // }
   }
 
   get selectedRow(): ProjectElement | undefined {
@@ -75,7 +69,8 @@ export class AddProjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private firebaseService: FirebaseService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private util: Utils
   ) {}
 
   ngOnInit(): void {
@@ -132,15 +127,14 @@ export class AddProjectComponent implements OnInit {
 
       if (this.selectedRow) {
         this.firebaseService.updateProject(project, this.selectedRow.key);
-        showSnackBar('Successfully updated', this.snackBar);
+        this.util.showSnackBar('Successfully updated', this.snackBar);
       } else {
         this.firebaseService.saveProject(project);
         this.router.navigate(['admin', 'dashboard', 'projects']);
-        showSnackBar('Successfully saved', this.snackBar);
+        this.util.showSnackBar('Successfully saved', this.snackBar);
       }
     } catch (error) {
-      showSnackBar('All Fields are Required', this.snackBar);
-      console.log(error);
+      this.util.showSnackBar('All Fields are Required', this.snackBar);
     }
   }
 

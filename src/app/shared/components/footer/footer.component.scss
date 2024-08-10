@@ -1,0 +1,76 @@
+@use '../../../../styles/variables' as var;
+
+.bg-dark {
+  background-image: url('../../../../assets/images/footer_bg_light.svg');
+}
+
+.bg-light {
+  background-image: url('../../../../assets/images/footer_bg_dark.svg');
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+
+    .link-sections {
+      margin: 30px;
+      text-decoration: none;
+    }
+  }
+}
+
+@media (max-width: var.$small-max-width) {
+  .footer {
+    flex-direction: column;
+
+    .links {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: var.$xsmall-max-width) {
+  .links {
+    flex-direction: column;
+  }
+}
+
+.info-links {
+  width: 300px;
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-weight: 700;
+    justify-content: start;
+  }
+}
+
+.follow-me {
+  margin: 30px;
+}
+
+ul {
+  padding: 0;
+
+  li {
+    list-style: none;
+    margin-bottom: 5px;
+  }
+}
+
+.social-links {
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}

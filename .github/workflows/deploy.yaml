@@ -9,13 +9,15 @@ jobs:
   deploy-github-pages:
     runs-on: ubuntu-latest
 
-    # permissions:
-    #   pages: write
-    #   id-token: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Make Script Executable
+        run: chmod +x icons/serialize.sh
+
+      - name: Serialize icon names
+        run: ./icons/serialize.sh
 
       - name: Setup for Deployments
         env:
@@ -30,7 +32,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.13
+          node-version: 18.20
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AboutComponent } from './about/about.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ExperienceComponent } from './experience/experience.component';
-import { SharedModule } from 'src/shared/components/shared.module';
+import { SharedModule } from 'src/app/shared/components/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HomeComponent } from './home.component';
@@ -13,6 +13,9 @@ import { MarkdownModule } from 'ngx-markdown';
 import { BlogComponent } from './blog/blog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { MatIconModule } from '@angular/material/icon';
     MarkdownModule,
     MatSnackBarModule,
     MatIconModule,
+    MatChipsModule,
+    MatGridListModule,
+    MatListModule
   ]
 })
 export class HomeModule { }

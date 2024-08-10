@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+@use "theme/light";
+@use "variables" as var;
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Work Sans';
+  margin: 0px;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+
+  app-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+
+    .mat-mdc-card {
+      background-color: var(--md-sys-color-surface-variant);
+      color: var(--md-sys-color-on-surface)
+    }
+
+    .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+      background-color: var(--md-sys-color-primary-container);
+    }
+
+    mat-icon {
+      color: var(--md-sys-color-on-surface);
+    }
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  padding: 0px 5px;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f100;
+  scroll-margin: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3f3f3f;
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.sub-titles {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.form-wrapper {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shrink-table {
+  width: 50%;
+}
+
+blockquote {
+  border-left: 3px solid rgba(255,255,255,0.21);
+  padding: 1px 1em;
+  color: var(--md-sys-color-inverse-surface);
+  background-color: var(--md-sys-color-inverse-on-surface);
+}
+
+markdown span:has(> img) img {
+  padding: 5px;
+  border-radius: 8px;
+  transition: .2s ease, -webkit-transform .3s ease;
+}
+
+markdown span:has(> img) img:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0, .4);
+}
+
+.social-icons {
+  width: 30px;
+  height: 30px;
+}
+
+:root {
+  .mat-mdc-chip.mat-mdc-standard-chip {
+    --mdc-chip-container-shape-radius: 8px;
+  }
+}
+
+.mat-mdc-standard-chip {
+  color: var(--md-sys-color-on-primary-container);
+}

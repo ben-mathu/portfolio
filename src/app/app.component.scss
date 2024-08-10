@@ -1,14 +1,19 @@
+@use '../styles/variables' as var;
+
 app-footer {
   margin-top: auto;
 }
 
-.container-fluid {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
+.site-container {
+  margin: 0 10px;
 }
 
-span {
+.site-wrapper {
+  margin: 0 auto;
+  max-width: var.$max-width;
+}
+
+.den {
   width: 30px;
   height: 30px;
   position: fixed;
