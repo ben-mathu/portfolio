@@ -9,16 +9,15 @@ jobs:
   deploy-github-pages:
     runs-on: ubuntu-latest
 
-    # permissions:
-    #   pages: write
-    #   id-token: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Make Script Executable
+        run: chmod +x icons/serialize.sh
+
       - name: Serialize icon names
-        run: sh icons/serialize.sh
+        run: ./icons/serialize.sh
 
       - name: Setup for Deployments
         env:
