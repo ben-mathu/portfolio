@@ -1,5 +1,7 @@
 # Portfolio
 
+[![Deploy Github Pages](https://github.com/ben-mathu/portfolio/actions/workflows/deploy.yaml/badge.svg)](https://github.com/ben-mathu/portfolio/actions/workflows/deploy.yaml)
+
 ## Known Errors
 Brave browsers block a lot of cookies and this causes the player to only stream in preview.
 
