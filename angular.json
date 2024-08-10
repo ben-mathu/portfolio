@@ -119,14 +119,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "dir": "dist/ben-mathu/browser",
-            "baseHref": "/ben-mathu/",
-            "branch": "master",
-            "repo": "git@github.com:ben-mathu/portfolio.git",
-            "remote": "git@github.com:ben-mathu/ben-mathu.git"
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
