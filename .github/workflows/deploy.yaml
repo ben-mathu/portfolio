@@ -29,7 +29,7 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions"
-          git remote set-url origin https://$MY_NAME:$GITHUB_TOKEN@github.com/$REPO_NAME.git
+          git remote set-url upstream https://$MY_NAME:$GITHUB_TOKEN@github.com/$MY_NAME/$MY_NAME.git
 
       - uses: actions/setup-node@v3
         with:
@@ -42,4 +42,6 @@ jobs:
           run_install: true
 
       - name: Deploy
-        run: pnpm run deploy
+        run: |
+          pnpm run build
+          pnpm run deploy
