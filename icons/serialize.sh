@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
 # Create a directory if it does not exist
-data_dir=icons/data
-mkdir $data_dir
-
-icons_json=${data_dir}/svg_files.json
-
 icons_dir=src/assets/icons
+mkdir $icons_dir/data
+
+icons_json=${icons_dir}/data/svg_files.json
 
 echo -n '{ "svg_files": [ ' > $icons_json
 

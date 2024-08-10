@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
-import icons from '../../../../../icons/data/svg_files.json';
+import icons from '../../../../assets/icons/data/svg_files.json';
 
 @Injectable({
   providedIn: 'root',
