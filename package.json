@@ -11,7 +11,7 @@
     "start:dev": "nodemon -x 'sh ./icons/serialize.sh && ng serve'",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "deploy": "ng deploy --base-href=https://ben-mathu.github.io/ben-mathu/ --no-silent",
+    "deploy": "ng deploy --no-build --repo=git@github.com:ben-mathu/portfolio.git --remote=git@github.com:ben-mathu/ben-mathu.git --base-href=https://ben-mathu.github.io/ben-mathu/ --no-silent",
     "test": "ng test"
   },
   "private": true,
