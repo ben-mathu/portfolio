@@ -2,8 +2,10 @@ name: Deploy Github Pages
 
 on:
   push:
+    branches:
+      - master
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   deploy-github-pages:
