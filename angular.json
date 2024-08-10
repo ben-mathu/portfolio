@@ -18,11 +18,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/ben-mathu",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "src/polyfills.ts"
             ],
@@ -31,8 +31,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/.nojekyll",
-              "src/404.html"
+              "src/README.md"
             ],
             "styles": [
               "src/styles/styles.scss",
@@ -106,7 +105,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/.nojekyll"
+              "src/.nojekyll",
+              "src/404.html"
             ],
             "styles": [
               "styles/styles.scss"
@@ -119,7 +119,14 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "dir": "dist/ben-mathu/browser",
+            "baseHref": "/ben-mathu/",
+            "branch": "master",
+            "repo": "git@github.com:ben-mathu/portfolio.git",
+            "remote": "git@github.com:ben-mathu/ben-mathu.git"
+          }
         }
       }
     }
