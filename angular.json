@@ -20,10 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": {
-              "base": "dist/ben-mathu",
-              "browser": "browser"
-            },
+            "outputPath": "dist/ben-mathu",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
