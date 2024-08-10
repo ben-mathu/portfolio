@@ -22,7 +22,7 @@
           "options": {
             "outputPath": {
               "base": "dist/ben-mathu",
-              "browser": ""
+              "browser": "browser"
             },
             "index": "src/index.html",
             "polyfills": [
