@@ -27,5 +27,5 @@ jobs:
         version: 8
         run_install: true
     # - run: pnpm ci
-    - run: pnpm run build --if-present
+    - run: pnpm run build
     - run: pnpm test
