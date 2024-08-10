@@ -41,4 +41,4 @@ jobs:
           run_install: true
 
       - name: Deploy
-        run: pnpm run deploy
+        run: pnpm run deploy --outputPath=dist/ben-mathu

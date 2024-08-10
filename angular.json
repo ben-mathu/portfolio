@@ -21,7 +21,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/ben-mathu"
+              "base": "dist/ben-mathu",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
