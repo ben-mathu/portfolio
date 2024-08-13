@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
@@ -13,5 +15,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.set('@Dashboard', 'Dashboard');
   }
-
 }

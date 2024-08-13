@@ -5,8 +5,8 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ExperienceComponent } from './experience/experience.component';
 import { AboutComponent } from './about/about.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ArticleComponent } from './article/article.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   {
@@ -34,12 +34,11 @@ const routes: Routes = [
       },
       {
         path: 'article/:id',
-        component: BlogComponent,
+        component: ArticleComponent,
         data: { breadcrumb: { alias: 'Article' } },
       }
     ]
-  },
-  // { path: '**', component: PageNotFoundComponent }
+  }
 ];
 
 @NgModule({

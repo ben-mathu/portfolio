@@ -5,10 +5,10 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { OverviewComponent } from './overview/overview.component';
 import { ListProjectsComponent } from './list-projects/list-projects.component';
 import { ExperiencesComponent } from './experiences/experiences.component';
-import { BlogsComponent } from './blogs/blogs.component';
+import { ArticlesComponent } from './articles/articles.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { AddExperienceComponent } from './add-experience/add-experience.component';
-import { AddBlogComponent } from './add-blog/add-blog.component';
+import { AddArticleComponent } from './add-article/add-article.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { AchievementsComponent } from './achievements/achievements.component';
 import { AddAchievementComponent } from './add-achievement/add-achievement.component';
 import { AddCertificateComponent } from './add-certificates/add-certificate.component';
 import { CertificatesComponent } from './certificates/certificates.component';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -33,10 +34,10 @@ import { CertificatesComponent } from './certificates/certificates.component';
     OverviewComponent,
     ListProjectsComponent,
     ExperiencesComponent,
-    BlogsComponent,
+    ArticlesComponent,
     AddProjectComponent,
     AddExperienceComponent,
-    AddBlogComponent,
+    AddArticleComponent,
     AddAchievementComponent,
     AchievementsComponent,
     AddCertificateComponent,

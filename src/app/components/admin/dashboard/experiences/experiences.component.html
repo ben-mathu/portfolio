@@ -1,34 +1,39 @@
 <div class="container-fluid">
-  <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
-    <table mat-table [dataSource]="experiences" class="mat-elevation-z8 table-max-height">
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef>Index</th>
-        <td mat-cell *matCellDef="let element"> {{element.index}} </td>
-      </ng-container>
+  <div  class="table-container">
+    <button mat-raised-button color="primary" [routerLink]="['add-experience']">
+      Add Experiences
+    </button>
+    <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
+      <table mat-table [dataSource]="experiences" class="mat-elevation-z8 table-max-height">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>Index</th>
+          <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Title</th>
-        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-      </ng-container>
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Title</th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="startDate">
-        <th mat-header-cell *matHeaderCellDef>Start Date</th>
-        <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
-      </ng-container>
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef>Start Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="endDate">
-        <th mat-header-cell *matHeaderCellDef>End Date</th>
-        <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
-      </ng-container>
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef>End Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="company">
-        <th mat-header-cell *matHeaderCellDef>Comany</th>
-        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
-      </ng-container>
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef>Comany</th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleClick({rowData: row, event: $event})"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleClick({rowData: row, event: $event})"></tr>
+      </table>
+    </div>
   </div>
   <app-add-experience *ngIf="selectedRow" [selectedRow]="selectedRow" class="col"></app-add-experience>
 </div>

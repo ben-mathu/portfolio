@@ -12,16 +12,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { SignupComponent } from './signup/signup.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     LoginComponent,
-    DashboardComponent,
-    SignupComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,

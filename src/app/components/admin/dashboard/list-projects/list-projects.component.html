@@ -1,31 +1,36 @@
 <div class="container-fluid">
-  <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
-    <table mat-table [dataSource]="projects" class="mat-elevation-z8">
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef>Index</th>
-        <td mat-cell *matCellDef="let element"> {{element.index}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="projectName">
-        <th mat-header-cell *matHeaderCellDef>Project Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="url">
-        <th mat-header-cell *matHeaderCellDef>URL</th>
-        <td mat-cell *matCellDef="let element"> {{element.url}} </td>
-      </ng-container>
-
-      @if (!selectedRow) {
-        <ng-container matColumnDef="projectDescription">
-          <th mat-header-cell *matHeaderCellDef>Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.projectDescription.substring(0, 100) + "..."}} </td>
+  <div class="table-container">
+    <button mat-raised-button color="primary" [routerLink]="['add-project']">
+      Add Project
+    </button>
+    <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
+      <table mat-table [dataSource]="projects" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>Index</th>
+          <td mat-cell *matCellDef="let element"> {{element.index}} </td>
         </ng-container>
-      }
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleClick({rowData: row, event: $event})"></tr>
-    </table>
+        <ng-container matColumnDef="projectName">
+          <th mat-header-cell *matHeaderCellDef>Project Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="url">
+          <th mat-header-cell *matHeaderCellDef>URL</th>
+          <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+        </ng-container>
+
+        @if (!selectedRow) {
+          <ng-container matColumnDef="projectDescription">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.projectDescription.substring(0, 100) + "..."}} </td>
+          </ng-container>
+        }
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleClick({rowData: row, event: $event})"></tr>
+      </table>
+    </div>
   </div>
   <app-add-project *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" class="col"></app-add-project>
 </div>

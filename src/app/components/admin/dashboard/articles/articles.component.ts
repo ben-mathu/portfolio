@@ -10,11 +10,11 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-blogs',
-  templateUrl: './blogs.component.html',
-  styleUrl: './blogs.component.scss',
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrl: './articles.component.scss',
 })
-export class BlogsComponent implements OnInit {
+export class ArticlesComponent implements OnInit {
   blogs: BlogElement[] = [];
   selectedRow!: BlogElement;
   displayedColumns = ['index', 'dateCreated', 'dateUpdated'];
@@ -27,13 +27,13 @@ export class BlogsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.breadcrumbService.set('@Blogs', 'Blogs');
+    this.breadcrumbService.set('@Articles', 'Articles');
 
     const horizontalPos: MatSnackBarHorizontalPosition = 'end';
     const verticalPos: MatSnackBarVerticalPosition = 'bottom';
 
     this.firebaseService
-      .getAllBlogs()
+      .getAllArticles()
       .then((values) => {
         this.blogs = values;
       })

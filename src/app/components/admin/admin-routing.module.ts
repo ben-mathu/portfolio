@@ -22,11 +22,6 @@ const adminRoutes: Routes = [
         data: { breadcrumb: { alias: 'Login' } },
         canActivate: [authGuard],
       },
-      // {
-      //   path: 'signup',
-      //   component: SignupComponent,
-      //   data: { breadcrumb: { alias: 'SignUp' } }
-      // },
       {
         path: 'dashboard',
         component: DashboardComponent,

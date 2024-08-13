@@ -32,6 +32,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { Utils } from './shared/utils/utils';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],

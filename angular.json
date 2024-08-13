@@ -108,10 +108,9 @@
               "src/404.html"
             ],
             "styles": [
-              "styles/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/jquery/dist/jquery.min.js"
 
             ]

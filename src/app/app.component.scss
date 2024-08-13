@@ -6,6 +6,8 @@ app-footer {
 
 .site-container {
   margin: 0 10px;
+  display: flex;
+  flex-direction: row;
 }
 
 .site-wrapper {
