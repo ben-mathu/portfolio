@@ -14,6 +14,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { SignupComponent } from './signup/signup.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     ReactiveFormsModule,
     provideAuth(() => getAuth()),
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [
     AuthService,
