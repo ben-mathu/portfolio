@@ -23,9 +23,9 @@ interface Article {
 }
 
 @Component({
-  selector: 'app-blog.full-width',
-  templateUrl: './blog.component.html',
-  styleUrl: './blog.component.scss',
+  selector: 'app-article.full-width',
+  templateUrl: './article.component.html',
+  styleUrl: './article.component.scss',
   animations: [
     trigger('slideInOut', [
       state('left', style({ transform: 'translateX(-100%)'})),
@@ -35,7 +35,7 @@ interface Article {
     ])
   ]
 })
-export class BlogComponent implements OnInit {
+export class ArticleComponent implements OnInit {
   // Constants
   static readonly ARTICLE = '@Article'
 
@@ -92,7 +92,7 @@ export class BlogComponent implements OnInit {
       }
 
       try {
-        this.articles = await this.service.getAllBlogs();
+        this.articles = await this.service.getAllArticles();
         this.setBlog(id);
       } catch (error) {
         // catch error

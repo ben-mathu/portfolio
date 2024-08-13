@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddBlogComponent } from './add-blog/add-blog.component';
+import { AddArticleComponent } from './add-article/add-article.component';
 import { AddExperienceComponent } from './add-experience/add-experience.component';
 import { AddProjectComponent } from './add-project/add-project.component';
-import { BlogsComponent } from './blogs/blogs.component';
+import { ArticlesComponent } from './articles/articles.component';
 import { ExperiencesComponent } from './experiences/experiences.component';
 import { ListProjectsComponent } from './list-projects/list-projects.component';
 import { CommonModule } from '@angular/common';
@@ -11,20 +11,23 @@ import { AchievementsComponent } from './achievements/achievements.component';
 import { AddAchievementComponent } from './add-achievement/add-achievement.component';
 import { AddCertificateComponent } from './add-certificates/add-certificate.component';
 import { CertificatesComponent } from './certificates/certificates.component';
+import { DashboardComponent } from './dashboard.component';
+import { OverviewComponent } from './overview/overview.component';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
-    path: 'blogs',
-    component: BlogsComponent,
-    data: { breadcrumb: { alias: 'Blogs' }},
+    path: 'articles',
+    component: ArticlesComponent,
+    data: { breadcrumb: { alias: 'Articles' }},
   },
   {
-    path: 'blogs',
+    path: 'articles',
     children: [
       {
-        path: 'add-blog',
-        component: AddBlogComponent,
-        data: { breadcrumb: { alias: 'AddBlog' }}
+        path: 'add-article',
+        component: AddArticleComponent,
+        data: { breadcrumb: { alias: 'AddArticle' }}
       }
     ]
   },

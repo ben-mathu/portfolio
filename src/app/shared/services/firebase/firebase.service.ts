@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class FirebaseService {
   constructor(private database: Database, private http: HttpClient) {}
 
-  getAllBlogs(): Promise<BlogElement[]> {
+  getAllArticles(): Promise<BlogElement[]> {
     return new Promise<BlogElement[]>((resolve, reject) => {
       onValue(ref(this.database, 'blogs'), (snapshot) => {
         const databaseVal = snapshot.val();

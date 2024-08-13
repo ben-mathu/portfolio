@@ -11,11 +11,11 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-blog',
-  templateUrl: './add-blog.component.html',
-  styleUrl: './add-blog.component.scss',
+  selector: 'app-add-article',
+  templateUrl: './add-article.component.html',
+  styleUrl: './add-article.component.scss',
 })
-export class AddBlogComponent implements OnInit {
+export class AddArticleComponent implements OnInit {
   @Input() selectedRow!: BlogElement;
 
   blogTitleLabel: string = 'Article';
@@ -36,7 +36,7 @@ export class AddBlogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.breadcrumbService.set('@AddBlog', 'Add Blog');
+    this.breadcrumbService.set('@AddArticle', 'Add Article');
 
     this.addBlogForm = this.formBuilder.group({
       title: [

@@ -10,12 +10,14 @@ import { HomeComponent } from './home.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MarkdownModule } from 'ngx-markdown';
-import { BlogComponent } from './blog/blog.component';
+import { ArticleComponent } from './article/article.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { MatListModule } from '@angular/material/list';
     AboutComponent,
     PortfolioComponent,
     ExperienceComponent,
-    BlogComponent
+    ArticleComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatChipsModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ]
 })
 export class HomeModule { }
