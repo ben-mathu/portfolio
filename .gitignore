@@ -52,5 +52,4 @@ Thumbs.db
 
 .env
 message_template.txt
-
-icons/data
+data
