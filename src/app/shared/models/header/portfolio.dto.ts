@@ -27,7 +27,7 @@ export interface BlogElement {
   key: string;
   title: string;
   author: string;
-  blog: string;
+  article: string;
   tags: string[];
   dateCreated: string;
   dateUpdated: string;

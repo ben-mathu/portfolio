@@ -106,7 +106,7 @@
     @if (article !== undefined) {
       <h3>{{ article.title }}</h3>
       <i>{{ article.dateCreated + '|' + article.dateUpdated }}</i>
-      <markdown ngPreserveWhitespaces [data]="article.blog"></markdown>
+      <markdown ngPreserveWhitespaces [data]="article.article"></markdown>
 
       <div>
         <mat-card>
@@ -120,7 +120,7 @@
             </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <markdown ngPreserveWhitespaces [data]="article.blog.substring(0, 250) + '...'">
+            <markdown ngPreserveWhitespaces [data]="article.article.substring(0, 250) + '...'">
             </markdown>
           </mat-card-content>
         </mat-card>

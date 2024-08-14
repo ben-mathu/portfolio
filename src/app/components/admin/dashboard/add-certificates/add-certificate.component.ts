@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -20,7 +20,19 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   styleUrl: './add-certificate.component.scss',
 })
 export class AddCertificateComponent implements OnInit {
-  @Input() selectedRow!: CertificateElement;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  private _selectedRow!: CertificateElement | undefined;
+
+  @Input() set selectedRow(value: CertificateElement) {
+    this._selectedRow = value;
+
+    if (this.addCertificateForm) {
+      this.addCertificateForm.patchValue({
+        name: value.name,
+        url: value.url
+      });
+    }
+  }
 
   certificateNameLabel: string = 'Name';
   certificateUrlLabel: string = 'URL';
@@ -78,5 +90,6 @@ export class AddCertificateComponent implements OnInit {
 
   delete() {
     this.firebaseService.deleteCertificate(this.selectedRow.key);
+    this.onDelete.emit();
   }
 }

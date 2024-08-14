@@ -8,13 +8,14 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Utils } from 'src/app/shared/utils/utils';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-experiences',
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.scss',
 })
-export class ExperiencesComponent implements OnInit {
+export class ExperiencesComponent extends BaseComponent<ExperienceElement> implements OnInit {
   experiences: ExperienceElement[] = [];
   displayedColumns: string[] = [
     'index',
@@ -23,20 +24,23 @@ export class ExperiencesComponent implements OnInit {
     'endDate',
     'company',
   ];
-  selectedRow?: ExperienceElement;
 
   constructor(
     private firebaseService: FirebaseService,
     private breadcrumbService: BreadcrumbService,
     private snackbar: MatSnackBar,
     private util: Utils
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Experiences', 'Experiences');
-    const horizontalPos: MatSnackBarHorizontalPosition = 'end';
-    const verticalPos: MatSnackBarVerticalPosition = 'bottom';
 
+    this.getAllExperiences();
+  }
+
+  getAllExperiences() {
     this.firebaseService
       .getAllExperiences()
       .then((values) => {
@@ -56,5 +60,10 @@ export class ExperiencesComponent implements OnInit {
     } else {
       this.selectedRow = undefined;
     }
+  }
+
+  override onDelete() {
+    this.getAllExperiences();
+    super.onDelete();
   }
 }

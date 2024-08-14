@@ -4,7 +4,7 @@
       Add Article
     </button>
     <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
-      <table mat-table [dataSource]="blogs" class="mat-elevation-z8 table-max-height">
+      <table mat-table [dataSource]="articles" class="mat-elevation-z8 table-max-height">
         <ng-container matColumnDef="index">
           <th mat-header-cell *matHeaderCellDef>Index</th>
           <td mat-cell *matCellDef="let element"> {{element.index}} </td>
@@ -25,5 +25,5 @@
       </table>
     </div>
   </div>
-  <app-add-article *ngIf="selectedRow" [selectedRow]="selectedRow" class="col"></app-add-article>
+  <app-add-article *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()"></app-add-article>
 </div>

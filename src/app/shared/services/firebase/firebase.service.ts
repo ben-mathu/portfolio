@@ -26,7 +26,7 @@ export class FirebaseService {
               key: keys[i],
               title: databaseVal[keys[i]].title,
               author: databaseVal[keys[i]].author,
-              blog: databaseVal[keys[i]].blog,
+              article: databaseVal[keys[i]].blog,
               dateCreated: databaseVal[keys[i]].dataCreated,
               dateUpdated: databaseVal[keys[i]].dataUpdated,
               tags: databaseVal[keys[i]].tags

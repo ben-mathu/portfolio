@@ -1,10 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipEditedEvent } from '@angular/material/chips';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BlogElement } from 'src/app/shared/models/header/portfolio.dto';
+import { BlogElement as ArticleElement } from 'src/app/shared/models/header/portfolio.dto';
 import { BlogDetails } from 'src/app/shared/models/header/portfolio.model';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
@@ -16,13 +16,32 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   styleUrl: './add-article.component.scss',
 })
 export class AddArticleComponent implements OnInit {
-  @Input() selectedRow!: BlogElement;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  private _selectedRow!: ArticleElement | undefined;
+
+  @Input() set selectedRow(value: ArticleElement) {
+    this._selectedRow = value;
+
+    if (this.addArticleForm) {
+      this.addArticleForm.patchValue({
+        title: value.title,
+        author: value.author,
+        text: value.article
+      });
+    }
+
+    this.tags = value.tags;
+  }
+
+  get selectRow(): ArticleElement | undefined {
+    return this._selectedRow;
+  }
 
   blogTitleLabel: string = 'Article';
   blogAuthorLabel: string = 'Author';
   blogTextLabel: string = 'Blog';
   tagsLabel: string = 'Tags';
-  addBlogForm!: FormGroup;
+  addArticleForm!: FormGroup;
 
   tags: string[] = [];
 
@@ -38,7 +57,7 @@ export class AddArticleComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.set('@AddArticle', 'Add Article');
 
-    this.addBlogForm = this.formBuilder.group({
+    this.addArticleForm = this.formBuilder.group({
       title: [
         this.selectedRow ? this.selectedRow.title : '',
         Validators.required,
@@ -48,7 +67,7 @@ export class AddArticleComponent implements OnInit {
         Validators.required,
       ],
       text: [
-        this.selectedRow ? this.selectedRow.blog : '',
+        this.selectedRow ? this.selectedRow.article : '',
         Validators.required,
       ],
       tags: [''],
@@ -58,7 +77,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   get f() {
-    return this.addBlogForm.controls;
+    return this.addArticleForm.controls;
   }
 
   add() {
@@ -143,5 +162,6 @@ export class AddArticleComponent implements OnInit {
 
   delete() {
     this.firebaseService.deleteBlog(this.selectedRow.key);
+    this.onDelete.emit();
   }
 }
