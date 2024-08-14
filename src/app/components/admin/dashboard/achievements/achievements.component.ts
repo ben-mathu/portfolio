@@ -8,15 +8,15 @@ import { AchievementElement } from 'src/app/shared/models/header/portfolio.dto';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-achievements',
   templateUrl: './achievements.component.html',
   styleUrl: './achievements.component.scss',
 })
-export class AchievementsComponent implements OnInit {
+export class AchievementsComponent extends BaseComponent<AchievementElement> implements OnInit {
   achievements: AchievementElement[] = [];
-  selectedRow?: AchievementElement;
   displayedColumns = ['index', 'name', 'url', 'dateCreated'];
 
   constructor(
@@ -24,11 +24,16 @@ export class AchievementsComponent implements OnInit {
     private firebaseService: FirebaseService,
     private snackbar: MatSnackBar,
     private util: Utils
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Achievements', 'Achievements');
+    this.getAllAchievements();
+  }
 
+  getAllAchievements() {
     this.firebaseService
       .getAchievements()
       .then((values) => {
@@ -51,5 +56,10 @@ export class AchievementsComponent implements OnInit {
     } else {
       this.selectedRow = undefined;
     }
+  }
+
+  override onDelete() {
+    super.onDelete();
+    this.getAllAchievements();
   }
 }

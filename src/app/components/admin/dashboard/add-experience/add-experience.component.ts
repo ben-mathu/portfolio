@@ -1,6 +1,6 @@
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { Router } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   Database,
   getDatabase,
@@ -24,7 +24,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './add-experience.component.scss',
 })
 export class AddExperienceComponent implements OnInit {
-  @Input() selectedRow!: ExperienceElement;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  private _selectedRow: ExperienceElement | undefined;
+
+  @Input() set selectedRow(value: ExperienceElement) {
+    this._selectedRow = value;
+
+    if (this.addExperienceForm) {
+      this.addExperienceForm.patchValue({
+        title: value.title,
+        startDate: value.startDate,
+        endDate: value.endDate,
+        text: value.description,
+        company: value.company,
+        logoUrl: value.logoUrl,
+      });
+
+      this.skillList = value.skills;
+    }
+  }
+
+  get selectedRow(): ExperienceElement | undefined {
+    return this._selectedRow;
+  }
 
   addExperienceForm!: FormGroup;
 
@@ -103,7 +125,8 @@ export class AddExperienceComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteExperience(this.selectedRow.key);
+    this.firebaseService.deleteExperience(this.selectedRow!.key);
+    this.onDelete.emit();
   }
 
   onChange(event: Event) {

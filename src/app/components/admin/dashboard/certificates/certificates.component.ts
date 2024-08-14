@@ -11,15 +11,15 @@ import {
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-achievements',
   templateUrl: './certificates.component.html',
   styleUrl: './certificates.component.scss',
 })
-export class CertificatesComponent implements OnInit {
+export class CertificatesComponent extends BaseComponent<CertificateElement> implements OnInit {
   certificates: CertificateElement[] = [];
-  selectedRow?: CertificateElement;
   displayedColumns = ['index', 'name', 'dateCreated'];
 
   constructor(
@@ -27,11 +27,16 @@ export class CertificatesComponent implements OnInit {
     private firebaseService: FirebaseService,
     private snackbar: MatSnackBar,
     private util: Utils
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Certificates', 'Certificates');
+    this.getAllCertificates();
+  }
 
+  getAllCertificates() {
     this.firebaseService
       .getCertificates()
       .then((values) => {
@@ -59,5 +64,10 @@ export class CertificatesComponent implements OnInit {
       this.selectedRow = undefined;
       this.displayedColumns.push('url');
     }
+  }
+
+  override onDelete(): void {
+    super.onDelete();
+    this.getAllCertificates();
   }
 }

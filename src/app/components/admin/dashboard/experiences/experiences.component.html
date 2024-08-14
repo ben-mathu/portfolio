@@ -35,5 +35,5 @@
       </table>
     </div>
   </div>
-  <app-add-experience *ngIf="selectedRow" [selectedRow]="selectedRow" class="col"></app-add-experience>
+  <app-add-experience *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()"></app-add-experience>
 </div>

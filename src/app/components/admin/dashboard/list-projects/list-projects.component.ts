@@ -9,23 +9,25 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Utils } from 'src/app/shared/utils/utils';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-list-projects',
   templateUrl: './list-projects.component.html',
   styleUrl: './list-projects.component.scss',
 })
-export class ListProjectsComponent implements OnInit {
+export class ListProjectsComponent extends BaseComponent<ProjectElement> implements OnInit {
   projects: ProjectElement[] = [];
   displayedColumns: string[] = ['index', 'projectName', 'url'];
-  selectedRow?: ProjectElement;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
     private firebaseService: FirebaseService,
     private snackbar: MatSnackBar,
     private util: Utils
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Projects', 'Projects');
@@ -45,9 +47,9 @@ export class ListProjectsComponent implements OnInit {
       });
   }
 
-  onDelete() {
+  override onDelete() {
     this.getProjects();
-    this.selectedRow = undefined;
+    super.onDelete();
   }
 
   handleClick(projectDetails: { rowData: ProjectElement; event: Event }) {
