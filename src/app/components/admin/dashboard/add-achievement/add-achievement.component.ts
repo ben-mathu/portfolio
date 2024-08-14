@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -14,7 +14,23 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   styleUrl: './add-achievement.component.scss',
 })
 export class AddAchievementComponent implements OnInit {
-  @Input() selectedRow!: AchievementElement;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  private _selectedRow!: AchievementElement | undefined;
+
+  @Input() set selectedRow(value: AchievementElement) {
+    this._selectedRow = value;
+
+    if (this.addAchievementForm) {
+      this.addAchievementForm.patchValue({
+        name: value.name,
+        text: value.description
+      });
+    }
+  }
+
+  get selectedRow(): AchievementElement | undefined {
+    return this._selectedRow;
+  }
 
   achievementNameLabel: string = 'Name';
   achievementUrlLabel: string = 'URL';
@@ -75,6 +91,7 @@ export class AddAchievementComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteAchievement(this.selectedRow.key);
+    this.firebaseService.deleteAchievement(this.selectedRow!.key);
+    this.onDelete.emit();
   }
 }

@@ -59,7 +59,7 @@ export class AchievementsComponent extends BaseComponent<AchievementElement> imp
   }
 
   override onDelete() {
-    super.onDelete();
     this.getAllAchievements();
+    super.onDelete();
   }
 }

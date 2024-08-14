@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid table-container">
   <div class="table-container">
     <button mat-raised-button color="primary" [routerLink]="['add-achievement']">
       Add Achievement
@@ -31,5 +31,5 @@
       </table>
     </div>
   </div>
-  <app-add-achievement *ngIf="selectedRow" [selectedRow]="selectedRow" class="col"></app-add-achievement>
+  <app-add-achievement *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()"></app-add-achievement>
 </div>

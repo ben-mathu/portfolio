@@ -34,6 +34,10 @@ export class AddCertificateComponent implements OnInit {
     }
   }
 
+  get selectedRow(): CertificateElement | undefined {
+    return this._selectedRow;
+  }
+
   certificateNameLabel: string = 'Name';
   certificateUrlLabel: string = 'URL';
 
@@ -89,7 +93,7 @@ export class AddCertificateComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteCertificate(this.selectedRow.key);
+    this.firebaseService.deleteCertificate(this.selectedRow!.key);
     this.onDelete.emit();
   }
 }
