@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
 # Create a directory if it does not exist
-icons_dir=src/assets/icons
+icons_dir=src/assets
 mkdir $icons_dir/data
 
 icons_json=${icons_dir}/data/svg_files.json
 
 echo -n '{ "svg_files": [ ' > $icons_json
 
-file_count=$(ls $icons_dir | grep -e '|*.svg' | wc -l)
+file_count=$(ls $icons_dir/icons | grep -e '|*.svg' | wc -l)
 
 count=0
-for entry in $(ls $icons_dir | grep -e '|*.svg')
+for entry in $(ls $icons_dir/icons | grep -e '|*.svg')
 do
 
   if [[ $count -eq $(($file_count-1)) ]]
