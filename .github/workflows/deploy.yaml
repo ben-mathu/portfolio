@@ -17,7 +17,7 @@ jobs:
         run: chmod +x icons/serialize.sh
 
       - name: Serialize icon names
-        run: sh icons/serialize.sh
+        run: ./icons/serialize.sh
 
       - name: Setup for Deployments
         env:
