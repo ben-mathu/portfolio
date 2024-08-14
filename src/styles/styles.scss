@@ -63,11 +63,6 @@ html, body {
   font-weight: 700;
 }
 
-.form-wrapper {
-  padding: 10px;
-  border-radius: 8px;
-}
-
 .full-width {
   width: 100%;
 }
@@ -106,4 +101,42 @@ markdown span:has(> img) img:hover {
 
 .mat-mdc-standard-chip {
   color: var(--md-sys-color-on-primary-container);
+}
+
+.form-wrapper {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.table-container {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.flex-layout {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-colum {
+  flex-direction: column;
+}
+
+.gap-1 {
+  gap: 1em;
+}
+
+.gap-2 {
+  gap: 1em;
+}
+
+.gap-3 {
+  gap: 1em;
 }

@@ -5,14 +5,18 @@ app-footer {
 }
 
 .site-container {
-  margin: 0 10px;
+  margin: 0 1em;
   display: flex;
   flex-direction: row;
 }
 
 .site-wrapper {
-  margin: 0 auto;
+  margin: 1em auto;
   max-width: var.$max-width;
+}
+
+.breadcrumb-container {
+  margin: 1em;
 }
 
 .den {
