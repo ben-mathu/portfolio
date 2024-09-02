@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   MatSnackBar,
 } from '@angular/material/snack-bar';
@@ -28,9 +28,9 @@ interface Article {
   styleUrl: './article.component.scss',
   animations: [
     trigger('slideInOut', [
-      state('left', style({ transform: 'translateX(-100%)'})),
-      state('center', style({ transform: 'translateX(0)'})),
-      state('right', style({ transform: 'translateX(105%)'})),
+      state('left', style({ transform: 'translateX(-100%)', display: 'none'})),
+      state('center', style({ transform: 'translateX(0)', display: 'flex'})),
+      state('right', style({ transform: 'translateX(105%)', display: 'none'})),
       transition('* => *', animate('800ms ease-in-out'))
     ])
   ]
@@ -69,6 +69,9 @@ export class ArticleComponent implements OnInit {
     utils: Utils
   ) {
     this.utils = utils;
+    setInterval(() => {
+      this.nextSlide();
+    }, 2000);
   }
 
   ngOnInit(): void {
