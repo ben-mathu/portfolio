@@ -1,6 +1,13 @@
 <div class="carousel-container">
   <div class="slide-container">
-    <span class="slide" [@slideInOut]="getSlideAnimation(i)" *ngFor="let article of articleCarousel; index as i" [routerLink]="['../../', 'article', article.key]">
+    <span
+      class="slide"
+      [@slideInOut]="getSlideAnimation(i)"
+      *ngFor="let article of articleCarousel; index as i"
+      [routerLink]="['../../', 'article', article.key]"
+      (mouseenter)="stopInterval()"
+      (mouseleave)="startInterval()">
+
       <span class="">{{ article.title }}</span>
       <span class="">{{ article.type }}</span>
     </span>
