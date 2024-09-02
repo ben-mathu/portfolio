@@ -60,6 +60,7 @@ export class ArticleComponent implements OnInit {
 
   currentIndex = 0;
   prevIndex = 0;
+  interval: NodeJS.Timeout | undefined;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -69,9 +70,8 @@ export class ArticleComponent implements OnInit {
     utils: Utils
   ) {
     this.utils = utils;
-    setInterval(() => {
-      this.nextSlide();
-    }, 2000);
+
+    this.startInterval();
   }
 
   ngOnInit(): void {
@@ -309,5 +309,17 @@ export class ArticleComponent implements OnInit {
 
   previousSlide() {
     this.currentIndex = (this.currentIndex - 1 + this.articleCarousel.length) % this.articleCarousel.length;
+  }
+
+  startInterval() {
+    this.interval = setInterval(() => {
+      this.nextSlide();
+    }, 2000);
+  }
+
+  stopInterval() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 }
