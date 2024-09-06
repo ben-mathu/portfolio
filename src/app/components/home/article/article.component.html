@@ -82,7 +82,7 @@
           <img mat-card-image src="{{experience.image}}" *ngIf="experience.image" />
           <mat-card-content>
             <markdown ngPreserveWhitespaces [data]="experience.description"></markdown>
-            Skills: <i class="badge text-bg-light me-1" *ngFor="let skill of experience.skills">{{skill}}</i>
+            Skills: <mat-chip-set><mat-chip class="badge text-bg-light me-1" *ngFor="let skill of experience.skills">{{skill}}</mat-chip></mat-chip-set>
           </mat-card-content>
         </mat-card>
       </div>
