@@ -36,6 +36,10 @@ export class AddProjectComponent implements OnInit {
 
     this.selectedProjectStatus = value.projectStatus;
     this.selectedProjectType = value.type;
+
+    if (value) {
+      this.retrieveContent(value.contentUrl);
+    }
   }
 
   get selectedRow(): ProjectElement | undefined {
@@ -147,20 +151,7 @@ export class AddProjectComponent implements OnInit {
     this.firebaseService
       .retrieveContent(url ? url : this.f['contentUrl'].value)
       .then((value) => {
-        if (!this.selectedRow) {
-          this.contentFromUrl = value;
-        } else if (this.selectedRow.projectDescription === '') {
-          this.contentFromUrl = value;
-        } else {
-          // Update project description
-          this.contentFromUrl = value;
-          if (value !== this.selectedRow!.projectDescription) {
-            this.firebaseService.updateProjectDescription(
-              this.selectedRow!.key,
-              value
-            );
-          }
-        }
+        this.contentFromUrl = value;
       });
   }
 }

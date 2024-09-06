@@ -1,8 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   MatSnackBar,
 } from '@angular/material/snack-bar';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute } from '@angular/router';
 import {
   AchievementElement,
@@ -20,6 +22,17 @@ interface Article {
   key: string | undefined;
   title: string | undefined;
   type: string | undefined;
+}
+
+interface ArticleNode {
+  article: Article;
+  children?: ArticleNode[];
+}
+
+interface ArticleNodeInfo {
+  expandable: boolean;
+  level: number;
+  article: Article;
 }
 
 @Component({
@@ -51,7 +64,37 @@ export class ArticleComponent implements OnInit {
   achievement?: AchievementElement;
   certificate?: CertificateElement;
 
-  articleMap: Map<string, Map<string, Map<string, string>>> = new Map();
+  currentCategory?: string;
+  parentNodeLevel?: number;
+
+  articleData?: ArticleNode[];
+  private _transformer = (node: ArticleNode, level: number) => {
+
+    if (this.currentCategory && this.currentCategory === node.article.type) {
+      this.parentNodeLevel = level;
+    }
+
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      article: node.article,
+      level: level
+    }
+  }
+
+  treeControl = new FlatTreeControl<ArticleNodeInfo>(
+    node => node.level,
+    node => node.expandable
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
   articleCarousel: Article[] = [];
   carouselDeque: Article[] = [];
   indexDeque: number[] = [];
@@ -73,6 +116,8 @@ export class ArticleComponent implements OnInit {
 
     this.startInterval();
   }
+
+  hasChild = (_: number, node: ArticleNodeInfo) => node.expandable;
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Article', 'Article');
@@ -114,7 +159,17 @@ export class ArticleComponent implements OnInit {
       } catch (error) {
         // catch error
       }
+
+      this.dataSource.data = this.articleData!;
+      this.expandSelectedNode();
     });
+  }
+
+  expandSelectedNode() {
+    if (this.currentCategory) {
+      const parentNode = this.treeControl.dataNodes.filter(node => node.article.type === this.currentCategory)[0];
+      this.treeControl.expand(parentNode);
+    }
   }
 
   /**
@@ -127,31 +182,36 @@ export class ArticleComponent implements OnInit {
    * @param title - Title of the article
    * @param type - Type of the article
    * @param articleId - Key Provided by firebase
-   * @param key - corresponds to the article type, a key for list of article
+   * @param categoryKey - corresponds to the article type, a key for list of article
    */
-  addToMap(title: string, type: string, articleId: string, key: string) {
-    if (key === Constants.PROJECT || key === Constants.ARTICLE) {
-      let articles = this.articleMap.get(key);
+  addToMap(title: string, type: string, articleId: string, categoryKey: string) {
+    // Only add poject, article and tool types to article tree
 
-      let articleById!: Map<string, string> | undefined;
-
-      if (!articles) {
-        articles = new Map<string, Map<string, string>>();
-        articleById = new Map<string, string>();
+    if ((categoryKey === Constants.PROJECT || categoryKey === Constants.ARTICLE || categoryKey === Constants.TOOL) && this.dataSource.data.length === 0) {
+      if (!this.articleData) {
+        this.articleData = [
+          {
+            article: { key: articleId, title: type, type: categoryKey },
+            children: []
+          }
+        ]
       } else {
-        articleById = articles.get(articleId)
-
-        if (!articleById) {
-          articleById = new Map<string, string>();
+        const currentNodeArr = this.articleData.filter(node => node.article.type === categoryKey);
+        if (currentNodeArr.length === 0) {
+          this.articleData.push({
+            article: { key: articleId, title: type, type: categoryKey },
+            children: []
+          });
         }
       }
 
-      articleById.set('title', title);
-      articleById.set('key', articleId);
-
-      articles.set(articleId, articleById);
-
-      this.articleMap.set(key, articles);
+      // Update the tree
+      const currentNode = this.articleData?.filter(node => node.article.type === categoryKey )[0];
+      currentNode.children?.push({
+        article: { key: articleId, title: title, type: categoryKey },
+      });
+      this.articleData = this.articleData.filter(node => node.article.type !== categoryKey);
+      this.articleData.push(currentNode);
     }
 
     const a: Article = {
@@ -245,8 +305,11 @@ export class ArticleComponent implements OnInit {
 
   setProject(id: string) {
     this.projects?.map((project) => {
-      const articleType = this.utils.capitalize(Constants.PROJECT);
+      const articleType = this.utils.capitalize(project.type === 'Tool' ? Constants.TOOL : Constants.PROJECT);
+      const categoryKey = project.type === 'Tool' ? Constants.TOOL : Constants.PROJECT;
       if (project.key === id) {
+        this.currentCategory = categoryKey;
+
         this.project = project;
         this.certificate = undefined;
         this.achievement = undefined;
@@ -262,7 +325,7 @@ export class ArticleComponent implements OnInit {
         project.projectName,
         articleType,
         project.key,
-        Constants.PROJECT
+        categoryKey
       );
     });
   }
@@ -312,9 +375,13 @@ export class ArticleComponent implements OnInit {
   }
 
   startInterval() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
     this.interval = setInterval(() => {
       this.nextSlide();
-    }, 2000);
+    }, 3000);
   }
 
   stopInterval() {
