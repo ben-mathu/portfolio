@@ -1,12 +1,14 @@
-<div class="carousel-container">
+<div
+  class="carousel-container"
+  (mouseenter)="stopInterval()"
+  (mouseleave)="startInterval()"
+>
   <div class="slide-container">
     <span
       class="slide"
       [@slideInOut]="getSlideAnimation(i)"
       *ngFor="let article of articleCarousel; index as i"
-      [routerLink]="['../../', 'article', article.key]"
-      (mouseenter)="stopInterval()"
-      (mouseleave)="startInterval()">
+      [routerLink]="['../../', 'article', article.key]">
 
       <span class="">{{ article.title }}</span>
       <span class="">{{ article.type }}</span>
@@ -24,7 +26,27 @@
 <div class="blog-container {{ project || article ? 'add-margin' : ''}}">
   @if (project !== undefined || article !== undefined) {
     <div class="sidenav-container"><!-- Side nav for projects, Tools and articles -->
-      <mat-nav-list>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node
+          *matTreeNodeDef="let node"
+          matTreeNodePadding
+          matTooltip="{{node.article.title}}"
+          [matTooltipPosition]="'after'"
+          aria-label="Button that displays a tooltip when focused or hovered over"
+          [routerLink]="['../../', 'article', node.article.key]">
+          <button mat-icon-button disabled></button>
+          {{ node.article.title }}
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.article.title">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          {{ utils.capitalize(node.article.title) }}
+        </mat-tree-node>
+      </mat-tree>
+      <!-- <mat-nav-list>
         <ng-container *ngFor="let category of articleMap | keyvalue; index as i">
           <mat-list-item>
             {{ utils.capitalize(category.key) }}
@@ -38,7 +60,7 @@
           </mat-list>
           <mat-divider *ngIf="i !== articleMap.size - 1" class="divider"></mat-divider>
         </ng-container>
-      </mat-nav-list>
+      </mat-nav-list> -->
     </div>
   }
   <div class="blog-content-wrapper">

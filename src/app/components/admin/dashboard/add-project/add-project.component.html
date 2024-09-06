@@ -48,7 +48,7 @@
       [label]="descriptionLabel"
       formControlName="text"
       [switchEditorToolbar]="true"
-      [text]="selectedRow ? selectedRow.projectDescription : ''"
+      [text]="contentFromUrl ? contentFromUrl : selectedRow ? selectedRow.projectDescription : ''"
     ></app-custom-textarea>
   </div>
   <div class="row d-flex justify-content-between">

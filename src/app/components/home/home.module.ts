@@ -17,7 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,9 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
     MatChipsModule,
     MatGridListModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTreeModule,
+    MatTooltipModule
   ]
 })
 export class HomeModule { }

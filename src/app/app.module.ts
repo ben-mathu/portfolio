@@ -34,6 +34,7 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -57,7 +58,8 @@ import { MatDividerModule } from '@angular/material/divider';
     SharedModule,
     MatButtonModule,
     MarkdownModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTreeModule
   ],
   providers: [
     // ScreenTrackingService,UserTrackingService
