@@ -1,9 +1,9 @@
 <div class="container-fluid">
-  <div  class="table-container">
+  <div  class="table-container col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
     <button mat-raised-button color="primary" [routerLink]="['add-experience']">
       Add Experiences
     </button>
-    <div class="col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
+    <div>
       <table mat-table [dataSource]="experiences" class="mat-elevation-z8 table-max-height">
         <ng-container matColumnDef="index">
           <th mat-header-cell *matHeaderCellDef>Index</th>
