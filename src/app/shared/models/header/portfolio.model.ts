@@ -17,7 +17,7 @@ export interface ExperienceDetails {
   logoUrl: string;
 }
 
-export interface BlogDetails {
+export interface ArticleDetails {
   title: string;
   author: string;
   blog: string;
@@ -36,4 +36,13 @@ export interface CertificateDetails {
   name: string;
   url: string;
   dateCreated: string;
+}
+
+export interface JournalDetails {
+  title: string;
+  log: string;
+  tags: string[];
+  dateCreated: string;
+  dateUpdated: string;
+  dateReminder: string;
 }

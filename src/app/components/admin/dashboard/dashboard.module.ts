@@ -27,6 +27,8 @@ import { AddAchievementComponent } from './add-achievement/add-achievement.compo
 import { AddCertificateComponent } from './add-certificates/add-certificate.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
+import { AddJournalComponent } from './add-journal/add-journal.component';
+import { JournalLogComponent } from './journal-log/journal-log.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { PageNotFoundComponent } from '../../page-not-found/page-not-found.compo
     AddAchievementComponent,
     AchievementsComponent,
     AddCertificateComponent,
-    CertificatesComponent
+    CertificatesComponent,
+    AddJournalComponent,
+    JournalLogComponent
   ],
   imports: [
     CommonModule,

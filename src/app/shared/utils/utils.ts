@@ -22,6 +22,7 @@ export class Utils {
   }
 
   parseAndFormatDate(date: string): string {
+    if (date === '') return '';
     const options: Intl.DateTimeFormatOptions[] = [{year: "numeric"}, {month: "2-digit"}, {day: "2-digit"}];
 
     return options.map((option) => {
@@ -31,6 +32,7 @@ export class Utils {
   }
 
   formatDate(date: Date) {
+    if (date) return '';
     const options: Intl.DateTimeFormatOptions[] = [{year: "numeric"}, {month: "numeric"}, {day: "numeric"}];
 
     return options.map((option) => {
