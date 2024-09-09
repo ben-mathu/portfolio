@@ -14,6 +14,8 @@ import { CertificatesComponent } from './certificates/certificates.component';
 import { DashboardComponent } from './dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
+import { JournalLogComponent } from './journal-log/journal-log.component';
+import { AddJournalComponent } from './add-journal/add-journal.component';
 
 const routes: Routes = [
   {
@@ -88,6 +90,21 @@ const routes: Routes = [
         path: 'add-certificate',
         component: AddCertificateComponent,
         data: { breadcrumb: { alias: 'AddCertificate' }}
+      }
+    ]
+  },
+  {
+    path: 'journal',
+    component: JournalLogComponent,
+    data: {breadcrumb: { alias: 'Journal' }}
+  },
+  {
+    path: 'journal',
+    children: [
+      {
+        path: 'add-log',
+        component: AddJournalComponent,
+        data: { breadcrumb: { alias: 'AddJournal' }}
       }
     ]
   }

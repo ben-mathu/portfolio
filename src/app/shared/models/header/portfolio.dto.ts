@@ -22,7 +22,7 @@ export interface ExperienceElement {
   logoUrl: string;
 }
 
-export interface BlogElement {
+export interface ArticleElement {
   index: number;
   key: string;
   title: string;
@@ -47,4 +47,15 @@ export interface CertificateElement {
   name: string;
   url: string;
   dateCreated: string;
+}
+
+export interface JournalElement {
+  index: number;
+  key: string;
+  title: string;
+  log: string;
+  tags: string[];
+  dateCreated: string;
+  dateUpdated: string;
+  dateReminder: string;
 }

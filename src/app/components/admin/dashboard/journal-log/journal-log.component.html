@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="table-container col margin-top{{ selectedRow ? ' shrink-table' : '' }}">
+    <button mat-raised-button color="primary" [routerLink]="['add-log']">
+      Add Article
+    </button>
+    <div *ngIf="journal.length === 0">
+      <p>Your journal is empty</p>
+    </div>
+    <div class="log-container" *ngFor="let log of journal" (click)="handleClick({listItemData: log, event: $event})">
+      <span class="log-title">{{ log.title }}</span>
+      <div class="log-details">
+        <span>{{ log.log.substring(0, 50) + '...' }}</span>
+        <i>Reminder: {{ log.dateReminder }}</i>
+      </div>
+    </div>
+  </div>
+  <app-add-journal *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()"></app-add-journal>
+</div>

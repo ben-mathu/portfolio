@@ -8,7 +8,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { ActivatedRoute } from '@angular/router';
 import {
   AchievementElement,
-  BlogElement,
+  ArticleElement,
   CertificateElement,
   ExperienceElement,
   ProjectElement,
@@ -54,13 +54,13 @@ export class ArticleComponent implements OnInit {
 
   experiences?: ExperienceElement[];
   projects?: ProjectElement[];
-  articles?: BlogElement[];
+  articles?: ArticleElement[];
   achievements?: AchievementElement[];
   certificates?: CertificateElement[];
 
   experience?: ExperienceElement;
   project?: ProjectElement;
-  article?: BlogElement;
+  article?: ArticleElement;
   achievement?: AchievementElement;
   certificate?: CertificateElement;
 

@@ -1,47 +1,47 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipEditedEvent } from '@angular/material/chips';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ArticleElement } from 'src/app/shared/models/header/portfolio.dto';
-import { ArticleDetails } from 'src/app/shared/models/header/portfolio.model';
+import { ArticleElement, JournalElement } from 'src/app/shared/models/header/portfolio.dto';
+import { ArticleDetails, JournalDetails } from 'src/app/shared/models/header/portfolio.model';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-article',
-  templateUrl: './add-article.component.html',
-  styleUrl: './add-article.component.scss',
+  selector: 'app-add-journal',
+  templateUrl: './add-journal.component.html',
+  styleUrl: './add-journal.component.scss'
 })
-export class AddArticleComponent implements OnInit {
+export class AddJournalComponent {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
-  private _selectedRow!: ArticleElement | undefined;
+  private _selectedRow!: JournalElement;
 
-  @Input() set selectedRow(value: ArticleElement) {
+  @Input() set selectedRow(value: JournalElement) {
     this._selectedRow = value;
 
-    if (this.addArticleForm) {
-      this.addArticleForm.patchValue({
+    if (this.addJournalForm) {
+      this.addJournalForm.patchValue({
         title: value.title,
-        author: value.author,
-        text: value.article
+        reminder: value.dateReminder,
+        text: value.log
       });
     }
 
     this.tags = value.tags;
   }
 
-  get selectedRow(): ArticleElement | undefined {
+  get selectedRow(): JournalElement {
     return this._selectedRow;
   }
 
-  blogTitleLabel: string = 'Title';
-  blogAuthorLabel: string = 'Author';
-  blogTextLabel: string = 'Blog';
+  journalTitleLabel: string = 'Title';
+  reminderLabel: string = 'Reminder';
+  journalTextLabel: string = 'Log';
   tagsLabel: string = 'Tags';
-  addArticleForm!: FormGroup;
+  addJournalForm!: FormGroup;
 
   tags: string[] = [];
 
@@ -57,18 +57,16 @@ export class AddArticleComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.set('@AddArticle', 'Add Article');
 
-    this.addArticleForm = this.formBuilder.group({
+    this.addJournalForm = this.formBuilder.group({
       title: [
         this.selectedRow ? this.selectedRow.title : '',
         Validators.required,
       ],
-      author: [
-        this.selectedRow ? this.selectedRow.author : '',
-        Validators.required,
+      reminder: [
+        this.selectedRow ? this.selectedRow.dateReminder : ''
       ],
       text: [
-        this.selectedRow ? this.selectedRow.article : '',
-        Validators.required,
+        this.selectedRow ? this.selectedRow.log : ''
       ],
       tags: [''],
     });
@@ -77,30 +75,31 @@ export class AddArticleComponent implements OnInit {
   }
 
   get f() {
-    return this.addArticleForm.controls;
+    return this.addJournalForm.controls;
   }
 
   add() {
     try {
-      const blog: ArticleDetails = {
+      const blog: JournalDetails = {
         title: this.f['title'].value,
-        author: this.f['author'].value,
-        blog: this.f['text'].value,
+        log: this.f['text'].value,
         tags: this.tags,
         dateCreated: this.selectedRow
           ? this.selectedRow.dateCreated
           : this.util.formatDate(new Date()),
         dateUpdated: this.util.formatDate(new Date()),
+        dateReminder: this.util.parseAndFormatDate(this.f['reminder'].value)
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateBlog(blog, this.selectedRow.key);
+        this.firebaseService.updateJournal(blog, this.selectedRow.key);
       } else {
-        this.firebaseService.saveBlog(blog);
-        this.router.navigate(['admin', 'dashboard', 'blogs']);
+        this.firebaseService.saveJournal(blog);
+        this.router.navigate(['admin', 'dashboard', 'journal']);
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
+      console.error(error);
     }
   }
 
@@ -161,7 +160,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteBlog(this.selectedRow?.key!);
+    this.firebaseService.deleteBlog(this.selectedRow.key);
     this.onDelete.emit();
   }
 }

@@ -165,3 +165,9 @@ p code {
   color: var(--md-sys-color-on-surface-variant);
   background: var(--md-sys-color-surface-variant);
 }
+
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { child, Database, get, onValue, push, ref, remove, set, update } from '@angular/fire/database';
-import { AchievementDetails, BlogDetails, CertificateDetails, ExperienceDetails, ProjectDetail } from '../../models/header/portfolio.model';
-import { AchievementElement, BlogElement, CertificateElement, ExperienceElement, ProjectElement } from '../../models/header/portfolio.dto';
+import { AchievementDetails, ArticleDetails, CertificateDetails, ExperienceDetails, JournalDetails, ProjectDetail } from '../../models/header/portfolio.model';
+import { AchievementElement, ArticleElement, CertificateElement, ExperienceElement, JournalElement, ProjectElement } from '../../models/header/portfolio.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -10,8 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class FirebaseService {
   constructor(private database: Database, private http: HttpClient) {}
 
-  getAllArticles(): Promise<BlogElement[]> {
-    return new Promise<BlogElement[]>((resolve, reject) => {
+  getAllArticles(): Promise<ArticleElement[]> {
+    return new Promise<ArticleElement[]>((resolve, reject) => {
       onValue(ref(this.database, 'blogs'), (snapshot) => {
         const databaseVal = snapshot.val();
 
@@ -19,9 +19,9 @@ export class FirebaseService {
         if (databaseVal) {
           keys = Object.keys(databaseVal);
 
-          const b: BlogElement[] = [];
+          const b: ArticleElement[] = [];
           for (let i = 0; i < keys.length; i++) {
-            const blog: BlogElement = {
+            const blog: ArticleElement = {
               index: i,
               key: keys[i],
               title: databaseVal[keys[i]].title,
@@ -45,11 +45,11 @@ export class FirebaseService {
     });
   }
 
-  saveBlog(blog: BlogDetails) {
+  saveBlog(blog: ArticleDetails) {
     push(ref(this.database, 'blogs'), blog);
   }
 
-  updateBlog(blog: BlogDetails, key: string) {
+  updateBlog(blog: ArticleDetails, key: string) {
     update(ref(this.database, 'blogs/' + key), blog);
   }
 
@@ -286,5 +286,48 @@ export class FirebaseService {
       this.http.get<string>(url, options)
         .subscribe(data => resolve(data))
     });
+  }
+
+  getJournal() {
+    return new Promise<JournalElement[]>((resolve, reject) => {
+      onValue(ref(this.database, 'journal'), (snapshot) => {
+        const databaseVal = snapshot.val();
+
+        let keys: string[] = [];
+        if (databaseVal) {
+          keys = Object.keys(databaseVal);
+
+          const c: JournalElement[] = [];
+          for (let i = 0; i < keys.length; i++) {
+            const log: JournalElement = {
+              index: i,
+              key: keys[i],
+              title: databaseVal[keys[i]].title,
+              log: databaseVal[keys[i]].log,
+              tags: databaseVal[keys[i]].tags,
+              dateCreated: databaseVal[keys[i]].dateCreated,
+              dateUpdated: databaseVal[keys[i]].dateUpdated,
+              dateReminder: databaseVal[keys[i]].dateReminder
+            }
+
+            c.push(log);
+          }
+
+          resolve(c);
+        } else {
+          reject(Error('No Journal was found!'));
+        }
+      }, (error) => {
+        reject(error.message);
+      });
+    });
+  }
+
+  updateJournal(log: JournalDetails, key: string) {
+    update(ref(this.database, 'journal/' + key), log);
+  }
+
+  saveJournal(log: JournalDetails) {
+    push(ref(this.database, 'journal'), log);
   }
 }
