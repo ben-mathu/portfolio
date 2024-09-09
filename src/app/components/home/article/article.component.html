@@ -46,21 +46,6 @@
           {{ utils.capitalize(node.article.title) }}
         </mat-tree-node>
       </mat-tree>
-      <!-- <mat-nav-list>
-        <ng-container *ngFor="let category of articleMap | keyvalue; index as i">
-          <mat-list-item>
-            {{ utils.capitalize(category.key) }}
-          </mat-list-item>
-          <mat-list style="margin-left: 12px;">
-            <ng-container *ngFor="let articles of category.value | keyvalue; index as j">
-              <mat-list-item [routerLink]="['../../', 'article', articles.value.get('key')]">
-                {{ articles.value.get('title') }}
-              </mat-list-item>
-            </ng-container>
-          </mat-list>
-          <mat-divider *ngIf="i !== articleMap.size - 1" class="divider"></mat-divider>
-        </ng-container>
-      </mat-nav-list> -->
     </div>
   }
   <div class="blog-content-wrapper">
