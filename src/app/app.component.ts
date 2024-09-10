@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.service.getHeader().then((result) => {
-      this.myDetails = result.val();
+      this.myDetails = result;
     });
 
     onAuthStateChanged(this.auth, (user) => {
