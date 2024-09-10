@@ -3,16 +3,24 @@ import { child, Database, get, onValue, push, ref, remove, set, update } from '@
 import { AchievementDetails, ArticleDetails, CertificateDetails, ExperienceDetails, JournalDetails, ProjectDetail } from '../../models/header/portfolio.model';
 import { AchievementElement, ArticleElement, CertificateElement, ExperienceElement, JournalElement, ProjectElement } from '../../models/header/portfolio.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(private database: Database, private http: HttpClient) {}
+  baseEndpoint: string = 'public';
+  userId: string = '';
+
+  constructor(private database: Database, private http: HttpClient, authService: AuthService) {
+    authService.getUserId()
+      .then(userId => this.userId = userId ? userId : '')
+      .catch((error: Error) => console.error(error.message));
+  }
 
   getAllArticles(): Promise<ArticleElement[]> {
     return new Promise<ArticleElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'blogs'), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/blogs`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = []
@@ -46,53 +54,55 @@ export class FirebaseService {
   }
 
   saveBlog(blog: ArticleDetails) {
-    push(ref(this.database, 'blogs'), blog);
+    push(ref(this.database, `${this.baseEndpoint}/blogs`), blog);
   }
 
   updateBlog(blog: ArticleDetails, key: string) {
-    update(ref(this.database, 'blogs/' + key), blog);
+    update(ref(this.database, `${this.baseEndpoint}/blogs/${key}`), blog);
   }
 
   deleteBlog(key: string) {
-    remove(ref(this.database, 'blog/' + key));
+    remove(ref(this.database, `${this.baseEndpoint}/blog/${key}`));
   }
 
   getHeader(): Promise<any> {
-    const headerRef = ref(this.database);
-    return get(child(headerRef, 'header'));
+    console.log(this.userId);
+    return new Promise<any>((resolve, reject) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/header`), (snapshot) => resolve(snapshot.val()));
+    });
   }
 
   saveExperience(experience: ExperienceDetails) {
-    push(ref(this.database, 'experiences'), experience);
+    push(ref(this.database, `${this.baseEndpoint}/experiences`), experience);
   }
 
   updateExperience(experience: ExperienceDetails, key: string) {
-    update(ref(this.database, 'experiences/' + key), experience);
+    update(ref(this.database, `${this.baseEndpoint}/experiences/${key}`), experience);
   }
 
   saveProject(project: ProjectDetail) {
-    push(ref(this.database, 'projects'), project);
+    push(ref(this.database, `${this.baseEndpoint}/projects`), project);
   }
 
   updateProject(project: ProjectDetail, key: string) {
-    update(ref(this.database, 'projects/' + key), project);
+    update(ref(this.database, `${this.baseEndpoint}/projects/${key}`), project);
   }
 
   updateProjectDescription(key: string, value: string) {
-    set(ref(this.database, 'projects/' + key + '/projectDescription'), value);
+    set(ref(this.database, `${this.baseEndpoint}/projects/${key}` + '/projectDescription'), value);
   }
 
   deleteProject(key: string) {
-    remove(ref(this.database, 'projects/' + key));
+    remove(ref(this.database, `${this.baseEndpoint}/projects/${key}`));
   }
 
   deleteExperience(key: string) {
-    remove(ref(this.database, 'experiences/' + key));
+    remove(ref(this.database, `${this.baseEndpoint}/experiences/${key}`));
   }
 
   getAllProjects(): Promise<ProjectElement[]> {
     return new Promise<ProjectElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'projects'), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/projects`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = [];
@@ -130,7 +140,7 @@ export class FirebaseService {
 
   getAllExperiences(): Promise<ExperienceElement[]> {
     return new Promise<ExperienceElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'experiences'), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/experiences`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = [];
@@ -170,7 +180,7 @@ export class FirebaseService {
 
   getProjectById(id: any): Promise<ProjectElement> {
     return new Promise<ProjectElement>((resolve, reject) => {
-      onValue(ref(this.database, 'projects/' + id), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/projects/` + id), (snapshot) => {
         resolve(snapshot.val());
       }, (error) => {
         reject(error.message);
@@ -180,7 +190,7 @@ export class FirebaseService {
 
   getExperienceById(id: any): Promise<ExperienceElement> {
     return new Promise<ExperienceElement>((resolve, reject) => {
-      onValue(ref(this.database, 'experiences/' + id), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/experiences/` + id), (snapshot) => {
         resolve(snapshot.val());
       }, (error) => {
         reject(error.message);
@@ -190,7 +200,7 @@ export class FirebaseService {
 
   getAchievements(): Promise<AchievementElement[]> {
     return new Promise<AchievementElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'achievements'), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/achievements`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = [];
@@ -221,20 +231,20 @@ export class FirebaseService {
   }
 
   saveAchievement(achievement: AchievementDetails) {
-    push(ref(this.database, 'achievements'), achievement);
+    push(ref(this.database, `${this.baseEndpoint}/achievements`), achievement);
   }
 
   updateAchievement(achievement: AchievementDetails, key: string) {
-    update(ref(this.database, 'achievements/' + key), achievement);
+    update(ref(this.database, `${this.baseEndpoint}/achievements/${key}`), achievement);
   }
 
   deleteAchievement(key: string) {
-    remove(ref(this.database, 'achievements/' + key));
+    remove(ref(this.database, `${this.baseEndpoint}/achievements/${key}`));
   }
 
   getCertificates() {
     return new Promise<CertificateElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'certificates'), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}/certificates`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = [];
@@ -265,15 +275,15 @@ export class FirebaseService {
   }
 
   deleteCertificate(key: string) {
-    remove(ref(this.database, 'certificates/' + key));
+    remove(ref(this.database, `${this.baseEndpoint}/certificates/${key}`));
   }
 
   updateCertificate(certificate: CertificateDetails, key: string) {
-    update(ref(this.database, 'certificates/' + key), certificate);
+    update(ref(this.database, `${this.baseEndpoint}/certificates/${key}`), certificate);
   }
 
   saveCertificate(certificate: CertificateDetails) {
-    push(ref(this.database, 'certificates'), certificate);
+    push(ref(this.database, `${this.baseEndpoint}/certificates`), certificate);
   }
 
   retrieveContent(url: string): Promise<string> {
@@ -290,7 +300,7 @@ export class FirebaseService {
 
   getJournal() {
     return new Promise<JournalElement[]>((resolve, reject) => {
-      onValue(ref(this.database, 'journal'), (snapshot) => {
+      onValue(ref(this.database, `journal/${this.userId}`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = [];
@@ -324,10 +334,10 @@ export class FirebaseService {
   }
 
   updateJournal(log: JournalDetails, key: string) {
-    update(ref(this.database, 'journal/' + key), log);
+    update(ref(this.database, `journal/${this.userId}/${key}`), log);
   }
 
   saveJournal(log: JournalDetails) {
-    push(ref(this.database, 'journal'), log);
+    push(ref(this.database, `journal/${this.userId}`), log);
   }
 }

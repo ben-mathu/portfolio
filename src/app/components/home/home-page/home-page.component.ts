@@ -78,7 +78,9 @@ export class HomePageComponent implements OnInit {
     this.breadcrumbService.set('@Home', 'Home');
 
     this.service.getHeader().then((result) => {
-      this.myDetails = result.val();
+      this.myDetails = result;
+      console.log('Header: ' + this.myDetails);
+      console.log('Header: ' + result);
 
       this.myDetails.languages = this.myDetails.languages.sort(
         (a: Skill, b: Skill) => {
@@ -113,6 +115,8 @@ export class HomePageComponent implements OnInit {
           return 0;
         }
       );
+    }).catch(error => {
+      console.error(error);
     });
 
     this.service

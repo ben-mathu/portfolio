@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -18,16 +18,30 @@ export class AuthService {
   }
 
   async isLoggedIn() {
-    return await this.getSignedInUser();
+    const user = await this.getSignedInUser();
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async getUserId() {
+    const user = await this.getSignedInUser();
+    if (user) {
+      return user.uid;
+    } else {
+      return undefined;
+    }
   }
 
   getSignedInUser = function() {
-    return new Promise<boolean>(function (resolve, reject) {
+    return new Promise<User>(function (resolve, reject) {
       onAuthStateChanged(getAuth(), (user) => {
         if (user) {
-          resolve(true);
+          resolve(user);
         } else {
-          resolve(false);
+          reject(Error('Could not find authenticated user'));
         }
       });
     });

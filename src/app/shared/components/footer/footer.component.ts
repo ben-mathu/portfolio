@@ -7,15 +7,11 @@ import { Utils } from '../../utils/utils';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
-  @Input() myDetails!: MyDetails;
+export class FooterComponent {
+  @Input() myDetails?: MyDetails | undefined;
   utils: Utils;
 
   constructor(utils: Utils) {
     this.utils = utils;
   }
-
-  ngOnInit(): void {
-  }
-
 }
