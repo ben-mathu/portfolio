@@ -66,7 +66,6 @@ export class FirebaseService {
   }
 
   getHeader(): Promise<any> {
-    console.log(this.userId);
     return new Promise<any>((resolve, reject) => {
       onValue(ref(this.database, `${this.baseEndpoint}/header`), (snapshot) => resolve(snapshot.val()));
     });
