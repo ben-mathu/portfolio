@@ -36,12 +36,12 @@ export class AuthService {
   }
 
   getSignedInUser = function() {
-    return new Promise<User>(function (resolve, reject) {
+    return new Promise<User | undefined>(function (resolve, reject) {
       onAuthStateChanged(getAuth(), (user) => {
         if (user) {
           resolve(user);
         } else {
-          reject(Error('Could not find authenticated user'));
+          resolve(undefined);
         }
       });
     });

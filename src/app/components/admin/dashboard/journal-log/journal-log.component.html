@@ -7,10 +7,13 @@
       <p>Your journal is empty</p>
     </div>
     <div class="log-container" *ngFor="let log of journal" (click)="handleClick({listItemData: log, event: $event})">
-      <span class="log-title">{{ log.title }}</span>
+      <div class="log-details">
+        <span class="log-title">{{ log.title }}</span>
+        <i>{{ log.dateUpdated }}</i>
+      </div>
       <div class="log-details">
         <span>{{ log.log.substring(0, 50) + '...' }}</span>
-        <i>Reminder: {{ log.dateReminder }}</i>
+        <i *ngIf="log.dateReminder">Reminder: {{ log.dateReminder }}</i>
       </div>
     </div>
   </div>

@@ -10,13 +10,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class FirebaseService {
   baseEndpoint: string = 'public';
-  userId: string = '';
 
-  constructor(private database: Database, private http: HttpClient, authService: AuthService) {
-    authService.getUserId()
-      .then(userId => this.userId = userId ? userId : '')
-      .catch((error: Error) => console.error(error.message));
-  }
+  constructor(private database: Database, private http: HttpClient, private authService: AuthService) {}
 
   getAllArticles(): Promise<ArticleElement[]> {
     return new Promise<ArticleElement[]>((resolve, reject) => {
@@ -297,46 +292,65 @@ export class FirebaseService {
     });
   }
 
-  getJournal() {
+  async getJournal() {
+
     return new Promise<JournalElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `journal/${this.userId}`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      this.authService.getUserId()
+      .then(userId => {
+        if (userId) {
+          onValue(ref(this.database, `journal/${userId}`), (snapshot) => {
+            const databaseVal = snapshot.val();
 
-        let keys: string[] = [];
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
+            let keys: string[] = [];
+            if (databaseVal) {
+              keys = Object.keys(databaseVal);
 
-          const c: JournalElement[] = [];
-          for (let i = 0; i < keys.length; i++) {
-            const log: JournalElement = {
-              index: i,
-              key: keys[i],
-              title: databaseVal[keys[i]].title,
-              log: databaseVal[keys[i]].log,
-              tags: databaseVal[keys[i]].tags,
-              dateCreated: databaseVal[keys[i]].dateCreated,
-              dateUpdated: databaseVal[keys[i]].dateUpdated,
-              dateReminder: databaseVal[keys[i]].dateReminder
+              const c: JournalElement[] = [];
+              for (let i = 0; i < keys.length; i++) {
+                const log: JournalElement = {
+                  index: i,
+                  key: keys[i],
+                  title: databaseVal[keys[i]].title,
+                  log: databaseVal[keys[i]].log,
+                  tags: databaseVal[keys[i]].tags,
+                  dateCreated: databaseVal[keys[i]].dateCreated,
+                  dateUpdated: databaseVal[keys[i]].dateUpdated,
+                  dateReminder: databaseVal[keys[i]].dateReminder
+                }
+
+                c.push(log);
+              }
+
+              resolve(c);
+            } else {
+              reject(Error('No Journal was found!'));
             }
-
-            c.push(log);
-          }
-
-          resolve(c);
-        } else {
-          reject(Error('No Journal was found!'));
+          }, (error) => {
+            reject(error);
+          });
         }
-      }, (error) => {
-        reject(error.message);
-      });
+      })
+      .catch((error: Error) => reject(error));
     });
   }
 
   updateJournal(log: JournalDetails, key: string) {
-    update(ref(this.database, `journal/${this.userId}/${key}`), log);
+    this.authService.getUserId()
+      .then(userId => {
+        update(ref(this.database, `journal/${userId}/${key}`), log);
+      }, (error) => {
+        console.error(error);
+      });
   }
 
   saveJournal(log: JournalDetails) {
-    push(ref(this.database, `journal/${this.userId}`), log);
+    this.authService.getUserId()
+      .then(userId => {
+        if (userId) {
+          push(ref(this.database, `journal/${userId}`), log);
+        }
+      }, (error) => {
+        console.error(error);
+      });
   }
 }
