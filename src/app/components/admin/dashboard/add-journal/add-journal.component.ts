@@ -80,7 +80,7 @@ export class AddJournalComponent {
 
   add() {
     try {
-      const blog: JournalDetails = {
+      const log: JournalDetails = {
         title: this.f['title'].value,
         log: this.f['text'].value,
         tags: this.tags,
@@ -92,9 +92,9 @@ export class AddJournalComponent {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateJournal(blog, this.selectedRow.key);
+        this.firebaseService.updateJournal(log, this.selectedRow.key);
       } else {
-        this.firebaseService.saveJournal(blog);
+        this.firebaseService.saveJournal(log);
         this.router.navigate(['admin', 'dashboard', 'journal']);
       }
     } catch (error) {
