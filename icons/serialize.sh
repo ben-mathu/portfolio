@@ -6,7 +6,7 @@ mkdir $icons_dir/data
 
 icons_json=${icons_dir}/data/svg_files.json
 
-echo -n '{ "svg_files": [ ' > $icons_json
+printf '{ "svg_files": [ ' > $icons_json
 
 file_count=$(ls $icons_dir/icons | grep -e '|*.svg' | wc -l)
 
@@ -16,11 +16,11 @@ do
 
   if [[ $count -eq $(($file_count-1)) ]]
   then
-    echo -n '"'${entry%%.*}'" ' >> $icons_json
+    printf '"'${entry%%.*}'" ' >> $icons_json
   else
-    echo -n '"'${entry%%.*}'", ' >> $icons_json
+    printf '"'${entry%%.*}'", ' >> $icons_json
   fi
   count=$(($count+1))
 done
 
-echo -n '] }' >> $icons_json
+printf '] }' >> $icons_json
