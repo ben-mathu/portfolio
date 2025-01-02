@@ -33,12 +33,12 @@ export class Utils {
 
   formatDate(date: Date) {
     if (date) return '';
-    const options: Intl.DateTimeFormatOptions[] = [{year: "numeric"}, {month: "numeric"}, {day: "numeric"}];
+    const options: Intl.DateTimeFormatOptions[] = [{year: "numeric"}, {month: "2-digit"}, {day: "2-digit"}];
 
     return options.map((option) => {
       const formatter = new Intl.DateTimeFormat('en', option);
       return formatter.format(date);
-    }).join(' ');
+    }).join('-');
   }
 
   showSnackBar(message: string, snackbar: MatSnackBar) {
