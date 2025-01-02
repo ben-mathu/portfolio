@@ -20,7 +20,7 @@ import {
   getFirestore,
   FirestoreModule,
 } from '@angular/fire/firestore';
-import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SharedModule } from './shared/components/shared.module';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HomeModule } from './components/home/home.module';
@@ -52,7 +52,8 @@ import { MatTreeModule } from '@angular/material/tree';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     FirestoreModule,
-    BreadcrumbModule,
+    BreadcrumbComponent,
+    BreadcrumbItemDirective,
     MatIconModule,
     MatProgressBarModule,
     SharedModule,

@@ -7,7 +7,7 @@ import { CardComponent } from './card/card.component';
 import { SkillRatingComponent } from './skill-rating/skill-rating.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -42,7 +42,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     CommonModule,
     MatProgressBarModule,
     MatIconModule,
-    BreadcrumbModule,
+    BreadcrumbComponent,
+    BreadcrumbItemDirective,
     MatInputModule,
     MatFormFieldModule,
     RouterModule,
