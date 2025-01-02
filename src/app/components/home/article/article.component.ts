@@ -6,6 +6,7 @@ import {
 } from '@angular/material/snack-bar';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 import {
   AchievementElement,
   ArticleElement,
@@ -103,7 +104,8 @@ export class ArticleComponent implements OnInit {
 
   currentIndex = 0;
   prevIndex = 0;
-  interval: NodeJS.Timeout | undefined;
+  source = interval(3000);
+  subscription: Subscription | undefined
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -375,18 +377,16 @@ export class ArticleComponent implements OnInit {
   }
 
   startInterval() {
-    if (this.interval) {
-      clearInterval(this.interval);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
 
-    this.interval = setInterval(() => {
-      this.nextSlide();
-    }, 3000);
+    this.subscription = this.source.subscribe(val => this.nextSlide());
   }
 
   stopInterval() {
-    if (this.interval) {
-      clearInterval(this.interval);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }
