@@ -30,7 +30,7 @@ export class AddJournalComponent {
       });
     }
 
-    this.tags = value.tags;
+    this.tags = value.tags ? value.tags : [];
   }
 
   get selectedRow(): JournalElement {
@@ -80,6 +80,8 @@ export class AddJournalComponent {
 
   add() {
     try {
+      if (!this.tags) this.tags = [];
+
       const log: JournalDetails = {
         title: this.f['title'].value,
         log: this.f['text'].value,
@@ -108,6 +110,8 @@ export class AddJournalComponent {
   }
 
   edit(tag: string, event: MatChipEditedEvent) {
+    if (!this.tags) return;
+
     const index: number = this.tags.indexOf(tag, 0);
     const changedValue: string = event.value.trim();
 
@@ -139,6 +143,8 @@ export class AddJournalComponent {
     let value = (event.target as HTMLInputElement)?.value;
     if (inputEvent.inputType === 'insertText' && inputEvent.data === ',') {
       value = value.substring(0, value.length - 1);
+
+      if (!this.tags) this.tags = [];
 
       if (this.tags.includes(value)) {
         return;

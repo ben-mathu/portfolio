@@ -30,7 +30,7 @@ export class AddArticleComponent implements OnInit {
       });
     }
 
-    this.tags = value.tags;
+    this.tags = value.tags ? value.tags : [];
   }
 
   get selectedRow(): ArticleElement | undefined {
@@ -82,6 +82,8 @@ export class AddArticleComponent implements OnInit {
 
   add() {
     try {
+      if (!this.tags) this.tags = [];
+
       const blog: ArticleDetails = {
         title: this.f['title'].value,
         author: this.f['author'].value,
@@ -109,6 +111,8 @@ export class AddArticleComponent implements OnInit {
   }
 
   edit(tag: string, event: MatChipEditedEvent) {
+    if (!this.tags) return;
+
     const index: number = this.tags.indexOf(tag, 0);
     const changedValue: string = event.value.trim();
 
@@ -140,6 +144,8 @@ export class AddArticleComponent implements OnInit {
     let value = (event.target as HTMLInputElement)?.value;
     if (inputEvent.inputType === 'insertText' && inputEvent.data === ',') {
       value = value.substring(0, value.length - 1);
+
+      if (!this.tags) this.tags = [];
 
       if (this.tags.includes(value)) {
         return;

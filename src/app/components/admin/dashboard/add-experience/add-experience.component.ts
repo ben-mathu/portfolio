@@ -40,7 +40,7 @@ export class AddExperienceComponent implements OnInit {
         logoUrl: value.logoUrl,
       });
 
-      this.skillList = value.skills;
+      this.skillList = value.skills ? value.skills : [];
     }
   }
 
@@ -103,6 +103,8 @@ export class AddExperienceComponent implements OnInit {
 
   add() {
     try {
+      if (!this.skillList) this.skillList = [];
+      
       const experience: ExperienceDetails = {
         title: this.f['title'].value,
         startDate: this.util.parseAndFormatDate(this.f['startDate'].value),
@@ -172,6 +174,8 @@ export class AddExperienceComponent implements OnInit {
   }
 
   edit(skill: string, event: MatChipEditedEvent) {
+    if (!this.skillList) return;
+    
     const index: number = this.skillList.indexOf(skill, 0);
     const changedValue: string = event.value.trim();
 
