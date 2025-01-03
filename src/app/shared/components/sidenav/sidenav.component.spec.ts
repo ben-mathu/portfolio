@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidenavComponent } from './sidenav.component';
+import { Utils } from '../../utils/utils';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -8,10 +9,11 @@ describe('SidenavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SidenavComponent]
+      declarations: [SidenavComponent],
+      providers: [ Utils ]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(SidenavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

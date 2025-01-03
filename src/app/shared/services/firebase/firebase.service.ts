@@ -4,6 +4,8 @@ import { AchievementDetails, ArticleDetails, CertificateDetails, ExperienceDetai
 import { AchievementElement, ArticleElement, CertificateElement, ExperienceElement, JournalElement, ProjectElement } from '../../models/header/portfolio.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { MyDetails } from '../../models/header/header';
+import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,19 @@ export class FirebaseService {
   baseEndpoint: string = 'public';
 
   constructor(private database: Database, private http: HttpClient, private authService: AuthService) {}
+
+  onAuthStateChanged(auth: Auth): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      onAuthStateChanged(auth, (user) => { resolve(user) }, (error) => { reject(error) });
+    })
+  }
+
+  signOut(auth: Auth): Promise<void> {
+    return signOut(auth);
+  }
+  getAuth(): Auth {
+    return getAuth();
+  }
 
   getAllArticles(): Promise<ArticleElement[]> {
     return new Promise<ArticleElement[]>((resolve, reject) => {
@@ -60,8 +75,8 @@ export class FirebaseService {
     remove(ref(this.database, `${this.baseEndpoint}/blog/${key}`));
   }
 
-  getHeader(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  getHeader(): Promise<MyDetails> {
+    return new Promise<MyDetails>((resolve, reject) => {
       onValue(ref(this.database, `${this.baseEndpoint}/header`), (snapshot) => resolve(snapshot.val()));
     });
   }

@@ -1,10 +1,8 @@
-import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { MyDetails } from '../../models/header/header';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { Utils } from '../../utils/utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FirebaseService } from '../../services/firebase/firebase.service';
 
 @Component({
   selector: 'navbar',
@@ -19,12 +17,12 @@ export class NavbarComponent {
 
   collapse: boolean = false;
 
-  constructor(private router: Router) {
-    this.auth = getAuth();
+  constructor(private router: Router, private firebaseService: FirebaseService) {
+    this.auth = firebaseService.getAuth();
   }
 
   logout() {
-    signOut(this.auth).then(() => {
+    this.firebaseService.signOut(this.auth).then(() => {
       this.router.navigate(['admin', 'login']);
     }).catch((err) => {
       // Error could not sigout

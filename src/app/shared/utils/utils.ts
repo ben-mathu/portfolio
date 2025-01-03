@@ -4,7 +4,9 @@ import { preferredTheme } from "../services/theme/theme-manager.service";
 import { BreakpointObserver, Breakpoints, BreakpointState } from "@angular/cdk/layout";
 import { Observable, Subject, takeUntil } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Utils {
   destroyed = new Subject<void>();
 
@@ -32,7 +34,7 @@ export class Utils {
   }
 
   formatDate(date: Date) {
-    if (date) return '';
+    if (!date) return '';
     const options: Intl.DateTimeFormatOptions[] = [{year: "numeric"}, {month: "2-digit"}, {day: "2-digit"}];
 
     return options.map((option) => {
