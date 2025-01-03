@@ -1,14 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
+import { FirebaseService } from '../../services/firebase/firebase.service';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
+    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [ 'getAuth', 'signOut']);
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ]
+      declarations: [ NavbarComponent ],
+      providers: [
+        {
+          provide: FirebaseService,
+          useValue: mockFirebaseService
+        }
+      ]
     })
     .compileComponents();
   });

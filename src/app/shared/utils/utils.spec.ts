@@ -1,13 +1,15 @@
 import { inject } from "@angular/core";
 import { Utils } from "./utils";
+import { TestBed } from "@angular/core/testing";
 
 describe('Utils', () =>{
-    let utils: Utils | undefined;
+    let utils: Utils;
     beforeEach(async () => {
-        utils = inject(Utils);
-    })
+      TestBed.configureTestingModule({});
+      utils = TestBed.inject(Utils);
+    });
 
     it('format date to yyyy-MM-dd', () => {
-        expect(utils?.formatDate(new Date())).toMatch('[\w-]{10}');
+      expect(utils.formatDate(new Date())).toMatch(/[\w-]{10}/);
     });
 });

@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     this.breadcrumbService.set('@Home', 'Home');
 
     this.service.getHeader().then((result) => {
-      this.myDetails = result.val();
+      this.myDetails = result;
     });
   }
 }

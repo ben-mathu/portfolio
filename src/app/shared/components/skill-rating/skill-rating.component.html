@@ -2,17 +2,17 @@
   <mat-chip>
     <img
       matChipAvatar
-      *ngIf="myInfo.icon"
+      *ngIf="myInfo"
       src="{{myInfo.icon}}"
       alt="Android"
     />
-    {{ myInfo.tech }}
+    {{ myInfo ? myInfo.tech : '' }}
   </mat-chip>
-  <span>{{ myInfo.rating }}</span>
+  <span>{{ myInfo ? myInfo.rating : '' }}</span>
 </div>
 <mat-progress-bar
   class="rounded"
   mode="determinate"
-  value="{{ calculatePercentage(myInfo.rating) }}"
+  value="{{ myInfo ? calculatePercentage(myInfo.rating) : 0 }}"
   color="accent"
 ></mat-progress-bar>

@@ -8,10 +8,10 @@ describe('CustomTextareaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomTextareaComponent]
+      declarations: [CustomTextareaComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(CustomTextareaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

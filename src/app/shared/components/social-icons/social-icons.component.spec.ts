@@ -8,7 +8,7 @@ describe('SocialIconsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SocialIconsComponent]
+      declarations: [SocialIconsComponent]
     })
     .compileComponents();
 

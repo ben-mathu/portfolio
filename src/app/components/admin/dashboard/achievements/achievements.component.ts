@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
+  MatSnackBar
 } from '@angular/material/snack-bar';
 import { AchievementElement } from 'src/app/shared/models/header/portfolio.dto';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';

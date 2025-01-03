@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Auth,
   getAuth,
   signInWithEmailAndPassword,
-  user,
 } from '@angular/fire/auth';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -27,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private breadcrumbService: BreadcrumbService,
-    private auth: Auth,
     private router: Router,
     private formBuilder: FormBuilder,
     private utils: Utils,

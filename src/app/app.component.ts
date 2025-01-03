@@ -30,12 +30,12 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   constructor(
     private service: FirebaseService,
-    private location: Location,
+    location: Location,
     private router: Router,
     iconsService: IconService,
     private util: Utils
   ) {
-    this.auth = getAuth();
+    this.auth = service.getAuth();
 
     this.locationEvent$ = location.onUrlChange((val) => {
       this.url = val;
@@ -54,13 +54,14 @@ export class AppComponent implements OnInit, OnDestroy {
       this.myDetails = result;
     });
 
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.isAuth = true;
-      } else {
-        this.isAuth = false;
-      }
-    });
+    this.service.onAuthStateChanged(this.auth)
+      .then((user) => {
+        if (user) {
+          this.isAuth = true;
+        } else {
+          this.isAuth = false;
+        }
+      }).catch((error) => {});
   }
 
   ngOnDestroy(): void {
