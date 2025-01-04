@@ -1,6 +1,6 @@
 {
   "name": "ben-mathu",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "engines": {
     "node": ">=18.19",
     "npm": "10.7.0"
