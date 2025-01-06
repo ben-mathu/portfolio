@@ -29,9 +29,9 @@ jobs:
           version: 8
           run_install: true
 
-      - name: Deploy
+      - name: Test & Build
         run: |
-          pnpm run test:ci && pnpm run buid
+          pnpm run test:ci && pnpm run build
 
   deploy-github-pages:
     needs: tests
