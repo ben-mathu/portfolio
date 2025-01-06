@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddProjectComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow: ProjectElement | undefined;
 
   @Input() set selectedRow(value: ProjectElement) {
@@ -130,12 +131,23 @@ export class AddProjectComponent implements OnInit {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateProject(project, this.selectedRow.key);
-        this.util.showSnackBar('Successfully updated', this.snackBar);
+        this.firebaseService.updateProject(project, this.selectedRow.key)
+          .then(value => {
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+            this.onUpdate.emit();
+          }).catch(error => {
+            this.util.showSnackBar('Project not updated', this.snackBar);
+            console.error(error)
+          });
       } else {
-        this.firebaseService.saveProject(project);
-        this.router.navigate(['admin', 'dashboard', 'projects']);
-        this.util.showSnackBar('Successfully saved', this.snackBar);
+        this.firebaseService.saveProject(project)
+          .then(value => {
+            this.router.navigate(['admin', 'dashboard', 'projects']);
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+          }).catch(error => {
+            this.util.showSnackBar('Project not saved', this.snackBar);
+            console.error(error);
+          });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -143,8 +155,14 @@ export class AddProjectComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteProject(this.selectedRow!.key);
-    this.onDelete.emit();
+    this.firebaseService.deleteProject(this.selectedRow!.key)
+      .then(value => {
+        this.util.showSnackBar('Successfully delete project', this.snackBar);
+        this.onDelete.emit()
+      }).catch(error => {
+        this.util.showSnackBar('Project not deleted', this.snackBar);
+        console.error(error)
+      });
   }
 
   retrieveContent(url: string | undefined = undefined) {

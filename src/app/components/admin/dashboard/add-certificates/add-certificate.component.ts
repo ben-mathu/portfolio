@@ -21,6 +21,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 })
 export class AddCertificateComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow!: CertificateElement | undefined;
 
   @Input() set selectedRow(value: CertificateElement) {
@@ -79,13 +80,23 @@ export class AddCertificateComponent implements OnInit {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateCertificate(
-          certificate,
-          this.selectedRow.key
-        );
+        this.firebaseService.updateCertificate(certificate, this.selectedRow.key)
+          .then(value => {
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+            this.onUpdate.emit();
+          }).catch(error => {
+            this.util.showSnackBar('Error updating cert', this.snackBar);
+            console.error(error);
+          });
       } else {
-        this.firebaseService.saveCertificate(certificate);
-        this.router.navigate(['admin', 'dashboard', 'certificates']);
+        this.firebaseService.saveCertificate(certificate)
+        .then(value => {
+          this.util.showSnackBar('Successfully saved', this.snackBar);
+          this.router.navigate(['admin', 'dashboard', 'certificates']);
+        }).catch(error => {
+          this.util.showSnackBar('Certificate not saved', this.snackBar);
+          console.error(error);
+        });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -93,7 +104,13 @@ export class AddCertificateComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteCertificate(this.selectedRow!.key);
-    this.onDelete.emit();
+    this.firebaseService.deleteCertificate(this.selectedRow!.key)
+    .then(value => {
+      this.util.showSnackBar('Successfully deleted', this.snackBar);
+      this.onDelete.emit();
+    }).catch(error => {
+      this.util.showSnackBar('Error deleting cert', this.snackBar);
+      console.error(error);
+    });
   }
 }

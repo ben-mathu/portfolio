@@ -1,6 +1,6 @@
 {
   "name": "ben-mathu",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "engines": {
     "node": ">=18.19",
     "npm": "10.7.0"
@@ -12,7 +12,8 @@
     "build": "ng build --base-href=https://ben-mathu.github.io/ben-mathu/",
     "watch": "ng build --watch --configuration development",
     "deploy": "npx angular-cli-ghpages --dir=dist/ben-mathu/browser --no-silent",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
