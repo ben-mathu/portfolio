@@ -33,10 +33,10 @@ export class CertificatesComponent extends BaseComponent<CertificateElement> imp
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Certificates', 'Certificates');
-    this.getAllCertificates();
+    this.getData();
   }
 
-  getAllCertificates() {
+  override getData() {
     this.firebaseService
       .getCertificates()
       .then((values) => {
@@ -68,6 +68,6 @@ export class CertificatesComponent extends BaseComponent<CertificateElement> imp
 
   override onDelete(): void {
     super.onDelete();
-    this.getAllCertificates();
+    this.getData();
   }
 }

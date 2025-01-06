@@ -32,10 +32,10 @@ export class ListProjectsComponent extends BaseComponent<ProjectElement> impleme
   ngOnInit(): void {
     this.breadcrumbService.set('@Projects', 'Projects');
 
-    this.getProjects();
+    this.getData();
   }
 
-  getProjects() {
+  override getData() {
     this.firebaseService
       .getAllProjects()
       .then((values) => {
@@ -48,7 +48,7 @@ export class ListProjectsComponent extends BaseComponent<ProjectElement> impleme
   }
 
   override onDelete() {
-    this.getProjects();
+    this.getData();
     super.onDelete();
   }
 

@@ -26,10 +26,10 @@ export class JournalLogComponent extends BaseComponent<JournalElement> implement
   ngOnInit(): void {
     this.breadcrumbService.set('@Articles', 'Articles');
 
-    this.getAllArticles();
+    this.getData();
   }
 
-  getAllArticles() {
+  override getData() {
     this.firebaseService
       .getJournal()
       .then((values) => {
@@ -40,19 +40,19 @@ export class JournalLogComponent extends BaseComponent<JournalElement> implement
       });
   }
 
-  handleClick(listItemData: { listItemData: JournalElement, event: Event }) {
+  handleClick(listItemData: { data: JournalElement, event: Event }) {
     if (
       !this.selectedRow ||
-      listItemData['listItemData'].index !== this.selectedRow.index
+      listItemData['data'].index !== this.selectedRow.index
     ) {
-      this.selectedRow = listItemData['listItemData'];
+      this.selectedRow = listItemData['data'];
     } else {
       this.selectedRow = undefined;
     }
   }
 
   override onDelete() {
-    this.getAllArticles();
+    this.getData();
     super.onDelete();
   }
 }

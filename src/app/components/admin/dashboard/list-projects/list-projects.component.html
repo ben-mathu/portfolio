@@ -32,5 +32,5 @@
       </table>
     </div>
   </div>
-  <app-add-project *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" class="col"></app-add-project>
+  <app-add-project *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})" class="col"></app-add-project>
 </div>

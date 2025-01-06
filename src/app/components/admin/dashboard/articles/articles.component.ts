@@ -31,10 +31,10 @@ export class ArticlesComponent extends BaseComponent<ArticleElement> implements 
   ngOnInit(): void {
     this.breadcrumbService.set('@Articles', 'Articles');
 
-    this.getAllArticles();
+    this.getData();
   }
 
-  getAllArticles() {
+  override getData() {
     this.firebaseService
       .getAllArticles()
       .then((values) => {
@@ -50,7 +50,7 @@ export class ArticlesComponent extends BaseComponent<ArticleElement> implements 
   }
 
   override onDelete() {
-    this.getAllArticles();
+    this.getData();
     super.onDelete();
   }
 }

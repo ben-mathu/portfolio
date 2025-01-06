@@ -17,6 +17,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 })
 export class AddArticleComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow!: ArticleElement | undefined;
 
   @Input() set selectedRow(value: ArticleElement) {
@@ -96,10 +97,23 @@ export class AddArticleComponent implements OnInit {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateBlog(blog, this.selectedRow.key);
+        this.firebaseService.updateBlog(blog, this.selectedRow.key)
+          .then(value => {
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+            this.onUpdate.emit();
+          }).catch(error => {
+            this.util.showSnackBar('Error saving article', this.snackBar);
+            console.error(error);
+          });
       } else {
-        this.firebaseService.saveBlog(blog);
-        this.router.navigate(['admin', 'dashboard', 'blogs']);
+        this.firebaseService.saveBlog(blog)
+          .then(value => {
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+            this.router.navigate(['admin', 'dashboard', 'blogs']);
+          }).catch(error => {
+            this.util.showSnackBar('Error saving article', this.snackBar);
+            console.error(error);
+          });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -167,7 +181,13 @@ export class AddArticleComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteBlog(this.selectedRow?.key!);
-    this.onDelete.emit();
+    this.firebaseService.deleteBlog(this.selectedRow?.key!)
+      .then(value => {
+        this.util.showSnackBar('Successfully deleted', this.snackBar);
+        this.onDelete.emit();
+      }).catch(error => {
+        this.util.showSnackBar('Error deleting article', this.snackBar);
+        console.error(error);
+      });
   }
 }
