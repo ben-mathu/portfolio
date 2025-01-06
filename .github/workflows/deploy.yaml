@@ -32,7 +32,7 @@ jobs:
 
       - name: Test & Build
         run: |
-          pnpm run test:ci && pnpm run build
+          pnpm run test:ci
 
   deploy-github-pages:
     needs: tests
@@ -68,4 +68,4 @@ jobs:
 
       - name: Deploy
         run: |
-          pnpm run deploy
+          pnpm run build && pnpm run deploy
