@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  deploy-github-pages:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,21 +18,6 @@ jobs:
 
       - name: Serialize icon names
         run: ./icons/serialize.sh
-
-      - name: Setup for Deployments
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PORTFOLIO_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
-          MY_EMAIL: mathubenard@gmail.com
-          MY_NAME: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.repository }}
-
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions"
-          git remote set-url origin https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
-          # git remote set-url origin https://$MY_NAME:$GITHUB_TOKEN@github.com/$REPO_NAME.git
-          # git remote add upstream https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
 
       - uses: actions/setup-node@v3
         with:
@@ -46,4 +31,29 @@ jobs:
 
       - name: Deploy
         run: |
-          pnpm run build && pnpm run deploy
+          pnpm run test:ci && pnpm run buid
+
+  deploy-github-pages:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup for Deployments
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PORTFOLIO_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
+          MY_EMAIL: mathubenard@gmail.com
+          MY_NAME: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.repository }}
+
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions"
+          git remote set-url origin https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
+
+      - name: Deploy
+        run: |
+          pnpm run deploy

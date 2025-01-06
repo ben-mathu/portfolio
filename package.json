@@ -12,7 +12,8 @@
     "build": "ng build --base-href=https://ben-mathu.github.io/ben-mathu/",
     "watch": "ng build --watch --configuration development",
     "deploy": "npx angular-cli-ghpages --dir=dist/ben-mathu/browser --no-silent",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
