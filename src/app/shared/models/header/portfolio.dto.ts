@@ -57,5 +57,4 @@ export interface JournalElement {
   tags: string[];
   dateCreated: string;
   dateUpdated: string;
-  dateReminder: string;
 }

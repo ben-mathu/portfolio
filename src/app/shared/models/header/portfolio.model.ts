@@ -44,5 +44,4 @@ export interface JournalDetails {
   tags: string[];
   dateCreated: string;
   dateUpdated: string;
-  dateReminder: string;
 }
