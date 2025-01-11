@@ -6,7 +6,36 @@ on:
       - '*'
 
 jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make Script Executable
+        run: chmod +x icons/serialize.sh
+
+      - name: Serialize icon names
+        run: ./icons/serialize.sh
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.19
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: true
+
+      - name: Test & Build
+        run: |
+          pnpm run test:ci
+
   deploy-github-pages:
+    needs: tests
     runs-on: ubuntu-latest
 
     steps:
@@ -31,10 +60,9 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions"
           git remote set-url origin https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
-          # git remote set-url origin https://$MY_NAME:$GITHUB_TOKEN@github.com/$REPO_NAME.git
-          # git remote add upstream https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18.19
 
@@ -46,5 +74,4 @@ jobs:
 
       - name: Deploy
         run: |
-          pnpm run build
-          pnpm run deploy
+          pnpm run build && pnpm run deploy

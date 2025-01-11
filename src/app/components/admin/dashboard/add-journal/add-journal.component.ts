@@ -17,6 +17,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 })
 export class AddJournalComponent {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow!: JournalElement;
 
   @Input() set selectedRow(value: JournalElement) {
@@ -88,10 +89,23 @@ export class AddJournalComponent {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateJournal(log, this.selectedRow.key);
+        this.firebaseService.updateJournal(log, this.selectedRow.key)
+          .then(value => {
+            this.onUpdate.emit();
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+          }).catch(error => {
+            this.util.showSnackBar('Journal not updated', this.snackBar);
+            console.error(error);
+          });
       } else {
-        this.firebaseService.saveJournal(log);
-        this.router.navigate(['admin', 'dashboard', 'journal']);
+        this.firebaseService.saveJournal(log)
+          .then(value => {
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+            this.router.navigate(['admin', 'dashboard', 'journal']);
+          }).catch(error => {
+            this.util.showSnackBar('Journal not saved', this.snackBar);
+            console.error(error);
+          });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -160,7 +174,13 @@ export class AddJournalComponent {
   }
 
   delete() {
-    this.firebaseService.deleteBlog(this.selectedRow.key);
-    this.onDelete.emit();
+    this.firebaseService.deleteJournal(this.selectedRow.key)
+      .then(value => {
+        this.util.showSnackBar('Successfully deleted', this.snackBar);
+        this.onDelete.emit();
+      }).catch(error => {
+        this.util.showSnackBar('Journal not deleted', this.snackBar);
+        console.error(error);
+      });
   }
 }

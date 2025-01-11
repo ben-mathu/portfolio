@@ -28,10 +28,10 @@ export class AchievementsComponent extends BaseComponent<AchievementElement> imp
 
   ngOnInit(): void {
     this.breadcrumbService.set('@Achievements', 'Achievements');
-    this.getAllAchievements();
+    this.getData();
   }
 
-  getAllAchievements() {
+  override getData() {
     this.firebaseService
       .getAchievements()
       .then((values) => {
@@ -57,7 +57,7 @@ export class AchievementsComponent extends BaseComponent<AchievementElement> imp
   }
 
   override onDelete() {
-    this.getAllAchievements();
+    this.getData();
     super.onDelete();
   }
 }

@@ -31,5 +31,5 @@
       </table>
     </div>
   </div>
-  <app-add-certificate *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()"></app-add-certificate>
+  <app-add-certificate *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-certificate>
 </div>

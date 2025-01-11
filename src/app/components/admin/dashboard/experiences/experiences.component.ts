@@ -37,10 +37,10 @@ export class ExperiencesComponent extends BaseComponent<ExperienceElement> imple
   ngOnInit(): void {
     this.breadcrumbService.set('@Experiences', 'Experiences');
 
-    this.getAllExperiences();
+    this.getData();
   }
 
-  getAllExperiences() {
+  override getData() {
     this.firebaseService
       .getAllExperiences()
       .then((values) => {
@@ -63,7 +63,7 @@ export class ExperiencesComponent extends BaseComponent<ExperienceElement> imple
   }
 
   override onDelete() {
-    this.getAllExperiences();
+    this.getData();
     super.onDelete();
   }
 }

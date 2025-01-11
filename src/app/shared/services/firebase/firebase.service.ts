@@ -63,16 +63,25 @@ export class FirebaseService {
     });
   }
 
-  saveBlog(blog: ArticleDetails) {
-    push(ref(this.database, `${this.baseEndpoint}/blogs`), blog);
+  saveBlog(blog: ArticleDetails): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      push(ref(this.database, `${this.baseEndpoint}/blogs`), blog);
+      resolve(true)
+    });
   }
 
-  updateBlog(blog: ArticleDetails, key: string) {
-    update(ref(this.database, `${this.baseEndpoint}/blogs/${key}`), blog);
+  updateBlog(blog: ArticleDetails, key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      update(ref(this.database, `${this.baseEndpoint}/blogs/${key}`), blog);
+      resolve(true)
+    });
   }
 
-  deleteBlog(key: string) {
-    remove(ref(this.database, `${this.baseEndpoint}/blog/${key}`));
+  deleteBlog(key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      remove(ref(this.database, `${this.baseEndpoint}/blog/${key}`));
+      resolve(true)
+    });
   }
 
   getHeader(): Promise<MyDetails> {
@@ -81,32 +90,46 @@ export class FirebaseService {
     });
   }
 
-  saveExperience(experience: ExperienceDetails) {
-    push(ref(this.database, `${this.baseEndpoint}/experiences`), experience);
+  saveExperience(experience: ExperienceDetails): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      push(ref(this.database, `${this.baseEndpoint}/experiences`), experience);
+      resolve(true)
+    });
   }
 
-  updateExperience(experience: ExperienceDetails, key: string) {
-    update(ref(this.database, `${this.baseEndpoint}/experiences/${key}`), experience);
+  updateExperience(experience: ExperienceDetails, key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      update(ref(this.database, `${this.baseEndpoint}/experiences/${key}`), experience);
+      resolve(true)
+    });
   }
 
-  saveProject(project: ProjectDetail) {
-    push(ref(this.database, `${this.baseEndpoint}/projects`), project);
+  saveProject(project: ProjectDetail): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      push(ref(this.database, `${this.baseEndpoint}/projects`), project);
+      resolve(true);
+    });
   }
 
-  updateProject(project: ProjectDetail, key: string) {
-    update(ref(this.database, `${this.baseEndpoint}/projects/${key}`), project);
+  updateProject(project: ProjectDetail, key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      update(ref(this.database, `${this.baseEndpoint}/projects/${key}`), project);
+      resolve(true);
+    });
   }
 
-  updateProjectDescription(key: string, value: string) {
-    set(ref(this.database, `${this.baseEndpoint}/projects/${key}` + '/projectDescription'), value);
+  deleteProject(key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      remove(ref(this.database, `${this.baseEndpoint}/projects/${key}`));
+      resolve(true);
+    });
   }
 
-  deleteProject(key: string) {
-    remove(ref(this.database, `${this.baseEndpoint}/projects/${key}`));
-  }
-
-  deleteExperience(key: string) {
-    remove(ref(this.database, `${this.baseEndpoint}/experiences/${key}`));
+  deleteExperience(key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      remove(ref(this.database, `${this.baseEndpoint}/experiences/${key}`));
+      resolve(true);
+    });
   }
 
   getAllProjects(): Promise<ProjectElement[]> {
@@ -239,16 +262,24 @@ export class FirebaseService {
     });
   }
 
-  saveAchievement(achievement: AchievementDetails) {
-    push(ref(this.database, `${this.baseEndpoint}/achievements`), achievement);
+  saveAchievement(achievement: AchievementDetails): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      push(ref(this.database, `${this.baseEndpoint}/achievements`), achievement);
+      resolve(true);
+    })
   }
 
-  updateAchievement(achievement: AchievementDetails, key: string) {
-    update(ref(this.database, `${this.baseEndpoint}/achievements/${key}`), achievement);
+  updateAchievement(achievement: AchievementDetails, key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      update(ref(this.database, `${this.baseEndpoint}/achievements/${key}`), achievement);
+      resolve(true);
+    })
   }
 
-  deleteAchievement(key: string) {
-    remove(ref(this.database, `${this.baseEndpoint}/achievements/${key}`));
+  deleteAchievement(key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      remove(ref(this.database, `${this.baseEndpoint}/achievements/${key}`));
+    });
   }
 
   getCertificates() {
@@ -283,16 +314,25 @@ export class FirebaseService {
     });
   }
 
-  deleteCertificate(key: string) {
-    remove(ref(this.database, `${this.baseEndpoint}/certificates/${key}`));
+  deleteCertificate(key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      remove(ref(this.database, `${this.baseEndpoint}/certificates/${key}`));
+      resolve(true)
+    });
   }
 
-  updateCertificate(certificate: CertificateDetails, key: string) {
-    update(ref(this.database, `${this.baseEndpoint}/certificates/${key}`), certificate);
+  updateCertificate(certificate: CertificateDetails, key: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      update(ref(this.database, `${this.baseEndpoint}/certificates/${key}`), certificate);
+      resolve(true)
+    });
   }
 
-  saveCertificate(certificate: CertificateDetails) {
-    push(ref(this.database, `${this.baseEndpoint}/certificates`), certificate);
+  saveCertificate(certificate: CertificateDetails): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      push(ref(this.database, `${this.baseEndpoint}/certificates`), certificate);
+      resolve(true)
+    });
   }
 
   retrieveContent(url: string): Promise<string> {
@@ -348,23 +388,46 @@ export class FirebaseService {
     });
   }
 
-  updateJournal(log: JournalDetails, key: string) {
-    this.authService.getUserId()
+  updateJournal(log: JournalDetails, key: string): Promise<JournalDetails> {
+    return new Promise<JournalDetails>((resolve, reject) => {
+      this.authService.getUserId()
       .then(userId => {
         update(ref(this.database, `journal/${userId}/${key}`), log);
+        resolve(log)
       }, (error) => {
         console.error(error);
+        reject(error);
       });
+    })
   }
 
-  saveJournal(log: JournalDetails) {
-    this.authService.getUserId()
+  saveJournal(log: JournalDetails): Promise<JournalDetails> {
+    return new Promise<JournalDetails>((resolve, reject) => {
+      this.authService.getUserId()
       .then(userId => {
         if (userId) {
           push(ref(this.database, `journal/${userId}`), log);
+          resolve(log);
         }
       }, (error) => {
         console.error(error);
+        reject(error);
       });
+    })
+  }
+
+  deleteJournal(key: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.authService.getUserId()
+      .then(userId => {
+        if (userId) {
+          remove(ref(this.database, `journal/${userId}/${key}`));
+          resolve(key);
+        }
+      }, error => {
+        console.error(error);
+        reject(error);
+      })
+    })
   }
 }

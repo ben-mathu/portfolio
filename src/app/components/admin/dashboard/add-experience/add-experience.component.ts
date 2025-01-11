@@ -25,6 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddExperienceComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow: ExperienceElement | undefined;
 
   @Input() set selectedRow(value: ExperienceElement) {
@@ -104,7 +105,7 @@ export class AddExperienceComponent implements OnInit {
   add() {
     try {
       if (!this.skillList) this.skillList = [];
-      
+
       const experience: ExperienceDetails = {
         title: this.f['title'].value,
         startDate: this.util.parseAndFormatDate(this.f['startDate'].value),
@@ -116,10 +117,23 @@ export class AddExperienceComponent implements OnInit {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateExperience(experience, this.selectedRow.key);
+        this.firebaseService.updateExperience(experience, this.selectedRow.key)
+          .then(value => {
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+            this.onUpdate.emit();
+          }).catch(error => {
+            this.util.showSnackBar('Experience not updated', this.snackBar);
+            console.error(error);
+          });
       } else {
-        this.firebaseService.saveExperience(experience);
-        this.router.navigate(['admin', 'dashboard', 'experiences']);
+        this.firebaseService.saveExperience(experience)
+          .then(value => {
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+            this.router.navigate(['admin', 'dashboard', 'experiences']);
+          }).catch(error => {
+            this.util.showSnackBar('Experience not saved', this.snackBar);
+            console.error(error);
+          });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -127,8 +141,14 @@ export class AddExperienceComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteExperience(this.selectedRow!.key);
-    this.onDelete.emit();
+    this.firebaseService.deleteExperience(this.selectedRow!.key)
+      .then(value => {
+        this.util.showSnackBar('Successfully updated', this.snackBar);
+        this.onDelete.emit();
+      }).catch(error => {
+        this.util.showSnackBar('Experience not deleted', this.snackBar);
+        console.error(error);
+      });
   }
 
   onChange(event: Event) {
@@ -175,7 +195,7 @@ export class AddExperienceComponent implements OnInit {
 
   edit(skill: string, event: MatChipEditedEvent) {
     if (!this.skillList) return;
-    
+
     const index: number = this.skillList.indexOf(skill, 0);
     const changedValue: string = event.value.trim();
 

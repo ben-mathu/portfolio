@@ -15,6 +15,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 })
 export class AddAchievementComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   private _selectedRow!: AchievementElement | undefined;
 
   @Input() set selectedRow(value: AchievementElement) {
@@ -77,13 +78,23 @@ export class AddAchievementComponent implements OnInit {
       };
 
       if (this.selectedRow) {
-        this.firebaseService.updateAchievement(
-          achievement,
-          this.selectedRow.key
-        );
+        this.firebaseService.updateAchievement(achievement, this.selectedRow.key)
+          .then(value => {
+            this.util.showSnackBar('Successfully updated', this.snackBar);
+            this.onUpdate.emit();
+          }).catch(error => {
+            this.util.showSnackBar('Error updating achievement', this.snackBar);
+            console.error(error);
+          });
       } else {
-        this.firebaseService.saveAchievement(achievement);
-        this.router.navigate(['admin', 'dashboard', 'achievements']);
+        this.firebaseService.saveAchievement(achievement)
+          .then(value => {
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+            this.router.navigate(['admin', 'dashboard', 'achievements']);
+          }).catch(error => {
+            this.util.showSnackBar('Successfully saved', this.snackBar);
+            console.error(error);
+          });
       }
     } catch (error) {
       this.util.showSnackBar('All Fields are Required', this.snackBar);
@@ -91,7 +102,13 @@ export class AddAchievementComponent implements OnInit {
   }
 
   delete() {
-    this.firebaseService.deleteAchievement(this.selectedRow!.key);
-    this.onDelete.emit();
+    this.firebaseService.deleteAchievement(this.selectedRow!.key)
+      .then(value => {
+        this.util.showSnackBar('Successfully deleted', this.snackBar);
+        this.onDelete.emit();
+      }).catch(error => {
+        this.util.showSnackBar('Error deleting achievements', this.snackBar);
+        console.error(error);
+      });
   }
 }
