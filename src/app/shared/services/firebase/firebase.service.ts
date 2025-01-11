@@ -369,8 +369,7 @@ export class FirebaseService {
                   log: databaseVal[keys[i]].log,
                   tags: databaseVal[keys[i]].tags,
                   dateCreated: databaseVal[keys[i]].dateCreated,
-                  dateUpdated: databaseVal[keys[i]].dateUpdated,
-                  dateReminder: databaseVal[keys[i]].dateReminder
+                  dateUpdated: databaseVal[keys[i]].dateUpdated
                 }
 
                 c.push(log);

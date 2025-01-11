@@ -11,10 +11,8 @@
         <span class="log-title">{{ log.title }}</span>
         <i>{{ log.dateUpdated }}</i>
       </div>
-      <div class="log-details">
-        <span>{{ log.log.substring(0, 50) + '...' }}</span>
-        <i *ngIf="log.dateReminder">Reminder: {{ log.dateReminder }}</i>
-      </div>
+      
+      <span>{{ log.log.substring(0, 50) + '...' }}</span>
     </div>
   </div>
   <app-add-journal *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-journal>

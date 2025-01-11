@@ -26,7 +26,6 @@ export class AddJournalComponent {
     if (this.addJournalForm) {
       this.addJournalForm.patchValue({
         title: value.title,
-        reminder: value.dateReminder,
         text: value.log
       });
     }
@@ -39,7 +38,6 @@ export class AddJournalComponent {
   }
 
   journalTitleLabel: string = 'Title';
-  reminderLabel: string = 'Reminder';
   journalTextLabel: string = 'Log';
   tagsLabel: string = 'Tags';
   addJournalForm!: FormGroup;
@@ -62,9 +60,6 @@ export class AddJournalComponent {
       title: [
         this.selectedRow ? this.selectedRow.title : '',
         Validators.required,
-      ],
-      reminder: [
-        this.selectedRow ? this.selectedRow.dateReminder : ''
       ],
       text: [
         this.selectedRow ? this.selectedRow.log : ''
@@ -90,8 +85,7 @@ export class AddJournalComponent {
         dateCreated: this.selectedRow
           ? this.selectedRow.dateCreated
           : this.util.formatDate(new Date()),
-        dateUpdated: this.util.formatDate(new Date()),
-        dateReminder: this.util.parseAndFormatDate(this.f['reminder'].value)
+        dateUpdated: this.util.formatDate(new Date())
       };
 
       if (this.selectedRow) {
