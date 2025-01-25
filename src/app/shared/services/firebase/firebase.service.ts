@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { MyDetails } from '../../models/header/header';
 import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
+import { Constants } from '../../utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class FirebaseService {
 
   getAllArticles(): Promise<ArticleElement[]> {
     return new Promise<ArticleElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/blogs`), (snapshot) => {
+      onValue(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), (snapshot) => {
         const databaseVal = snapshot.val();
 
         let keys: string[] = []
@@ -45,8 +46,8 @@ export class FirebaseService {
               title: databaseVal[keys[i]].title,
               author: databaseVal[keys[i]].author,
               article: databaseVal[keys[i]].blog,
-              dateCreated: databaseVal[keys[i]].dataCreated,
-              dateUpdated: databaseVal[keys[i]].dataUpdated,
+              dateCreated: databaseVal[keys[i]].dateCreated,
+              dateUpdated: databaseVal[keys[i]].dateUpdated,
               tags: databaseVal[keys[i]].tags
             };
 
@@ -65,21 +66,21 @@ export class FirebaseService {
 
   saveBlog(blog: ArticleDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      push(ref(this.database, `${this.baseEndpoint}/blogs`), blog);
+      push(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), blog);
       resolve(true)
     });
   }
 
   updateBlog(blog: ArticleDetails, key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}/blogs/${key}`), blog);
+      update(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`), blog);
       resolve(true)
     });
   }
 
   deleteBlog(key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      remove(ref(this.database, `${this.baseEndpoint}/blog/${key}`));
+      remove(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`));
       resolve(true)
     });
   }
