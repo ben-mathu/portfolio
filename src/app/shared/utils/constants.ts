@@ -7,4 +7,7 @@ export class Constants {
   static readonly EXPERIENCE = 'experience';
 
   static readonly ARTICLE_REF_NAME = '@Article';
+
+  // Firebase enpoints
+  static readonly BLOG = "/blog"
 }
