@@ -166,6 +166,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   retrieveContent(url: string | undefined = undefined) {
+    if (!this.addProjectForm) return;
     this.firebaseService
       .retrieveContent(url ? url : this.f['contentUrl'].value)
       .then((value) => {

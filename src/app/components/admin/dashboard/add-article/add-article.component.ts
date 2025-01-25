@@ -64,8 +64,7 @@ export class AddArticleComponent implements OnInit {
         Validators.required,
       ],
       author: [
-        this.selectedRow ? this.selectedRow.author : '',
-        Validators.required,
+        this.selectedRow ? this.selectedRow.author : ''
       ],
       text: [
         this.selectedRow ? this.selectedRow.article : '',
@@ -85,9 +84,16 @@ export class AddArticleComponent implements OnInit {
     try {
       if (!this.tags) this.tags = [];
 
+      let author: string = ""
+      if (this.f['author'].value) {
+        author = this.f['author'].value
+      } else {
+        author = "benatt"
+      }
+
       const blog: ArticleDetails = {
         title: this.f['title'].value,
-        author: this.f['author'].value,
+        author: author,
         blog: this.f['text'].value,
         tags: this.tags,
         dateCreated: this.selectedRow
@@ -109,7 +115,7 @@ export class AddArticleComponent implements OnInit {
         this.firebaseService.saveBlog(blog)
           .then(value => {
             this.util.showSnackBar('Successfully saved', this.snackBar);
-            this.router.navigate(['admin', 'dashboard', 'blogs']);
+            this.router.navigate(['admin', 'dashboard', 'articles']);
           }).catch(error => {
             this.util.showSnackBar('Error saving article', this.snackBar);
             console.error(error);
