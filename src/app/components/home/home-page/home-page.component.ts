@@ -1,6 +1,5 @@
 import { Breakpoints } from '@angular/cdk/layout';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { CardDetail } from 'src/app/shared/models/header/card_detail';
 import { MyDetails, Skill } from 'src/app/shared/models/header/header';
 import {
@@ -79,8 +78,6 @@ export class HomePageComponent implements OnInit {
 
     this.service.getHeader().then((result) => {
       this.myDetails = result;
-      console.log('Header: ' + this.myDetails);
-      console.log('Header: ' + result);
 
       this.myDetails.languages = this.myDetails.languages.sort(
         (a: Skill, b: Skill) => {

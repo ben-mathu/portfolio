@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
+import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import {
   provideFirestore,
@@ -22,7 +22,6 @@ import {
 } from '@angular/fire/firestore';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SharedModule } from './shared/components/shared.module';
-import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HomeModule } from './components/home/home.module';
 import { AdminModule } from './components/admin/admin.module';
 import { MarkdownModule } from 'ngx-markdown';
@@ -32,8 +31,6 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { Utils } from './shared/utils/utils';
-import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
@@ -69,7 +66,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatIconRegistry,
     {
       provide: Utils
-    }
+    },
+    ScreenTrackingService,
+    UserTrackingService
   ],
 })
 export class AppModule {}

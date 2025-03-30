@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { child, Database, get, onValue, push, ref, remove, set, update } from '@angular/fire/database';
+import { Database, onValue, push, ref, remove, update } from '@angular/fire/database';
 import { AchievementDetails, ArticleDetails, CertificateDetails, ExperienceDetails, JournalDetails, ProjectDetail } from '../../models/header/portfolio.model';
 import { AchievementElement, ArticleElement, CertificateElement, ExperienceElement, JournalElement, ProjectElement } from '../../models/header/portfolio.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -66,21 +66,30 @@ export class FirebaseService {
 
   saveBlog(blog: ArticleDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      push(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), blog);
-      resolve(true)
+      push(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), blog)
+        .then((result) => resolve(true))
+        .catch((error) => {
+          console.log("Please check your rules before changing code");
+          reject("Error saving blog");
+        });
     });
   }
 
   updateBlog(blog: ArticleDetails, key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`), blog);
-      resolve(true)
+      update(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`), blog)
+        .then((result) => resolve(true))
+        .catch((error) => {
+          console.log("Please check your rules before changing code");
+          reject("Error updating blog")
+        });
     });
   }
 
   deleteBlog(key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      remove(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`));
+      remove(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`))
+        .catch((error) => reject("Error deleting` blog"));;
       resolve(true)
     });
   }
