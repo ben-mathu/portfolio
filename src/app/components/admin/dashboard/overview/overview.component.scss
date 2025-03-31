@@ -1,0 +1,7 @@
+@use '../../../../../styles/variables' as var;
+
+.overview-container {
+    border: solid 1px var.$borderColor;
+    border-radius: 10px;
+    padding: .4rem 1rem;
+}
