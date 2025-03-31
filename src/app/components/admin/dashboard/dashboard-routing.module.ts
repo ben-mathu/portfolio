@@ -19,9 +19,13 @@ import { AddJournalComponent } from './add-journal/add-journal.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: OverviewComponent,
+  },
+  {
     path: 'articles',
     component: ArticlesComponent,
-    data: { breadcrumb: { alias: 'Articles' }},
+    data: { breadcrumb: { alias: 'Articles' } },
   },
   {
     path: 'articles',
@@ -29,14 +33,14 @@ const routes: Routes = [
       {
         path: 'add-article',
         component: AddArticleComponent,
-        data: { breadcrumb: { alias: 'AddArticle' }}
-      }
-    ]
+        data: { breadcrumb: { alias: 'AddArticle' } },
+      },
+    ],
   },
   {
     path: 'experiences',
     component: ExperiencesComponent,
-    data: { breadcrumb: { alias: 'Experiences' }},
+    data: { breadcrumb: { alias: 'Experiences' } },
   },
   {
     path: 'experiences',
@@ -44,14 +48,14 @@ const routes: Routes = [
       {
         path: 'add-experience',
         component: AddExperienceComponent,
-        data: { breadcrumb: { alias: 'AddExperience' }}
-      }
-    ]
+        data: { breadcrumb: { alias: 'AddExperience' } },
+      },
+    ],
   },
   {
     path: 'projects',
     component: ListProjectsComponent,
-    data: { breadcrumb: { alias: 'Projects' }},
+    data: { breadcrumb: { alias: 'Projects' } },
   },
   {
     path: 'projects',
@@ -59,14 +63,14 @@ const routes: Routes = [
       {
         path: 'add-project',
         component: AddProjectComponent,
-        data: { breadcrumb: { alias: 'AddProject' }}
-      }
-    ]
+        data: { breadcrumb: { alias: 'AddProject' } },
+      },
+    ],
   },
   {
     path: 'achievements',
     component: AchievementsComponent,
-    data: {breadcrumb: { alias: 'Achievements' }}
+    data: { breadcrumb: { alias: 'Achievements' } },
   },
   {
     path: 'achievements',
@@ -74,14 +78,14 @@ const routes: Routes = [
       {
         path: 'add-achievement',
         component: AddAchievementComponent,
-        data: { breadcrumb: { alias: 'AddAchievement' }}
-      }
-    ]
+        data: { breadcrumb: { alias: 'AddAchievement' } },
+      },
+    ],
   },
   {
     path: 'certificates',
     component: CertificatesComponent,
-    data: {breadcrumb: { alias: 'Certificates' }}
+    data: { breadcrumb: { alias: 'Certificates' } },
   },
   {
     path: 'certificates',
@@ -89,14 +93,14 @@ const routes: Routes = [
       {
         path: 'add-certificate',
         component: AddCertificateComponent,
-        data: { breadcrumb: { alias: 'AddCertificate' }}
-      }
-    ]
+        data: { breadcrumb: { alias: 'AddCertificate' } },
+      },
+    ],
   },
   {
     path: 'journal',
     component: JournalLogComponent,
-    data: {breadcrumb: { alias: 'Journal' }}
+    data: { breadcrumb: { alias: 'Journal' } },
   },
   {
     path: 'journal',
@@ -104,17 +108,14 @@ const routes: Routes = [
       {
         path: 'add-log',
         component: AddJournalComponent,
-        data: { breadcrumb: { alias: 'AddJournal' }}
-      }
-    ]
-  }
+        data: { breadcrumb: { alias: 'AddJournal' } },
+      },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

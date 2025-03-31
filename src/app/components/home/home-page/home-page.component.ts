@@ -18,7 +18,6 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-
   experiences: ExperienceElement[] = [];
   projects: ProjectElement[] = [];
   certificates: CertificateElement[] = [];
@@ -64,7 +63,7 @@ export class HomePageComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     util: Utils
   ) {
-    this.util = util
+    this.util = util;
   }
 
   getYear(date: string): number {
@@ -76,45 +75,48 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.set('@Home', 'Home');
 
-    this.service.getHeader().then((result) => {
-      this.myDetails = result;
+    this.service
+      .getHeader()
+      .then((result) => {
+        this.myDetails = result;
 
-      this.myDetails.languages = this.myDetails.languages.sort(
-        (a: Skill, b: Skill) => {
-          const rateA: number = Number(a.rating);
-          const rateB: number = Number(b.rating);
+        this.myDetails.languages = this.myDetails.languages.sort(
+          (a: Skill, b: Skill) => {
+            const rateA: number = Number(a.rating);
+            const rateB: number = Number(b.rating);
 
-          if (rateA < rateB) {
-            return 1;
+            if (rateA < rateB) {
+              return 1;
+            }
+
+            if (rateA > rateB) {
+              return -1;
+            }
+
+            return 0;
           }
+        );
 
-          if (rateA > rateB) {
-            return -1;
+        this.myDetails.technologies = this.myDetails.technologies.sort(
+          (a: Skill, b: Skill) => {
+            const rateA: number = Number(a.rating);
+            const rateB: number = Number(b.rating);
+
+            if (rateA < rateB) {
+              return 1;
+            }
+
+            if (rateA > rateB) {
+              return -1;
+            }
+
+            return 0;
           }
-
-          return 0;
-        }
-      );
-
-      this.myDetails.technologies = this.myDetails.technologies.sort(
-        (a: Skill, b: Skill) => {
-          const rateA: number = Number(a.rating);
-          const rateB: number = Number(b.rating);
-
-          if (rateA < rateB) {
-            return 1;
-          }
-
-          if (rateA > rateB) {
-            return -1;
-          }
-
-          return 0;
-        }
-      );
-    }).catch(error => {
-      console.error(error);
-    });
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     this.service
       .getAllExperiences()
@@ -201,38 +203,41 @@ export class HomePageComponent implements OnInit {
       });
     });
 
-    this.service.getAchievements().then((values) => {
-      this.achievements = values;
+    this.service
+      .getAchievements()
+      .then((values) => {
+        this.achievements = values;
 
-      this.genAchievementClassName = [];
-      this.achievements.map((achievement) => {
-        const classStyleName = this.getClass();
-        if (classStyleName === ' wide') {
-          achievement.description =
-            achievement.description.substring(0, 130) + '...';
-        } else if (classStyleName === ' long') {
-          achievement.description =
-            achievement.description.substring(0, 150) + '...';
-        } else if (classStyleName === ' big') {
-          achievement.description =
-            achievement.description.substring(0, 500) + '...';
-        } else if (classStyleName === ' tall') {
-          achievement.description =
-            achievement.description.substring(0, 110) + '...';
-        }
-        this.genAchievementClassName.push(classStyleName);
+        this.genAchievementClassName = [];
+        this.achievements.map((achievement) => {
+          const classStyleName = this.getClass();
+          if (classStyleName === ' wide') {
+            achievement.description =
+              achievement.description.substring(0, 130) + '...';
+          } else if (classStyleName === ' long') {
+            achievement.description =
+              achievement.description.substring(0, 150) + '...';
+          } else if (classStyleName === ' big') {
+            achievement.description =
+              achievement.description.substring(0, 500) + '...';
+          } else if (classStyleName === ' tall') {
+            achievement.description =
+              achievement.description.substring(0, 110) + '...';
+          }
+          this.genAchievementClassName.push(classStyleName);
+        });
+      })
+      .catch((err) => {
+        // Error retrieving achievements
       });
-    }).catch(err => {
-      // Error retrieving achievements
-    });
 
-    this.util.screenState?.subscribe(state => {
+    this.util.screenState?.subscribe((state) => {
       if (state === Breakpoints.XSmall || state === Breakpoints.Small) {
         this.colNum = 2;
       } else {
         this.colNum = 3;
       }
-    })
+    });
   }
 
   randomIntFromInterval(min: number, max: number) {

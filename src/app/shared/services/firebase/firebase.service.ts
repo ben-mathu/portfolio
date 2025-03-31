@@ -1,116 +1,138 @@
 import { Injectable } from '@angular/core';
-import { Database, onValue, push, ref, remove, update } from '@angular/fire/database';
-import { AchievementDetails, ArticleDetails, CertificateDetails, ExperienceDetails, JournalDetails, ProjectDetail } from '../../models/header/portfolio.model';
-import { AchievementElement, ArticleElement, CertificateElement, ExperienceElement, JournalElement, ProjectElement } from '../../models/header/portfolio.dto';
+import {
+  child,
+  Database,
+  get,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+  update,
+} from '@angular/fire/database';
+import {
+  AchievementDetails,
+  ArticleDetails,
+  CertificateDetails,
+  ExperienceDetails,
+  JournalDetails,
+  ProjectDetail,
+} from '../../models/header/portfolio.model';
+import {
+  AchievementElement,
+  ArticleElement,
+  CertificateElement,
+  ExperienceElement,
+  JournalElement,
+  ProjectElement,
+} from '../../models/header/portfolio.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { MyDetails } from '../../models/header/header';
-import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { Constants } from '../../utils/constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseService {
   baseEndpoint: string = 'public';
 
-  constructor(private database: Database, private http: HttpClient, private authService: AuthService) {}
-
-  onAuthStateChanged(auth: Auth): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      onAuthStateChanged(auth, (user) => { resolve(user) }, (error) => { reject(error) });
-    })
-  }
-
-  signOut(auth: Auth): Promise<void> {
-    return signOut(auth);
-  }
-  getAuth(): Auth {
-    return getAuth();
-  }
+  constructor(
+    private database: Database,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
   getAllArticles(): Promise<ArticleElement[]> {
     return new Promise<ArticleElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      onValue(
+        ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`),
+        (snapshot) => {
+          const databaseVal = snapshot.val();
 
-        let keys: string[] = []
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
+          let keys: string[] = [];
+          if (databaseVal) {
+            keys = Object.keys(databaseVal);
 
-          const b: ArticleElement[] = [];
-          for (let i = 0; i < keys.length; i++) {
-            const blog: ArticleElement = {
-              index: i,
-              key: keys[i],
-              title: databaseVal[keys[i]].title,
-              author: databaseVal[keys[i]].author,
-              article: databaseVal[keys[i]].blog,
-              dateCreated: databaseVal[keys[i]].dateCreated,
-              dateUpdated: databaseVal[keys[i]].dateUpdated,
-              tags: databaseVal[keys[i]].tags
-            };
+            const b: ArticleElement[] = [];
+            for (let i = 0; i < keys.length; i++) {
+              const blog: ArticleElement = {
+                index: i,
+                key: keys[i],
+                title: databaseVal[keys[i]].title,
+                author: databaseVal[keys[i]].author,
+                article: databaseVal[keys[i]].blog,
+                dateCreated: databaseVal[keys[i]].dateCreated,
+                dateUpdated: databaseVal[keys[i]].dateUpdated,
+                tags: databaseVal[keys[i]].tags,
+              };
 
-            b.push(blog);
+              b.push(blog);
+            }
+
+            resolve(b);
+          } else {
+            reject(Error('No records forund in blogs'));
           }
-
-          resolve(b);
-        } else {
-          reject(Error('No records forund in blogs'));
+        },
+        (error) => {
+          reject(error.message);
         }
-      }, (error) => {
-        reject(error.message);
-      });
+      );
     });
   }
 
   saveBlog(blog: ArticleDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      push(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), blog)
-        .then((result) => resolve(true))
-        .catch((error) => {
-          console.log("Please check your rules before changing code");
-          reject("Error saving blog");
-        });
+      push(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}`), blog);
+      resolve(true);
     });
   }
 
   updateBlog(blog: ArticleDetails, key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`), blog)
-        .then((result) => resolve(true))
-        .catch((error) => {
-          console.log("Please check your rules before changing code");
-          reject("Error updating blog")
-        });
+      update(
+        ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`),
+        blog
+      );
+      resolve(true);
     });
   }
 
   deleteBlog(key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      remove(ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`))
-        .catch((error) => reject("Error deleting` blog"));;
-      resolve(true)
+      remove(
+        ref(this.database, `${this.baseEndpoint}${Constants.BLOG}/${key}`)
+      );
+      resolve(true);
     });
   }
 
   getHeader(): Promise<MyDetails> {
     return new Promise<MyDetails>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/header`), (snapshot) => resolve(snapshot.val()));
+      onValue(ref(this.database, `${this.baseEndpoint}/header`), (snapshot) =>
+        resolve(snapshot.val())
+      );
     });
   }
 
   saveExperience(experience: ExperienceDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       push(ref(this.database, `${this.baseEndpoint}/experiences`), experience);
-      resolve(true)
+      resolve(true);
     });
   }
 
-  updateExperience(experience: ExperienceDetails, key: string): Promise<boolean> {
+  updateExperience(
+    experience: ExperienceDetails,
+    key: string
+  ): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}/experiences/${key}`), experience);
-      resolve(true)
+      update(
+        ref(this.database, `${this.baseEndpoint}/experiences/${key}`),
+        experience
+      );
+      resolve(true);
     });
   }
 
@@ -123,7 +145,10 @@ export class FirebaseService {
 
   updateProject(project: ProjectDetail, key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}/projects/${key}`), project);
+      update(
+        ref(this.database, `${this.baseEndpoint}/projects/${key}`),
+        project
+      );
       resolve(true);
     });
   }
@@ -144,146 +169,173 @@ export class FirebaseService {
 
   getAllProjects(): Promise<ProjectElement[]> {
     return new Promise<ProjectElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/projects`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/projects`),
+        (snapshot) => {
+          const databaseVal = snapshot.val();
 
-        let keys: string[] = [];
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
-        } else {
-          reject(Error("No records in Projects"));
-        }
-
-        const p: ProjectElement[] = [];
-
-        for (let i = 0; i < keys.length; i++) {
-          const project: ProjectElement = {
-            index: i,
-            key: keys[i],
-            projectName: databaseVal[keys[i]].projectName,
-            url: databaseVal[keys[i]].url,
-            contentUrl: databaseVal[keys[i]].contentUrl,
-            type: databaseVal[keys[i]].type,
-            projectDescription: databaseVal[keys[i]].projectDescription,
-            projectStatus: databaseVal[keys[i]].projectStatus ? databaseVal[keys[i]].projectStatus : ''
+          let keys: string[] = [];
+          if (databaseVal) {
+            keys = Object.keys(databaseVal);
+          } else {
+            reject(Error('No records in Projects'));
           }
 
-          p.push(
-            project
-          );
-        }
+          const p: ProjectElement[] = [];
 
-        resolve(p);
-      }, (error) => {
-        reject(error);
-      });
+          for (let i = 0; i < keys.length; i++) {
+            const project: ProjectElement = {
+              index: i,
+              key: keys[i],
+              projectName: databaseVal[keys[i]].projectName,
+              url: databaseVal[keys[i]].url,
+              contentUrl: databaseVal[keys[i]].contentUrl,
+              type: databaseVal[keys[i]].type,
+              projectDescription: databaseVal[keys[i]].projectDescription,
+              projectStatus: databaseVal[keys[i]].projectStatus
+                ? databaseVal[keys[i]].projectStatus
+                : '',
+            };
+
+            p.push(project);
+          }
+
+          resolve(p);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
     });
   }
 
   getAllExperiences(): Promise<ExperienceElement[]> {
     return new Promise<ExperienceElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/experiences`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/experiences`),
+        (snapshot) => {
+          const databaseVal = snapshot.val();
 
-        let keys: string[] = [];
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
-        } else {
-          reject(Error("No records in Experiences"));
-        }
-
-        const e: ExperienceElement[] = [];
-
-        for (let i = 0; i < keys.length; i++) {
-          const experience: ExperienceElement = {
-            index: i,
-            key: keys[i],
-            title: databaseVal[keys[i]].title,
-            startDate: databaseVal[keys[i]].startDate,
-            endDate: databaseVal[keys[i]].endDate,
-            description: databaseVal[keys[i]].description,
-            skills: databaseVal[keys[i]].skills,
-            company: databaseVal[keys[i]].company,
-            image: databaseVal[keys[i]].image,
-            logoUrl: databaseVal[keys[i]].logoUrl
+          let keys: string[] = [];
+          if (databaseVal) {
+            keys = Object.keys(databaseVal);
+          } else {
+            reject(Error('No records in Experiences'));
           }
 
-          e.push(
-            experience
-          );
-        }
+          const e: ExperienceElement[] = [];
 
-        resolve(e);
-      }, (error) => {
-        reject(error.message);
-      });
+          for (let i = 0; i < keys.length; i++) {
+            const experience: ExperienceElement = {
+              index: i,
+              key: keys[i],
+              title: databaseVal[keys[i]].title,
+              startDate: databaseVal[keys[i]].startDate,
+              endDate: databaseVal[keys[i]].endDate,
+              description: databaseVal[keys[i]].description,
+              skills: databaseVal[keys[i]].skills,
+              company: databaseVal[keys[i]].company,
+              image: databaseVal[keys[i]].image,
+              logoUrl: databaseVal[keys[i]].logoUrl,
+            };
+
+            e.push(experience);
+          }
+
+          resolve(e);
+        },
+        (error) => {
+          reject(error.message);
+        }
+      );
     });
   }
 
   getProjectById(id: any): Promise<ProjectElement> {
     return new Promise<ProjectElement>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/projects/` + id), (snapshot) => {
-        resolve(snapshot.val());
-      }, (error) => {
-        reject(error.message);
-      })
-    })
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/projects/` + id),
+        (snapshot) => {
+          resolve(snapshot.val());
+        },
+        (error) => {
+          reject(error.message);
+        }
+      );
+    });
   }
 
   getExperienceById(id: any): Promise<ExperienceElement> {
     return new Promise<ExperienceElement>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/experiences/` + id), (snapshot) => {
-        resolve(snapshot.val());
-      }, (error) => {
-        reject(error.message);
-      })
-    })
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/experiences/` + id),
+        (snapshot) => {
+          resolve(snapshot.val());
+        },
+        (error) => {
+          reject(error.message);
+        }
+      );
+    });
   }
 
   getAchievements(): Promise<AchievementElement[]> {
     return new Promise<AchievementElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/achievements`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/achievements`),
+        (snapshot) => {
+          const databaseVal = snapshot.val();
 
-        let keys: string[] = [];
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
+          let keys: string[] = [];
+          if (databaseVal) {
+            keys = Object.keys(databaseVal);
 
-          const a: AchievementElement[] = [];
-          for (let i = 0; i < keys.length; i++) {
-            const achievement: AchievementElement = {
-              index: i,
-              key: keys[i],
-              name: databaseVal[keys[i]].name,
-              description: databaseVal[keys[i]].description,
-              dateCreated: databaseVal[keys[i]].dateCreated
-            };
+            const a: AchievementElement[] = [];
+            for (let i = 0; i < keys.length; i++) {
+              const achievement: AchievementElement = {
+                index: i,
+                key: keys[i],
+                name: databaseVal[keys[i]].name,
+                description: databaseVal[keys[i]].description,
+                dateCreated: databaseVal[keys[i]].dateCreated,
+              };
 
-            a.push(achievement);
+              a.push(achievement);
+            }
+
+            resolve(a);
+          } else {
+            reject(Error('Achievements not found!'));
           }
-
-          resolve(a);
-        } else {
-          reject(Error('Achievements not found!'));
+        },
+        (error) => {
+          reject(error.message);
         }
-      }, (error) => {
-        reject(error.message);
-      });
+      );
     });
   }
 
   saveAchievement(achievement: AchievementDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      push(ref(this.database, `${this.baseEndpoint}/achievements`), achievement);
+      push(
+        ref(this.database, `${this.baseEndpoint}/achievements`),
+        achievement
+      );
       resolve(true);
-    })
+    });
   }
 
-  updateAchievement(achievement: AchievementDetails, key: string): Promise<boolean> {
+  updateAchievement(
+    achievement: AchievementDetails,
+    key: string
+  ): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}/achievements/${key}`), achievement);
+      update(
+        ref(this.database, `${this.baseEndpoint}/achievements/${key}`),
+        achievement
+      );
       resolve(true);
-    })
+    });
   }
 
   deleteAchievement(key: string): Promise<boolean> {
@@ -294,150 +346,172 @@ export class FirebaseService {
 
   getCertificates() {
     return new Promise<CertificateElement[]>((resolve, reject) => {
-      onValue(ref(this.database, `${this.baseEndpoint}/certificates`), (snapshot) => {
-        const databaseVal = snapshot.val();
+      onValue(
+        ref(this.database, `${this.baseEndpoint}/certificates`),
+        (snapshot) => {
+          const databaseVal = snapshot.val();
 
-        let keys: string[] = [];
-        if (databaseVal) {
-          keys = Object.keys(databaseVal);
+          let keys: string[] = [];
+          if (databaseVal) {
+            keys = Object.keys(databaseVal);
 
-          const c: CertificateElement[] = [];
-          for (let i = 0; i < keys.length; i++) {
-            const achievement: CertificateElement = {
-              index: i,
-              key: keys[i],
-              name: databaseVal[keys[i]].name,
-              url: databaseVal[keys[i]].url,
-              dateCreated: databaseVal[keys[i]].dateCreated
-            };
+            const c: CertificateElement[] = [];
+            for (let i = 0; i < keys.length; i++) {
+              const achievement: CertificateElement = {
+                index: i,
+                key: keys[i],
+                name: databaseVal[keys[i]].name,
+                url: databaseVal[keys[i]].url,
+                dateCreated: databaseVal[keys[i]].dateCreated,
+              };
 
-            c.push(achievement);
+              c.push(achievement);
+            }
+
+            resolve(c);
+          } else {
+            reject(Error('Certificates not found!'));
           }
-
-          resolve(c);
-        } else {
-          reject(Error('Certificates not found!'));
+        },
+        (error) => {
+          reject(error.message);
         }
-      }, (error) => {
-        reject(error.message);
-      });
+      );
     });
   }
 
   deleteCertificate(key: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       remove(ref(this.database, `${this.baseEndpoint}/certificates/${key}`));
-      resolve(true)
+      resolve(true);
     });
   }
 
-  updateCertificate(certificate: CertificateDetails, key: string): Promise<boolean> {
+  updateCertificate(
+    certificate: CertificateDetails,
+    key: string
+  ): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      update(ref(this.database, `${this.baseEndpoint}/certificates/${key}`), certificate);
-      resolve(true)
+      update(
+        ref(this.database, `${this.baseEndpoint}/certificates/${key}`),
+        certificate
+      );
+      resolve(true);
     });
   }
 
   saveCertificate(certificate: CertificateDetails): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      push(ref(this.database, `${this.baseEndpoint}/certificates`), certificate);
-      resolve(true)
+      push(
+        ref(this.database, `${this.baseEndpoint}/certificates`),
+        certificate
+      );
+      resolve(true);
     });
   }
 
   retrieveContent(url: string): Promise<string> {
     return new Promise<string>(async (resolve, reject) => {
       const options: Object = {
-        headers: new HttpHeaders({ 'Accept': 'text/plain' }),
-        responseType: 'text'
-      }
+        headers: new HttpHeaders({ Accept: 'text/plain' }),
+        responseType: 'text',
+      };
 
-      this.http.get<string>(url, options)
-        .subscribe(data => resolve(data))
+      this.http.get<string>(url, options).subscribe((data) => resolve(data));
     });
   }
 
   async getJournal() {
-
     return new Promise<JournalElement[]>((resolve, reject) => {
-      this.authService.getUserId()
-      .then(userId => {
-        if (userId) {
-          onValue(ref(this.database, `journal/${userId}`), (snapshot) => {
-            const databaseVal = snapshot.val();
+      this.authService
+        .getUserId()
+        .then((userId) => {
+          if (userId) {
+            onValue(
+              ref(this.database, `journal/${userId}`),
+              (snapshot) => {
+                const databaseVal = snapshot.val();
 
-            let keys: string[] = [];
-            if (databaseVal) {
-              keys = Object.keys(databaseVal);
+                let keys: string[] = [];
+                if (databaseVal) {
+                  keys = Object.keys(databaseVal);
 
-              const c: JournalElement[] = [];
-              for (let i = 0; i < keys.length; i++) {
-                const log: JournalElement = {
-                  index: i,
-                  key: keys[i],
-                  title: databaseVal[keys[i]].title,
-                  log: databaseVal[keys[i]].log,
-                  tags: databaseVal[keys[i]].tags,
-                  dateCreated: databaseVal[keys[i]].dateCreated,
-                  dateUpdated: databaseVal[keys[i]].dateUpdated
+                  const c: JournalElement[] = [];
+                  for (let i = 0; i < keys.length; i++) {
+                    const log: JournalElement = {
+                      index: i,
+                      key: keys[i],
+                      title: databaseVal[keys[i]].title,
+                      log: databaseVal[keys[i]].log,
+                      tags: databaseVal[keys[i]].tags,
+                      dateCreated: databaseVal[keys[i]].dateCreated,
+                      dateUpdated: databaseVal[keys[i]].dateUpdated,
+                    };
+
+                    c.push(log);
+                  }
+
+                  resolve(c);
+                } else {
+                  reject(Error('No Journal was found!'));
                 }
-
-                c.push(log);
+              },
+              (error) => {
+                reject(error);
               }
-
-              resolve(c);
-            } else {
-              reject(Error('No Journal was found!'));
-            }
-          }, (error) => {
-            reject(error);
-          });
-        }
-      })
-      .catch((error: Error) => reject(error));
+            );
+          }
+        })
+        .catch((error: Error) => reject(error));
     });
   }
 
   updateJournal(log: JournalDetails, key: string): Promise<JournalDetails> {
     return new Promise<JournalDetails>((resolve, reject) => {
-      this.authService.getUserId()
-      .then(userId => {
-        update(ref(this.database, `journal/${userId}/${key}`), log);
-        resolve(log)
-      }, (error) => {
-        console.error(error);
-        reject(error);
-      });
-    })
+      this.authService.getUserId().then(
+        (userId) => {
+          update(ref(this.database, `journal/${userId}/${key}`), log);
+          resolve(log);
+        },
+        (error) => {
+          console.error(error);
+          reject(error);
+        }
+      );
+    });
   }
 
   saveJournal(log: JournalDetails): Promise<JournalDetails> {
     return new Promise<JournalDetails>((resolve, reject) => {
-      this.authService.getUserId()
-      .then(userId => {
-        if (userId) {
-          push(ref(this.database, `journal/${userId}`), log);
-          resolve(log);
+      this.authService.getUserId().then(
+        (userId) => {
+          if (userId) {
+            push(ref(this.database, `journal/${userId}`), log);
+            resolve(log);
+          }
+        },
+        (error) => {
+          console.error(error);
+          reject(error);
         }
-      }, (error) => {
-        console.error(error);
-        reject(error);
-      });
-    })
+      );
+    });
   }
 
   deleteJournal(key: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      this.authService.getUserId()
-      .then(userId => {
-        if (userId) {
-          remove(ref(this.database, `journal/${userId}/${key}`));
-          resolve(key);
+      this.authService.getUserId().then(
+        (userId) => {
+          if (userId) {
+            remove(ref(this.database, `journal/${userId}/${key}`));
+            resolve(key);
+          }
+        },
+        (error) => {
+          console.error(error);
+          reject(error);
         }
-      }, error => {
-        console.error(error);
-        reject(error);
-      })
-    })
+      );
+    });
   }
 }

@@ -1,8 +1,8 @@
 <button mat-button class="den" [routerLink]="['admin']"></button>
 
-<navbar [headerData]="myDetails" [isAuth]="isAuth" [isDashboard]="isDashboard"></navbar>
+<navbar [headerData]="myDetails" [isAuth]="isAuth" [isDashboard]="isDashboard" [auth]="auth"></navbar>
 
-<div class="site-wrapper">
+<div class="site-wrapper container">
   <div class="breadcrumb-container" style="margin: 10px">
     <xng-breadcrumb [separator]="iconTemplate"></xng-breadcrumb>
     <ng-template #iconTemplate>
