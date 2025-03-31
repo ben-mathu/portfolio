@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from '@angular/fire/auth';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
@@ -27,7 +20,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private utils: Utils,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,19 +45,15 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    signInWithEmailAndPassword(
-      getAuth(),
-      this.f['email'].value,
-      this.f['password'].value
-    )
+    this.authService
+      .loginUser(this.f['email'].value, this.f['password'].value)
       .then((userCredentials) => {
-        const user = userCredentials.user;
-        if (user) {
+        if (userCredentials.user) {
           this.router.navigate(['admin']);
         }
       })
       .catch((error) => {
-        this.utils.showSnackBar(error.message, this.snackBar)
+        this.utils.showSnackBar(error.message, this.snackBar);
       });
   }
 }

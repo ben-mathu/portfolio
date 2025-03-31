@@ -1,6 +1,6 @@
 <button mat-button class="den" [routerLink]="['admin']"></button>
 
-<navbar [headerData]="myDetails" [isAuth]="isAuth" [isDashboard]="isDashboard"></navbar>
+<navbar [headerData]="myDetails" [isAuth]="isAuth" [isDashboard]="isDashboard" [auth]="auth"></navbar>
 
 <div class="site-wrapper">
   <div class="breadcrumb-container" style="margin: 10px">
@@ -10,7 +10,7 @@
     </ng-template>
   </div>
 
-  <div class="site-container">
+  <div class="site-container container-fluid">
     <app-sidenav *ngIf="isAuth && isDashboard" [url]="url"></app-sidenav>
     <router-outlet class="app-container"></router-outlet>
   </div>
