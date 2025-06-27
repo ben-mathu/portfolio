@@ -33,15 +33,27 @@
         >
           <a
             mat-list-item
-            *ngIf="myDetails !== undefined"
+            mat-stroked-button
+            *ngIf="
+              myDetails !== undefined && (platform.ANDROID || platform.IOS)
+            "
             href="{{ myDetails ? myDetails.cv_url : '' }}"
             target="_blank"
           >
-            <button mat-stroked-button>
-              <mat-icon>description</mat-icon>
-              <span class="info-label">CV</span>
-            </button>
+            <mat-icon>description</mat-icon>
+            <span class="info-label">CV</span>
           </a>
+          <button
+            mat-list-item
+            mat-stroked-button
+            *ngIf="
+              myDetails !== undefined && !(platform.ANDROID || platform.IOS)
+            "
+            (click)="openCvDialog('500ms', '250ms')"
+          >
+            <mat-icon>description</mat-icon>
+            <span class="info-label">CV</span>
+          </button>
           <a
             mat-list-item
             *ngIf="myDetails !== undefined"

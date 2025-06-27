@@ -19,6 +19,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SocialIconsComponent } from './social-icons/social-icons.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CvComponent } from './cv/cv.component';
+import { PlatformModule } from '@angular/cdk/platform';
 
 @NgModule({
   exports: [
@@ -27,7 +30,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     CardComponent,
     SkillRatingComponent,
     SidenavComponent,
-    CustomTextareaComponent
+    CustomTextareaComponent,
+    CvComponent,
   ],
   declarations: [
     NavbarComponent,
@@ -36,7 +40,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     SkillRatingComponent,
     SidenavComponent,
     CustomTextareaComponent,
-    SocialIconsComponent
+    SocialIconsComponent,
+    CvComponent,
   ],
   imports: [
     CommonModule,
@@ -52,8 +57,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MarkdownModule,
     MatToolbarModule,
     MatChipsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDialogModule,
+    PlatformModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SharedModule { }
+export class SharedModule {}
