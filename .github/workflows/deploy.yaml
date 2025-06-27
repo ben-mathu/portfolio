@@ -3,7 +3,7 @@ name: Deploy Github Pages
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   tests:
@@ -29,6 +29,10 @@ jobs:
         with:
           version: 8
           run_install: true
+
+      - name: Install packages
+        run: |
+          pnpm i
 
       - name: Test & Build
         run: |
@@ -71,6 +75,10 @@ jobs:
         with:
           version: 8
           run_install: true
+
+      - name: Install packages
+        run: |
+          pnpm i
 
       - name: Deploy
         run: |
