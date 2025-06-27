@@ -30,16 +30,11 @@ jobs:
           version: 8
           run_install: true
 
-      - name: Install packages
-        run: |
-          pnpm i
-
       - name: Test & Build
         run: |
           pnpm run test:ci
 
   deploy-github-pages:
-    needs: tests
     runs-on: ubuntu-latest
 
     steps:
@@ -75,10 +70,6 @@ jobs:
         with:
           version: 8
           run_install: true
-
-      - name: Install packages
-        run: |
-          pnpm i
 
       - name: Deploy
         run: |
