@@ -4,6 +4,8 @@ import { ArticlesComponent } from './articles.component';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { RouterModule } from '@angular/router';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTableModule } from '@angular/material/table';
 
 describe('ArticlesComponent', () => {
   let component: ArticlesComponent;
@@ -11,19 +13,18 @@ describe('ArticlesComponent', () => {
 
   beforeEach(async () => {
     let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [
-      'getAllArticles'
+      'getAllArticles',
     ]);
     await TestBed.configureTestingModule({
-      imports: [ RouterModule.forRoot([]) ],
+      imports: [RouterModule.forRoot([]), MatTreeModule, MatTableModule],
       declarations: [ArticlesComponent],
       providers: [
         {
           provide: FirebaseService,
-          useValue: mockFirebaseService
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: mockFirebaseService,
+        },
+      ],
+    }).compileComponents();
 
     mockFirebaseService.getAllArticles.and.returnValue(Promise.resolve([]));
 

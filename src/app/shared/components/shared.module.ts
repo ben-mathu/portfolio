@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CvComponent } from './cv/cv.component';
 import { PlatformModule } from '@angular/cdk/platform';
 import { MarkdownLinkDirective } from './directives/markdown-link.directive';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -63,6 +64,7 @@ import { MarkdownLinkDirective } from './directives/markdown-link.directive';
     MatSidenavModule,
     MatDialogModule,
     PlatformModule,
+    MarkdownModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

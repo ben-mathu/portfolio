@@ -10,32 +10,46 @@ import { Utils } from './shared/utils/utils';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
+import { SharedModule } from './shared/components/shared.module';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
+import { MarkdownModule } from 'ngx-markdown';
+import { CommonModule } from '@angular/common';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
-    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [ 'getHeader', 'getAuth', 'onAuthStateChanged' ]);
+    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [
+      'getHeader',
+      'getAuth',
+      'onAuthStateChanged',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         RouterModule.forRoot([]),
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideDatabase(() => getDatabase()),
+        SharedModule,
+        MarkdownModule,
+        BreadcrumbComponent,
+        BreadcrumbItemDirective,
       ],
       providers: [
-        provideRouter(
-          [{path: 'home', component: HomeComponent}, {path: 'admin', component: AdminComponent}]
-        ),
+        provideRouter([
+          { path: 'home', component: HomeComponent },
+          { path: 'admin', component: AdminComponent },
+        ]),
         {
           provide: FirebaseService,
-          useValue: mockFirebaseService
-        }
+          useValue: mockFirebaseService,
+        },
       ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
 
-    mockFirebaseService.getHeader.and.returnValue(Promise.resolve(new MyDetails()));
+    mockFirebaseService.getHeader.and.returnValue(
+      Promise.resolve(new MyDetails())
+    );
     mockFirebaseService.onAuthStateChanged.and.returnValue(Promise.resolve());
   });
 

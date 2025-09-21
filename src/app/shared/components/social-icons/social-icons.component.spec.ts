@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SocialIconsComponent } from './social-icons.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 describe('SocialIconsComponent', () => {
   let component: SocialIconsComponent;
@@ -8,9 +10,9 @@ describe('SocialIconsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SocialIconsComponent]
-    })
-    .compileComponents();
+      imports: [MatIconModule, MatListModule],
+      declarations: [SocialIconsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SocialIconsComponent);
     component = fixture.componentInstance;
