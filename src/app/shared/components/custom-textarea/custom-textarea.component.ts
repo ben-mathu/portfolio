@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, Output, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import '@github/markdown-toolbar-element';
-import { MarkdownService } from 'ngx-markdown';
 
 @Component({
   selector: 'app-custom-textarea',
@@ -11,15 +10,15 @@ import { MarkdownService } from 'ngx-markdown';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CustomTextareaComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class CustomTextareaComponent implements ControlValueAccessor {
   @Input() label!: string;
   @Input() switchEditorToolbar: boolean = false;
   @Input() _text: string = '';
-  numberOfRows: number = 0
+  numberOfRows: number = 0;
 
   get text() {
     return this._text;
@@ -30,7 +29,7 @@ export class CustomTextareaComponent implements ControlValueAccessor {
     this.propagateChange(this._text);
   }
 
-  propagateChange = (value: any) => {}
+  propagateChange = (value: any) => {};
 
   onTextChanged(event: Event) {
     this.text = (event.target as HTMLInputElement)?.value;
@@ -39,7 +38,9 @@ export class CustomTextareaComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    if (obj !== undefined) {this.text = obj as string;}
+    if (obj !== undefined) {
+      this.text = obj as string;
+    }
   }
 
   registerOnChange(fn: any): void {
