@@ -1,4 +1,4 @@
-<mat-tab-group style="padding: 1px;">
+<mat-tab-group style="padding: 1px">
   <mat-tab label="Edit">
     <markdown-toolbar for="textarea" *ngIf="switchEditorToolbar">
       <md-bold>
@@ -63,12 +63,22 @@
       </md-ref>
     </markdown-toolbar>
     <mat-form-field class="full-width" appearance="outline">
-      <mat-label>{{label}}</mat-label>
-      <textarea matInput style="overflow-y: auto;" type="text" class="form-control" placeholder="{{label}}" id="textarea" value="{{ text }}" (input)="onTextChanged($event)" rows="{{numberOfRows}}"></textarea>
+      <mat-label>{{ label }}</mat-label>
+      <textarea
+        matInput
+        markdown-link
+        style="overflow-y: auto"
+        type="text"
+        class="form-control"
+        placeholder="{{ label }}"
+        id="textarea"
+        value="{{ text }}"
+        (input)="onTextChanged($event)"
+        rows="{{ numberOfRows }}"
+      ></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Preview">
-    <markdown ngPreserveWhitespaces [data]="text">
-    </markdown>
+    <markdown ngPreserveWhitespaces [data]="text"> </markdown>
   </mat-tab>
 </mat-tab-group>

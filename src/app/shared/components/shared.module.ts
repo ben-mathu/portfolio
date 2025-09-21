@@ -22,6 +22,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CvComponent } from './cv/cv.component';
 import { PlatformModule } from '@angular/cdk/platform';
+import { MarkdownLinkDirective } from './directives/markdown-link.directive';
 
 @NgModule({
   exports: [
@@ -32,6 +33,7 @@ import { PlatformModule } from '@angular/cdk/platform';
     SidenavComponent,
     CustomTextareaComponent,
     CvComponent,
+    MarkdownLinkDirective,
   ],
   declarations: [
     NavbarComponent,
@@ -42,6 +44,7 @@ import { PlatformModule } from '@angular/cdk/platform';
     CustomTextareaComponent,
     SocialIconsComponent,
     CvComponent,
+    MarkdownLinkDirective,
   ],
   imports: [
     CommonModule,
