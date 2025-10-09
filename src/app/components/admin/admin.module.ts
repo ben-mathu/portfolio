@@ -6,7 +6,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,13 +15,11 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    LoginComponent,
-    DashboardComponent
-  ],
+  declarations: [AdminComponent, LoginComponent, DashboardComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -32,11 +30,10 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
     ReactiveFormsModule,
     provideAuth(() => getAuth()),
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatChipsModule,
+    MatFormFieldModule,
   ],
-  providers: [
-    AuthService,
-    provideAnimations()
-  ]
+  providers: [AuthService, provideAnimations()],
 })
-export class AdminModule { }
+export class AdminModule {}

@@ -4,25 +4,27 @@ import { CertificatesComponent } from './certificates.component';
 import { RouterModule } from '@angular/router';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { Utils } from 'src/app/shared/utils/utils';
+import { MatTableModule } from '@angular/material/table';
 
 describe('CertificatesComponent', () => {
   let component: CertificatesComponent;
   let fixture: ComponentFixture<CertificatesComponent>;
 
   beforeEach(async () => {
-    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [ 'getCertificates' ]);
+    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [
+      'getCertificates',
+    ]);
 
     await TestBed.configureTestingModule({
-      imports: [ RouterModule.forRoot([]) ],
+      imports: [RouterModule.forRoot([]), MatTableModule],
       declarations: [CertificatesComponent],
       providers: [
         {
           provide: FirebaseService,
-          useValue: mockFirebaseService
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: mockFirebaseService,
+        },
+      ],
+    }).compileComponents();
 
     mockFirebaseService.getCertificates.and.returnValue(Promise.resolve([]));
 

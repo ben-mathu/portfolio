@@ -9,19 +9,21 @@ describe('ExperienceComponent', () => {
   let fixture: ComponentFixture<ExperienceComponent>;
 
   beforeEach(async () => {
-    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [ 'getAllExperiences', 'getAllProjects' ]);
+    let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [
+      'getAllExperiences',
+      'getAllProjects',
+    ]);
 
     await TestBed.configureTestingModule({
-      imports: [ RouterModule.forRoot([]) ],
-      declarations: [ ExperienceComponent ],
+      imports: [RouterModule.forRoot([])],
+      declarations: [ExperienceComponent],
       providers: [
         {
           provide: FirebaseService,
-          useValue: mockFirebaseService
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: mockFirebaseService,
+        },
+      ],
+    }).compileComponents();
 
     mockFirebaseService.getAllExperiences.and.returnValue(Promise.resolve([]));
     mockFirebaseService.getAllProjects.and.returnValue(Promise.resolve([]));

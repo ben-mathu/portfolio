@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/app/shared/services/firebase/firebase.servi
 import { MyDetails } from 'src/app/shared/models/header/header';
 import { RouterModule } from '@angular/router';
 import { Utils } from 'src/app/shared/utils/utils';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
@@ -12,21 +13,26 @@ describe('HomePageComponent', () => {
 
   beforeEach(async () => {
     let mockFirebaseService = jasmine.createSpyObj('FirebaseService', [
-      'getHeader', 'getAllExperiences', 'getAllProjects', 'getCertificates', 'getAchievements'
+      'getHeader',
+      'getAllExperiences',
+      'getAllProjects',
+      'getCertificates',
+      'getAchievements',
     ]);
     await TestBed.configureTestingModule({
-      imports: [ RouterModule.forRoot([]) ],
-      declarations: [ HomePageComponent ],
+      imports: [RouterModule.forRoot([]), MatGridListModule],
+      declarations: [HomePageComponent],
       providers: [
         {
           provide: FirebaseService,
-          useValue: mockFirebaseService
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: mockFirebaseService,
+        },
+      ],
+    }).compileComponents();
 
-    mockFirebaseService.getHeader.and.returnValue(Promise.resolve(new MyDetails()));
+    mockFirebaseService.getHeader.and.returnValue(
+      Promise.resolve(new MyDetails())
+    );
     mockFirebaseService.getAllExperiences.and.returnValue(Promise.resolve([]));
     mockFirebaseService.getAllProjects.and.returnValue(Promise.resolve([]));
     mockFirebaseService.getCertificates.and.returnValue(Promise.resolve([]));

@@ -32,6 +32,8 @@ import {
 } from '@angular/common/http';
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -44,7 +46,6 @@ import { MatTreeModule } from '@angular/material/tree';
     MatIconModule,
     MatTabsModule,
     MatCardModule,
-    SharedModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideDatabase(() => getDatabase()),
@@ -57,7 +58,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatButtonModule,
     MarkdownModule.forRoot(),
     BrowserAnimationsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatFormFieldModule,
+    SharedModule,
   ],
   providers: [
     // ScreenTrackingService,UserTrackingService

@@ -30,7 +30,6 @@ import { PageNotFoundComponent } from '../../page-not-found/page-not-found.compo
 import { AddJournalComponent } from './add-journal/add-journal.component';
 import { JournalLogComponent } from './journal-log/journal-log.component';
 
-
 @NgModule({
   declarations: [
     OverviewComponent,
@@ -45,7 +44,7 @@ import { JournalLogComponent } from './journal-log/journal-log.component';
     AddCertificateComponent,
     CertificatesComponent,
     AddJournalComponent,
-    JournalLogComponent
+    JournalLogComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +61,7 @@ import { JournalLogComponent } from './journal-log/journal-log.component';
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
