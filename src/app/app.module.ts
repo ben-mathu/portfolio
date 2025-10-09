@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
+import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import {
   provideFirestore,
@@ -31,8 +31,6 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { Utils } from './shared/utils/utils';
-import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -70,8 +68,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     provideHttpClient(withInterceptorsFromDi()),
     MatIconRegistry,
     {
-      provide: Utils,
+      provide: Utils
     },
+    ScreenTrackingService,
+    UserTrackingService
   ],
 })
 export class AppModule {}
