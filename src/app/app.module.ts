@@ -22,7 +22,6 @@ import {
 } from '@angular/fire/firestore';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SharedModule } from './shared/components/shared.module';
-import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HomeModule } from './components/home/home.module';
 import { AdminModule } from './components/admin/admin.module';
 import { MarkdownModule } from 'ngx-markdown';

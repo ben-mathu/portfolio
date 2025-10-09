@@ -14,6 +14,8 @@ import { SharedModule } from './shared/components/shared.module';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -33,6 +35,7 @@ describe('AppComponent', () => {
         MarkdownModule,
         BreadcrumbComponent,
         BreadcrumbItemDirective,
+        BrowserModule,
       ],
       providers: [
         provideRouter([
@@ -43,6 +46,7 @@ describe('AppComponent', () => {
           provide: FirebaseService,
           useValue: mockFirebaseService,
         },
+        provideHttpClient(),
       ],
       declarations: [AppComponent],
     }).compileComponents();

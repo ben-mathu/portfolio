@@ -6,6 +6,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '../shared.module';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  DomSanitizerMock,
+  MatIconRegistryMock,
+} from '../social-icons/social-icons.component.spec';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { IconService } from '../../services/icon/icon.service';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -25,12 +33,16 @@ describe('NavbarComponent', () => {
       ],
       declarations: [NavbarComponent],
       providers: [
+        provideHttpClient(),
         {
           provide: FirebaseService,
           useValue: mockFirebaseService,
         },
+        IconService,
       ],
     }).compileComponents();
+
+    TestBed.inject(IconService).registerIcons();
   });
 
   beforeEach(() => {

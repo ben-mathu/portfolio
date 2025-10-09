@@ -8,6 +8,8 @@ import { SharedModule } from 'src/app/shared/components/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MarkdownModule } from 'ngx-markdown';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AddArticleComponent', () => {
   let component: AddArticleComponent;
@@ -27,6 +29,8 @@ describe('AddArticleComponent', () => {
         MatChipsModule,
         MatInputModule,
         MarkdownModule.forRoot(),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
       ],
       declarations: [AddArticleComponent],
       providers: [

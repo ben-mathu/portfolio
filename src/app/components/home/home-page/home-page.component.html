@@ -6,9 +6,7 @@
     <div class="my-description">
       <span class="name">{{ myDetails.name }}</span>
       <span class="headline">{{ myDetails.headline }}</span>
-      <span class="description">{{
-        myDetails.description
-      }}</span>
+      <span class="description">{{ myDetails.description }}</span>
 
       <div class="skills-section">
         <div class="skills-title">Languages</div>
@@ -18,7 +16,7 @@
               mat-grid-tile
               class="skill"
               [myInfo]="item"
-          ></skill-rating>
+            ></skill-rating>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
@@ -33,7 +31,7 @@
           mat-grid-tile
           class="skill"
           [myInfo]="item"
-      ></skill-rating>
+        ></skill-rating>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
@@ -61,15 +59,21 @@
           class="logo-image"
         />
       </mat-card-header>
-      <img mat-card-image src="{{ experience.image }}" *ngIf="experience.image" />
+      <img
+        mat-card-image
+        src="{{ experience.image }}"
+        *ngIf="experience.image"
+      />
       <mat-card-content>
         <markdown ngPreserveWhitespaces [data]="experience.description">
         </markdown>
         <span class="skill-content"
           >Skills:
-          <mat-chip-set><mat-chip *ngFor="let skill of experience.skills">{{
-            skill
-          }}</mat-chip></mat-chip-set></span
+          <mat-chip-set
+            ><mat-chip *ngFor="let skill of experience.skills">{{
+              skill
+            }}</mat-chip></mat-chip-set
+          ></span
         >
       </mat-card-content>
     </mat-card>
