@@ -33,6 +33,7 @@ jobs:
       - name: Test & Build
         run: |
           pnpm run test:ci
+        shell: bash
 
   deploy-github-pages:
     needs: tests
