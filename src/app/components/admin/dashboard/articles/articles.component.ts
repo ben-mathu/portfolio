@@ -11,9 +11,10 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { BaseComponent } from '../base-component';
 
 @Component({
-  selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrl: './articles.component.scss',
+    selector: 'app-articles',
+    templateUrl: './articles.component.html',
+    styleUrl: './articles.component.scss',
+    standalone: false
 })
 export class ArticlesComponent extends BaseComponent<ArticleElement> implements OnInit {
   articles: ArticleElement[] = [];

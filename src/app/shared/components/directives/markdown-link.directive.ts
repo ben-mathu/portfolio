@@ -1,7 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[markdown-link]',
+    selector: '[markdown-link]',
+    standalone: false
 })
 export class MarkdownLinkDirective {
   constructor() {}

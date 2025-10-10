@@ -4,9 +4,10 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-dashboard.full-width',
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard.full-width',
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss',
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-social-icons',
-  templateUrl: './social-icons.component.html',
-  styleUrl: './social-icons.component.scss'
+    selector: 'app-social-icons',
+    templateUrl: './social-icons.component.html',
+    styleUrl: './social-icons.component.scss',
+    standalone: false
 })
 export class SocialIconsComponent {
 }

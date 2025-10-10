@@ -12,9 +12,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BaseComponent } from '../base-component';
 
 @Component({
-  selector: 'app-list-projects',
-  templateUrl: './list-projects.component.html',
-  styleUrl: './list-projects.component.scss',
+    selector: 'app-list-projects',
+    templateUrl: './list-projects.component.html',
+    styleUrl: './list-projects.component.scss',
+    standalone: false
 })
 export class ListProjectsComponent extends BaseComponent<ProjectElement> implements OnInit {
   projects: ProjectElement[] = [];

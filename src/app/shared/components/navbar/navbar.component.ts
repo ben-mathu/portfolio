@@ -7,9 +7,10 @@ import { Utils } from '../../utils/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+    selector: 'navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: false
 })
 export class NavbarComponent {
   @Input() headerData!: MyDetails;

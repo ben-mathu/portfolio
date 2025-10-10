@@ -37,17 +37,18 @@ interface ArticleNodeInfo {
 }
 
 @Component({
-  selector: 'app-article.full-width',
-  templateUrl: './article.component.html',
-  styleUrl: './article.component.scss',
-  animations: [
-    trigger('slideInOut', [
-      state('left', style({ transform: 'translateX(-100%)', display: 'none'})),
-      state('center', style({ transform: 'translateX(0)', display: 'flex'})),
-      state('right', style({ transform: 'translateX(105%)', display: 'none'})),
-      transition('* => *', animate('800ms ease-in-out'))
-    ])
-  ]
+    selector: 'app-article.full-width',
+    templateUrl: './article.component.html',
+    styleUrl: './article.component.scss',
+    animations: [
+        trigger('slideInOut', [
+            state('left', style({ transform: 'translateX(-100%)', display: 'none' })),
+            state('center', style({ transform: 'translateX(0)', display: 'flex' })),
+            state('right', style({ transform: 'translateX(105%)', display: 'none' })),
+            transition('* => *', animate('800ms ease-in-out'))
+        ])
+    ],
+    standalone: false
 })
 export class ArticleComponent implements OnInit {
   // Constants

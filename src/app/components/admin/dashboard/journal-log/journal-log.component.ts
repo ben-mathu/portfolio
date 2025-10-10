@@ -7,9 +7,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { ArticleElement, JournalElement } from 'src/app/shared/models/header/portfolio.dto';
 
 @Component({
-  selector: 'app-journal-log',
-  templateUrl: './journal-log.component.html',
-  styleUrl: './journal-log.component.scss'
+    selector: 'app-journal-log',
+    templateUrl: './journal-log.component.html',
+    styleUrl: './journal-log.component.scss',
+    standalone: false
 })
 export class JournalLogComponent extends BaseComponent<JournalElement> implements OnInit {
   journal: JournalElement[] = [];

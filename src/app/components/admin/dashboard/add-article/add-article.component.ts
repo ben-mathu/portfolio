@@ -11,9 +11,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-article',
-  templateUrl: './add-article.component.html',
-  styleUrl: './add-article.component.scss',
+    selector: 'app-add-article',
+    templateUrl: './add-article.component.html',
+    styleUrl: './add-article.component.scss',
+    standalone: false
 })
 export class AddArticleComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

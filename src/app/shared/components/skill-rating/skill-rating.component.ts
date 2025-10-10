@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Skill } from '../../models/header/header';
 
 @Component({
-  selector: 'skill-rating',
-  templateUrl: './skill-rating.component.html',
-  styleUrl: './skill-rating.component.scss'
+    selector: 'skill-rating',
+    templateUrl: './skill-rating.component.html',
+    styleUrl: './skill-rating.component.scss',
+    standalone: false
 })
 export class SkillRatingComponent {
   @Input() myInfo!: Skill;

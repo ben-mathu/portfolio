@@ -9,9 +9,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-achievement',
-  templateUrl: './add-achievement.component.html',
-  styleUrl: './add-achievement.component.scss',
+    selector: 'app-add-achievement',
+    templateUrl: './add-achievement.component.html',
+    styleUrl: './add-achievement.component.scss',
+    standalone: false
 })
 export class AddAchievementComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

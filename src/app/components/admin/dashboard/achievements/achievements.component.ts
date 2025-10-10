@@ -9,9 +9,10 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { BaseComponent } from '../base-component';
 
 @Component({
-  selector: 'app-achievements',
-  templateUrl: './achievements.component.html',
-  styleUrl: './achievements.component.scss',
+    selector: 'app-achievements',
+    templateUrl: './achievements.component.html',
+    styleUrl: './achievements.component.scss',
+    standalone: false
 })
 export class AchievementsComponent extends BaseComponent<AchievementElement> implements OnInit {
   achievements: AchievementElement[] = [];

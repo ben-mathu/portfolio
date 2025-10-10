@@ -19,9 +19,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-add-experience',
-  templateUrl: './add-experience.component.html',
-  styleUrl: './add-experience.component.scss',
+    selector: 'app-add-experience',
+    templateUrl: './add-experience.component.html',
+    styleUrl: './add-experience.component.scss',
+    standalone: false
 })
 export class AddExperienceComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

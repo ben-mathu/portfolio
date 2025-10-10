@@ -10,9 +10,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrl: './add-project.component.scss',
+    selector: 'app-add-project',
+    templateUrl: './add-project.component.html',
+    styleUrl: './add-project.component.scss',
+    standalone: false
 })
 export class AddProjectComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

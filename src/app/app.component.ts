@@ -10,9 +10,10 @@ import { Utils } from './shared/utils/utils';
 import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   themeManager: ThemeManagerService = inject(ThemeManagerService);

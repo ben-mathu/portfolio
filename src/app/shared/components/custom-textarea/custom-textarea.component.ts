@@ -3,16 +3,17 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import '@github/markdown-toolbar-element';
 
 @Component({
-  selector: 'app-custom-textarea',
-  templateUrl: './custom-textarea.component.html',
-  styleUrl: './custom-textarea.component.scss',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomTextareaComponent),
-      multi: true,
-    },
-  ],
+    selector: 'app-custom-textarea',
+    templateUrl: './custom-textarea.component.html',
+    styleUrl: './custom-textarea.component.scss',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CustomTextareaComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class CustomTextareaComponent implements ControlValueAccessor {
   @Input() label!: string;

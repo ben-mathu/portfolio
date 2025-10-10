@@ -29,8 +29,6 @@ describe('AppComponent', () => {
       imports: [
         CommonModule,
         RouterModule.forRoot([]),
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideDatabase(() => getDatabase()),
         SharedModule,
         MarkdownModule,
         BreadcrumbComponent,
@@ -47,6 +45,8 @@ describe('AppComponent', () => {
           useValue: mockFirebaseService,
         },
         provideHttpClient(),
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideDatabase(() => getDatabase()),
       ],
       declarations: [AppComponent],
     }).compileComponents();
