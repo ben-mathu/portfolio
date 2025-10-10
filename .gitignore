@@ -54,3 +54,4 @@ Thumbs.db
 message_template.txt
 data
 pnpm-lock.yaml
+src/environments
