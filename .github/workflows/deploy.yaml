@@ -45,5 +45,5 @@ jobs:
 
       - name: Deploy
         run: |
-          npm i
+          npm i --force
           npm run build && npm run deploy
