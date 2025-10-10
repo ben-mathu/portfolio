@@ -25,6 +25,7 @@ jobs:
         run: |
           mkdir -p src/environments
           printf $ENVIRONMENT | base64 -d > src/environments/environment.prod.ts
+          printf $ENVIRONMENT | base64 -d > src/environments/environment.ts
 
       - name: Setup for Deployments
         env:
