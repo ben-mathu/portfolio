@@ -37,12 +37,13 @@ jobs:
         with:
           node-version: 18.19
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-          run_install: true
+      # - name: Install pnpm
+      #   uses: pnpm/action-setup@v3
+      #   with:
+      #     version: 8
+      #     run_install: true
 
       - name: Deploy
         run: |
-          pnpm i && pnpm build && pnpm deploy
+          npm i
+          npm run build && npm run deploy
