@@ -19,6 +19,13 @@ jobs:
       - name: Serialize icon names
         run: ./icons/serialize.sh
 
+      - name: Create Evironment File
+        env:
+          ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+        run: |
+          mkdir -p src/environments
+          printf $ENVIRONMENT | base64 -d > src/environments/environment.ts
+
       - name: Setup for Deployments
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
