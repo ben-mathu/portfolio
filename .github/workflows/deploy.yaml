@@ -24,7 +24,7 @@ jobs:
           ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
         run: |
           mkdir -p src/environments
-          printf $ENVIRONMENT | base64 -d > src/environments/environment.ts
+          printf $ENVIRONMENT | base64 -d > src/environments/environment.prod.ts
 
       - name: Setup for Deployments
         env:
