@@ -33,17 +33,16 @@ jobs:
           git remote set-url origin https://$MY_NAME:$PORTFOLIO_TOKEN@github.com/$MY_NAME/$MY_NAME.git
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.19
+          node-version: 23.11.0
 
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v3
-      #   with:
-      #     version: 8
-      #     run_install: true
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+          run_install: true
 
       - name: Deploy
         run: |
-          npm i --force
-          npm run build && npm run deploy
+          pnpm run build && pnpm run deploy
