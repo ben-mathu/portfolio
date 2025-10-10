@@ -4,9 +4,10 @@ import { FirebaseService } from 'src/app/shared/services/firebase/firebase.servi
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-experience.full-width',
-  templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.scss']
+    selector: 'app-experience.full-width',
+    templateUrl: './experience.component.html',
+    styleUrls: ['./experience.component.scss'],
+    standalone: false
 })
 export class ExperienceComponent implements OnInit {
   experiences: ExperienceElement[] = [];

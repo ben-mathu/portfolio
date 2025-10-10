@@ -14,9 +14,10 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { BaseComponent } from '../base-component';
 
 @Component({
-  selector: 'app-achievements',
-  templateUrl: './certificates.component.html',
-  styleUrl: './certificates.component.scss',
+    selector: 'app-achievements',
+    templateUrl: './certificates.component.html',
+    styleUrl: './certificates.component.scss',
+    standalone: false
 })
 export class CertificatesComponent extends BaseComponent<CertificateElement> implements OnInit {
   certificates: CertificateElement[] = [];

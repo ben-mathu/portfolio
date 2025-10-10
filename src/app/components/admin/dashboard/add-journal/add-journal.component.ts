@@ -11,9 +11,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-journal',
-  templateUrl: './add-journal.component.html',
-  styleUrl: './add-journal.component.scss'
+    selector: 'app-add-journal',
+    templateUrl: './add-journal.component.html',
+    styleUrl: './add-journal.component.scss',
+    standalone: false
 })
 export class AddJournalComponent {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

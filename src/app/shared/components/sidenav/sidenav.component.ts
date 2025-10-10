@@ -4,9 +4,10 @@ import { Utils } from '../../utils/utils';
 import { Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.scss'
+    selector: 'app-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrl: './sidenav.component.scss',
+    standalone: false
 })
 export class SidenavComponent implements OnInit {
   @Input() url: string = '';

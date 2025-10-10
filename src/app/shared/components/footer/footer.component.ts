@@ -6,9 +6,10 @@ import { CvComponent } from '../cv/cv.component';
 import { Platform } from '@angular/cdk/platform';
 
 @Component({
-  selector: 'custom-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+    selector: 'custom-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    standalone: false
 })
 export class FooterComponent {
   @Input() myDetails?: MyDetails | undefined;

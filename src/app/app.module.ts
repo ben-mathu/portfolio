@@ -13,7 +13,12 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import {
   provideFirestore,
@@ -46,10 +51,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatTabsModule,
     MatCardModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
     FirestoreModule,
     BreadcrumbComponent,
     BreadcrumbItemDirective,
@@ -68,10 +69,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     provideHttpClient(withInterceptorsFromDi()),
     MatIconRegistry,
     {
-      provide: Utils
+      provide: Utils,
     },
     ScreenTrackingService,
-    UserTrackingService
+    UserTrackingService,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAnalytics(() => getAnalytics()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
   ],
 })
 export class AppModule {}

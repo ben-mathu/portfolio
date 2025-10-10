@@ -4,9 +4,10 @@ import { FirebaseService } from 'src/app/shared/services/firebase/firebase.servi
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    standalone: false
 })
 export class HomeComponent implements OnInit {
   myDetails!: MyDetails;

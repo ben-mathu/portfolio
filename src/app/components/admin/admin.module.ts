@@ -28,12 +28,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatButtonModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    provideAuth(() => getAuth()),
     MatIconModule,
     MatSidenavModule,
     MatChipsModule,
     MatFormFieldModule,
   ],
-  providers: [AuthService, provideAnimations()],
+  providers: [provideAuth(() => getAuth()), AuthService, provideAnimations()],
 })
 export class AdminModule {}

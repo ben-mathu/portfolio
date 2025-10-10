@@ -11,9 +11,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BaseComponent } from '../base-component';
 
 @Component({
-  selector: 'app-experiences',
-  templateUrl: './experiences.component.html',
-  styleUrl: './experiences.component.scss',
+    selector: 'app-experiences',
+    templateUrl: './experiences.component.html',
+    styleUrl: './experiences.component.scss',
+    standalone: false
 })
 export class ExperiencesComponent extends BaseComponent<ExperienceElement> implements OnInit {
   experiences: ExperienceElement[] = [];

@@ -15,9 +15,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-add-certificate',
-  templateUrl: './add-certificate.component.html',
-  styleUrl: './add-certificate.component.scss',
+    selector: 'app-add-certificate',
+    templateUrl: './add-certificate.component.html',
+    styleUrl: './add-certificate.component.scss',
+    standalone: false
 })
 export class AddCertificateComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter();

@@ -13,9 +13,10 @@ import { Utils } from 'src/app/shared/utils/utils';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-home.full-width',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
+    selector: 'app-home.full-width',
+    templateUrl: './home-page.component.html',
+    styleUrls: ['./home-page.component.scss'],
+    standalone: false
 })
 export class HomePageComponent implements OnInit {
   experiences: ExperienceElement[] = [];
