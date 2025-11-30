@@ -10,7 +10,7 @@
           placeholder="{{ titleLabel }}"
           formControlName="title"
           value="{{ selectedRow ? selectedRow.title : '' }}"
-        />
+          />
       </mat-form-field>
     </div>
     <div class="col">
@@ -23,7 +23,7 @@
           placeholder="{{ companyLabel }}"
           formControlName="company"
           value="{{ selectedRow ? selectedRow.company : '' }}"
-        />
+          />
       </mat-form-field>
     </div>
   </div>
@@ -38,7 +38,7 @@
           placeholder="{{ startDateLabel }}"
           formControlName="startDate"
           value="{{ selectedRow ? selectedRow.startDate : '' }}"
-        />
+          />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
@@ -57,7 +57,7 @@
           placeholder="{{ endDateLabel }}"
           formControlName="endDate"
           value="{{ selectedRow ? selectedRow.endDate : '' }}"
-        />
+          />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
@@ -77,7 +77,7 @@
         placeholder="{{ logoUrlLabel }}"
         formControlName="logoUrl"
         value="{{ selectedRow ? selectedRow.logoUrl : '' }}"
-      />
+        />
     </mat-form-field>
   </div>
   <div class="row mb-2">
@@ -95,14 +95,14 @@
         cdkDropList
         cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="drop($event)"
-      >
+        >
         @for (skill of skillList; track skill) {
-        <mat-chip-row [editable]="true" (edited)="edit(skill, $event)" cdkDrag>
-          {{ skill }}
-          <button matChipRemove (click)="remove(skill)">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+          <mat-chip-row [editable]="true" (edited)="edit(skill, $event)" cdkDrag>
+            {{ skill }}
+            <button matChipRemove (click)="remove(skill)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
         }
 
         <input
@@ -111,7 +111,7 @@
           [matChipInputFor]="chipGrid"
           formControlName="skills"
           (input)="onChange($event)"
-        />
+          />
       </mat-chip-grid>
       <mat-hint>Add skills separated by commas</mat-hint>
     </mat-form-field>
@@ -123,18 +123,19 @@
       color="primary"
       type="submit"
       (click)="add()"
-    >
+      >
       Save
     </button>
-    <button
-      mat-raised-button
-      *ngIf="selectedRow"
-      class="btn btn-primary"
-      color="warn"
-      type="button"
-      (click)="delete()"
-    >
-      Delete
-    </button>
+    @if (selectedRow) {
+      <button
+        mat-raised-button
+        class="btn btn-primary"
+        color="warn"
+        type="button"
+        (click)="delete()"
+        >
+        Delete
+      </button>
+    }
   </div>
 </form>

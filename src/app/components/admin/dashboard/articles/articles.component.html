@@ -25,5 +25,7 @@
       </table>
     </div>
   </div>
-  <app-add-article *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-article>
+  @if (selectedRow) {
+    <app-add-article [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-article>
+  }
 </div>

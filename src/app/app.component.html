@@ -11,7 +11,9 @@
   </div>
 
   <div class="site-container">
-    <app-sidenav *ngIf="isAuth && isDashboard" [url]="url"></app-sidenav>
+    @if (isAuth && isDashboard) {
+      <app-sidenav [url]="url"></app-sidenav>
+    }
     <router-outlet class="app-container"></router-outlet>
   </div>
 </div>

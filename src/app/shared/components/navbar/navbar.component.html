@@ -5,7 +5,9 @@
 
   <span class="navbar-spacer"></span>
 
-  <button mat-flat-button *ngIf="isAuth && isDashboard" class="btn btn-primary logout" color="primary" (click)="logout()">Logout</button>
+  @if (isAuth && isDashboard) {
+    <button mat-flat-button class="btn btn-primary logout" color="primary" (click)="logout()">Logout</button>
+  }
 
   <div class="socials {{ collapse ? '' :'collapse'}}" id="navbarNavDropdown">
     <app-social-icons></app-social-icons>

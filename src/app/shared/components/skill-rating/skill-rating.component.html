@@ -1,11 +1,12 @@
 <div class="skill-container">
   <mat-chip>
-    <img
-      matChipAvatar
-      *ngIf="myInfo"
-      src="{{myInfo.icon}}"
-      alt="Android"
-    />
+    @if (myInfo) {
+      <img
+        matChipAvatar
+        src="{{myInfo.icon}}"
+        alt="Android"
+        />
+    }
     {{ myInfo ? myInfo.tech : '' }}
   </mat-chip>
   <span>{{ myInfo ? myInfo.rating : '' }}</span>

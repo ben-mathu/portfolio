@@ -11,13 +11,15 @@
       <div class="skills-section">
         <div class="skills-title">Languages</div>
         <mat-grid-list cols="{{ colNum }}" gutterSize="10" rowHeight="55">
-          <mat-grid-tile *ngFor="let item of myDetails.languages">
-            <skill-rating
-              mat-grid-tile
-              class="skill"
-              [myInfo]="item"
-            ></skill-rating>
-          </mat-grid-tile>
+          @for (item of myDetails.languages; track item) {
+            <mat-grid-tile>
+              <skill-rating
+                mat-grid-tile
+                class="skill"
+                [myInfo]="item"
+              ></skill-rating>
+            </mat-grid-tile>
+          }
         </mat-grid-list>
       </div>
     </div>
@@ -26,132 +28,142 @@
   <div class="skills-section">
     <div class="skills-title">Technologies</div>
     <mat-grid-list cols="{{ colNum }}" gutterSize="10" rowHeight="55">
-      <mat-grid-tile *ngFor="let item of myDetails.technologies">
-        <skill-rating
-          mat-grid-tile
-          class="skill"
-          [myInfo]="item"
-        ></skill-rating>
-      </mat-grid-tile>
+      @for (item of myDetails.technologies; track item) {
+        <mat-grid-tile>
+          <skill-rating
+            mat-grid-tile
+            class="skill"
+            [myInfo]="item"
+          ></skill-rating>
+        </mat-grid-tile>
+      }
     </mat-grid-list>
   </div>
   <!-- End of header-section -->
 
   <div class="grid-wrapper">
-    <mat-card
-      *ngFor="let experience of experiences"
-      class="card{{ genClassName[experience.index] }}"
-      [routerLink]="['article', experience.key]"
-    >
-      <mat-card-header>
-        <mat-card-title>{{ experience.title }}</mat-card-title>
-        <mat-card-subtitle>
-          {{ experience.company }}
-          <mat-chip>Experience</mat-chip>
-          <br />
-          <br />
-          <i>{{ experience.startDate }} to {{ experience.endDate }}</i>
-        </mat-card-subtitle>
-        <img
-          mat-card-sm-image
-          *ngIf="experience.logoUrl"
-          src="{{ experience.logoUrl }}"
-          class="logo-image"
-        />
-      </mat-card-header>
-      <img
-        mat-card-image
-        src="{{ experience.image }}"
-        *ngIf="experience.image"
-      />
-      <mat-card-content>
-        <markdown ngPreserveWhitespaces [data]="experience.description">
-        </markdown>
-        <span class="skill-content"
-          >Skills:
-          <mat-chip-set
-            ><mat-chip *ngFor="let skill of experience.skills">{{
-              skill
-            }}</mat-chip></mat-chip-set
-          ></span
+    @for (experience of experiences; track experience) {
+      <mat-card
+        class="card{{ genClassName[experience.index] }}"
+        [routerLink]="['article', experience.key]"
         >
-      </mat-card-content>
-    </mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ experience.title }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ experience.company }}
+            <mat-chip>Experience</mat-chip>
+            <br />
+            <br />
+            <i>{{ experience.startDate }} to {{ experience.endDate }}</i>
+          </mat-card-subtitle>
+          @if (experience.logoUrl) {
+            <img
+              mat-card-sm-image
+              src="{{ experience.logoUrl }}"
+              class="logo-image"
+              />
+          }
+        </mat-card-header>
+        @if (experience.image) {
+          <img
+            mat-card-image
+            src="{{ experience.image }}"
+            />
+        }
+        <mat-card-content>
+          <markdown ngPreserveWhitespaces [data]="experience.description">
+          </markdown>
+          <span class="skill-content"
+            >Skills:
+            <mat-chip-set
+              >@for (skill of experience.skills; track skill) {
+              <mat-chip>{{
+                skill
+              }}</mat-chip>
+              }</mat-chip-set
+              ></span
+              >
+            </mat-card-content>
+          </mat-card>
+        }
 
-    <mat-card
-      *ngFor="let project of projects"
-      class="card{{ genProjectsClassName[project.index] }}"
-      [routerLink]="['article', project.key]"
-    >
-      <mat-card-header>
-        <mat-card-title>{{ project.projectName }}</mat-card-title>
-        <mat-card-subtitle
-          ><span class="badge text-bg-primary">{{
-            project.type
-          }}</span></mat-card-subtitle
-        >
-        <!-- <mat-card-subtitle>
-          {{project.company}}
-          <br />
-          <br />
-          <i>{{experience.startDate}}-{{experience.endDate}}</i>
-        </mat-card-subtitle> -->
-        <!-- <img mat-card-sm-image src="{{project.logoUrl}}" class="logo-image" /> -->
-      </mat-card-header>
-      <!-- <img mat-card-image src="{{experience.image}}" *ngIf="experience.image" /> -->
-      <mat-card-content>
-        <markdown
-          ngPreserveWhitespaces
-          [data]="project.projectDescription"
-        ></markdown>
-        <i>{{ project.projectStatus }}</i>
-      </mat-card-content>
-      <mat-card-actions>
-        <a href="{{ project.url }}" target="_blank">
-          <button mat-button>Go to Project</button>
-        </a>
-      </mat-card-actions>
-    </mat-card>
+        @for (project of projects; track project) {
+          <mat-card
+            class="card{{ genProjectsClassName[project.index] }}"
+            [routerLink]="['article', project.key]"
+            >
+            <mat-card-header>
+              <mat-card-title>{{ project.projectName }}</mat-card-title>
+              <mat-card-subtitle
+                ><span class="badge text-bg-primary">{{
+                project.type
+              }}</span></mat-card-subtitle
+              >
+              <!-- <mat-card-subtitle>
+              {{project.company}}
+              <br />
+              <br />
+              <i>{{experience.startDate}}-{{experience.endDate}}</i>
+            </mat-card-subtitle> -->
+            <!-- <img mat-card-sm-image src="{{project.logoUrl}}" class="logo-image" /> -->
+          </mat-card-header>
+          <!-- <img mat-card-image src="{{experience.image}}" *ngIf="experience.image" /> -->
+          <mat-card-content>
+            <markdown
+              ngPreserveWhitespaces
+              [data]="project.projectDescription"
+            ></markdown>
+            <i>{{ project.projectStatus }}</i>
+          </mat-card-content>
+          <mat-card-actions>
+            <a href="{{ project.url }}" target="_blank">
+              <button mat-button>Go to Project</button>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      }
 
-    <mat-card
-      *ngFor="let certificate of certificates"
-      class="card long-short"
-      [routerLink]="['article', certificate.key]"
-    >
-      <mat-card-header>
-        <mat-card-title>{{ certificate.name }}</mat-card-title>
-        <mat-card-subtitle
-          ><span class="badge text-bg-primary"
-            >Certificate</span
-          ></mat-card-subtitle
-        >
-      </mat-card-header>
-      <mat-card-actions>
-        <a href="{{ certificate.url }}" target="_blank">
-          <button mat-button>Go to Certificate</button>
-        </a>
-      </mat-card-actions>
-    </mat-card>
+      @for (certificate of certificates; track certificate) {
+        <mat-card
+          class="card long-short"
+          [routerLink]="['article', certificate.key]"
+          >
+          <mat-card-header>
+            <mat-card-title>{{ certificate.name }}</mat-card-title>
+            <mat-card-subtitle
+              ><span class="badge text-bg-primary"
+              >Certificate</span
+              ></mat-card-subtitle
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <a href="{{ certificate.url }}" target="_blank">
+                <button mat-button>Go to Certificate</button>
+              </a>
+            </mat-card-actions>
+          </mat-card>
+        }
 
-    <mat-card
-      *ngFor="let achievement of achievements"
-      class="card{{ genAchievementClassName[achievement.index] }}"
-      [routerLink]="['article', achievement.key]"
-    >
-      <mat-card-header>
-        <mat-card-title>{{ achievement.name }}</mat-card-title>
-        <mat-card-subtitle
-          ><span class="badge text-bg-primary"
-            >Achievement</span
-          ></mat-card-subtitle
-        >
-      </mat-card-header>
-      <mat-card-content>
-        <markdown
-          ngPreserveWhitespaces
-          [data]="achievement.description"
-        ></markdown>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+        @for (achievement of achievements; track achievement) {
+          <mat-card
+            class="card{{ genAchievementClassName[achievement.index] }}"
+            [routerLink]="['article', achievement.key]"
+            >
+            <mat-card-header>
+              <mat-card-title>{{ achievement.name }}</mat-card-title>
+              <mat-card-subtitle
+                ><span class="badge text-bg-primary"
+                >Achievement</span
+                ></mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-content>
+                <markdown
+                  ngPreserveWhitespaces
+                  [data]="achievement.description"
+                ></markdown>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      </div>
