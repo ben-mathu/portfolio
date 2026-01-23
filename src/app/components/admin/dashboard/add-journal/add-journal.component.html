@@ -10,19 +10,19 @@
   </div>
   <div class="row">
     <app-custom-textarea [label]="journalTextLabel" formControlName="text"
-      [switchEditorToolbar]="true"></app-custom-textarea>
+    [switchEditorToolbar]="true"></app-custom-textarea>
   </div>
   <div class="row mb-2">
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>{{ tagsLabel }}</mat-label>
       <mat-chip-grid #chipGrid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
         @for (tag of tags; track tag) {
-        <mat-chip-row [editable]="true" (edited)="edit(tag, $event)" cdkDrag>
-          {{ tag }}
-          <button matChipRemove (click)="remove(tag)">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+          <mat-chip-row [editable]="true" (edited)="edit(tag, $event)" cdkDrag>
+            {{ tag }}
+            <button matChipRemove (click)="remove(tag)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
         }
 
         <input type="text" placeholder="{{ tagsLabel }}" [matChipInputFor]="chipGrid" formControlName="tags"
@@ -35,8 +35,10 @@
     <button mat-raised-button class="btn btn-primary" color="primary" type="submit" (click)="add()">
       Save
     </button>
-    <button mat-raised-button *ngIf="selectedRow" class="btn btn-primary" color="warn" type="button" (click)="delete()">
-      Delete
-    </button>
+    @if (selectedRow) {
+      <button mat-raised-button class="btn btn-primary" color="warn" type="button" (click)="delete()">
+        Delete
+      </button>
+    }
   </div>
 </form>

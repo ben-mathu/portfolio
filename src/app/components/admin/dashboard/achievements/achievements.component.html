@@ -31,5 +31,7 @@
       </table>
     </div>
   </div>
-  <app-add-achievement *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-achievement>
+  @if (selectedRow) {
+    <app-add-achievement [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-achievement>
+  }
 </div>

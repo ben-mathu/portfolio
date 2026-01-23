@@ -10,7 +10,7 @@
           placeholder="{{ projectNameLabel }}"
           formControlName="projectName"
           value="{{ selectedRow ? selectedRow.projectName : '' }}"
-        />
+          />
       </mat-form-field>
     </div>
     <div class="col">
@@ -23,7 +23,7 @@
           placeholder="{{ urlLabel }}"
           formControlName="url"
           value="{{ selectedRow ? selectedRow.url : '' }}"
-        />
+          />
       </mat-form-field>
     </div>
   </div>
@@ -39,7 +39,7 @@
           formControlName="contentUrl"
           value="{{ selectedRow ? selectedRow.contentUrl : '' }}"
           (input)="retrieveContent()"
-        />
+          />
       </mat-form-field>
     </div>
   </div>
@@ -56,14 +56,15 @@
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>{{ statusLabel }}</mat-label>
         <mat-chip-grid #chipGridStatus>
-          <mat-chip-row
-            *ngIf="
-              (selectedRow && selectedRow.projectStatus != '') ||
-              selectedProjectStatus
-            "
-          >
-            {{ selectedProjectStatus }}
-          </mat-chip-row>
+          @if (
+            (selectedRow && selectedRow.projectStatus != '') ||
+            selectedProjectStatus
+            ) {
+            <mat-chip-row
+              >
+              {{ selectedProjectStatus }}
+            </mat-chip-row>
+          }
 
           <input
             type="text"
@@ -71,16 +72,18 @@
             [matChipInputFor]="chipGridStatus"
             formControlName="projectStatus"
             [matAutocomplete]="autoStatus"
-          />
+            />
         </mat-chip-grid>
         <mat-autocomplete
           autoActiveFirstOption
           #autoStatus="matAutocomplete"
           (optionSelected)="selectedStatus($event)"
-        >
-          <mat-option *ngFor="let status of projectStatuses" [value]="status">{{
-            status
-          }}</mat-option>
+          >
+          @for (status of projectStatuses; track status) {
+            <mat-option [value]="status">{{
+              status
+            }}</mat-option>
+          }
         </mat-autocomplete>
       </mat-form-field>
     </div>
@@ -88,11 +91,12 @@
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>{{ typeLabel }}</mat-label>
         <mat-chip-grid #chipGridType>
-          <mat-chip-row
-            *ngIf="(selectedRow && selectedRow.type != '') || selectedProjectType"
-          >
-            {{ selectedProjectType }}
-          </mat-chip-row>
+          @if ((selectedRow && selectedRow.type != '') || selectedProjectType) {
+            <mat-chip-row
+              >
+              {{ selectedProjectType }}
+            </mat-chip-row>
+          }
 
           <input
             type="text"
@@ -100,18 +104,20 @@
             [matChipInputFor]="chipGridType"
             formControlName="type"
             [matAutocomplete]="autoType"
-          />
+            />
         </mat-chip-grid>
 
         <mat-autocomplete
-            autoActiveFirstOption
-            #autoType="matAutocomplete"
-            (optionSelected)="selectedType($event)"
+          autoActiveFirstOption
+          #autoType="matAutocomplete"
+          (optionSelected)="selectedType($event)"
           >
-            <mat-option *ngFor="let type of projectTypes" [value]="type">
+          @for (type of projectTypes; track type) {
+            <mat-option [value]="type">
               {{ type }}
             </mat-option>
-          </mat-autocomplete>
+          }
+        </mat-autocomplete>
       </mat-form-field>
     </div>
   </div>
@@ -121,18 +127,19 @@
       class="btn btn-primary"
       color="primary"
       type="submit"
-    >
+      >
       Save
     </button>
-    <button
-      mat-raised-button
-      *ngIf="selectedRow"
-      class="btn btn-primary"
-      color="warn"
-      type="button"
-      (click)="delete()"
-    >
-      Delete
-    </button>
+    @if (selectedRow) {
+      <button
+        mat-raised-button
+        class="btn btn-primary"
+        color="warn"
+        type="button"
+        (click)="delete()"
+        >
+        Delete
+      </button>
+    }
   </div>
 </form>

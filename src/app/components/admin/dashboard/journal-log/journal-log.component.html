@@ -3,17 +3,22 @@
     <button mat-raised-button color="primary" [routerLink]="['add-log']">
       Add Log
     </button>
-    <div *ngIf="journal.length === 0">
-      <p>Your journal is empty</p>
-    </div>
-    <div class="log-container" *ngFor="let log of journal" (click)="handleClick({data: log, event: $event})">
-      <div class="log-details">
-        <span class="log-title">{{ log.title }}</span>
-        <i>{{ log.dateUpdated }}</i>
+    @if (journal.length === 0) {
+      <div>
+        <p>Your journal is empty</p>
       </div>
-      
-      <span>{{ log.log.substring(0, 50) + '...' }}</span>
-    </div>
+    }
+    @for (log of journal; track log) {
+      <div class="log-container" (click)="handleClick({data: log, event: $event})">
+        <div class="log-details">
+          <span class="log-title">{{ log.title }}</span>
+          <i>{{ log.dateUpdated }}</i>
+        </div>
+        <span>{{ log.log.substring(0, 50) + '...' }}</span>
+      </div>
+    }
   </div>
-  <app-add-journal *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-journal>
+  @if (selectedRow) {
+    <app-add-journal [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-journal>
+  }
 </div>

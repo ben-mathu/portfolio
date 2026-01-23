@@ -35,5 +35,7 @@
       </table>
     </div>
   </div>
-  <app-add-experience *ngIf="selectedRow" [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-experience>
+  @if (selectedRow) {
+    <app-add-experience [selectedRow]="selectedRow" (onDelete)="onDelete()" (onUpdate)="updateUi({event: $event})"></app-add-experience>
+  }
 </div>
