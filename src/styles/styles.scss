@@ -171,3 +171,19 @@ p code {
   flex-direction: row;
   gap: 10px;
 }
+
+a:link {
+  color: #64B5F6;
+}
+
+a:visited {
+  color: #9575CD;
+}
+
+a:active {
+  color: #2196F3;
+}
+
+a:hover {
+  color: #BBDEFB;
+}
