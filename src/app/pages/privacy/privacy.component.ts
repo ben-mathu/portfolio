@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import hfms_privacy_policy from 'raw-loader!../../../assets/files/hfms_privacy_policy.md';
+import crypt_code_privacy_policy from 'raw-loader!../../../assets/files/crypt_code_privacy_policy.md';
 
 @Component({
   selector: 'app-privacy',
@@ -25,12 +27,10 @@ export class PrivacyComponent {
     let privacy = '';
     if (app == 'hfms') {
       this.title = 'Buddy - Home Financial Manager Privacy Policy';
-      privacy =
-        'https://raw.githubusercontent.com/ben-mathu/ben-mathu/refs/heads/master/docs/hfms_privacy_policy.md';
+      privacy = hfms_privacy_policy;
     } else if (app == 'crypt') {
       this.title = 'Crypt Code';
-      privacy =
-        'https://raw.githubusercontent.com/ben-mathu/ben-mathu/refs/heads/master/docs/crypt_code_privacy_policy.md';
+      privacy = crypt_code_privacy_policy;
     }
 
     this.firebaseService.retrieveContent(privacy).then((content) => {
