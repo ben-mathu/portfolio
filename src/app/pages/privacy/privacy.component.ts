@@ -6,8 +6,6 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MarkdownModule } from 'ngx-markdown';
-import hfms from '../../../assets/files/hfms_privacy_policy.md';
-import crypt from '../../../assets/files/crypt_code_privacy_policy.md';
 
 @Component({
   selector: 'app-privacy',
@@ -22,9 +20,7 @@ export class PrivacyComponent {
   app?: string;
   constructor(
     private breadcrumbService: BreadcrumbService,
-    private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private http: HttpClient,
   ) {}
 
   ngOnInit() {
