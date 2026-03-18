@@ -38,10 +38,10 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent, PrivacyComponent],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
