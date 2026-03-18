@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { provideRouter, RouterModule } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AdminComponent } from './components/admin/admin.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { FirebaseService } from './shared/services/firebase/firebase.service';
 import { MyDetails } from './shared/models/header/header';
 import { Utils } from './shared/utils/utils';
@@ -52,7 +52,7 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     mockFirebaseService.getHeader.and.returnValue(
-      Promise.resolve(new MyDetails())
+      Promise.resolve(new MyDetails()),
     );
     mockFirebaseService.onAuthStateChanged.and.returnValue(Promise.resolve());
   });
