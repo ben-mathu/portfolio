@@ -1,40 +1,40 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from 'src/app/shared/services/firebase/firebase.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
-import hfms_privacy_policy from 'raw-loader!../../../assets/files/hfms_privacy_policy.md';
-import crypt_code_privacy_policy from 'raw-loader!../../../assets/files/crypt_code_privacy_policy.md';
+import { HttpClient } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
+import { MarkdownModule } from 'ngx-markdown';
+import hfms from '../../../assets/files/hfms_privacy_policy.md';
+import crypt from '../../../assets/files/crypt_code_privacy_policy.md';
 
 @Component({
   selector: 'app-privacy',
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MarkdownModule],
   templateUrl: './privacy.component.html',
-  styleUrl: './privacy.component.scss',
-  standalone: false,
+  styleUrls: ['./privacy.component.scss'],
 })
 export class PrivacyComponent {
   title?: string;
   content?: string;
+  app?: string;
   constructor(
     private breadcrumbService: BreadcrumbService,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
     this.breadcrumbService.set('@Privacy', 'Privacy Policy');
-    const app = this.route.snapshot.paramMap.get('app');
+    this.app = this.route.snapshot.paramMap.get('app') ?? '';
 
-    let privacy = '';
-    if (app == 'hfms') {
+    if (this.app == 'hfms') {
       this.title = 'Buddy - Home Financial Manager Privacy Policy';
-      privacy = hfms_privacy_policy;
-    } else if (app == 'crypt') {
-      this.title = 'Crypt Code';
-      privacy = crypt_code_privacy_policy;
+    } else if (this.app == 'crypt') {
+      this.title = 'Crypt Code Privacy Policy';
     }
-
-    this.firebaseService.retrieveContent(privacy).then((content) => {
-      this.content = content;
-    });
   }
 }

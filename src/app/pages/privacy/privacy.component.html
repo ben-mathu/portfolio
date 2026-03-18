@@ -3,6 +3,15 @@
     <mat-card-title>{{ title }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <markdown ngPreserveWhitespaces [data]="content"></markdown>
+    <markdown
+      *ngIf="app == 'hfms'"
+      ngPreserveWhitespaces
+      src="assets/files/hfms_privacy_policy.md"
+    ></markdown>
+    <markdown
+      *ngIf="app == 'crypt'"
+      ngPreserveWhitespaces
+      src="assets/files/crypt_code_privacy_policy.md"
+    ></markdown>
   </mat-card-content>
 </mat-card>
