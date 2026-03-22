@@ -27,8 +27,6 @@ import {
 } from '@angular/fire/firestore';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SharedModule } from './shared/components/shared.module';
-import { HomeModule } from './pages/home/home.module';
-import { AdminModule } from './pages/admin/admin.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -38,6 +36,8 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AdminModule } from './pages/main-wrapper/admin/admin.module';
+import { HomeModule } from './pages/main-wrapper/home/home.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],

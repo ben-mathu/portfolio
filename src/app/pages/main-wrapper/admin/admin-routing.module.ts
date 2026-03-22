@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { authGuard } from 'src/app/shared/guards/auth/auth.guard';
 import { secureInnerPageGuard } from 'src/app/shared/guards/secure-inner-page/secure-inner-page.guard';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 
 const adminRoutes: Routes = [
   {
     path: 'admin',
     redirectTo: 'admin/dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'admin',
@@ -27,18 +27,16 @@ const adminRoutes: Routes = [
         component: DashboardComponent,
         data: { breadcrumb: { alias: 'Dashboard' } },
         canActivate: [secureInnerPageGuard],
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-      }
-    ]
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+    ],
   },
-  { path: '**', component: PageNotFoundComponent }
-]
+  { path: '**', component: PageNotFoundComponent },
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(adminRoutes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(adminRoutes)],
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

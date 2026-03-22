@@ -14,7 +14,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
