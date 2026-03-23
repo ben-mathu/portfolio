@@ -30,13 +30,13 @@ const routes: Routes = [
       },
     ],
   },
+  // {
+  //   path: 'privacy',
+  //   component: PrivacyComponent,
+  //   data: { breadcrumb: { alias: 'Privacy' } },
+  // },
   {
-    path: 'privacy',
-    component: PrivacyComponent,
-    data: { breadcrumb: { alias: 'Privacy' } },
-  },
-  {
-    path: 'privacy/:app',
+    path: ':app/privacy',
     component: PrivacyComponent,
     data: { breadcrumb: { alias: 'Privacy' } },
   },
@@ -44,7 +44,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
