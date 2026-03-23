@@ -31,7 +31,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: ':app/privacy',
+    path: 'privacy/:app',
     component: PrivacyComponent,
     data: { breadcrumb: { alias: 'Privacy' } },
   },
