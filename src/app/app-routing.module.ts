@@ -31,6 +31,11 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'privacy',
+    redirectTo: 'privacy/hfms',
+    pathMatch: 'full',
+  },
+  {
     path: 'privacy/:app',
     pathMatch: 'full',
     component: PrivacyComponent,
