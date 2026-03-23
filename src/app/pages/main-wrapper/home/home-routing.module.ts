@@ -6,7 +6,7 @@ import { ExperienceComponent } from './experience/experience.component';
 import { AboutComponent } from './about/about.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ArticleComponent } from './article/article.component';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -36,16 +36,14 @@ const routes: Routes = [
         path: 'article/:id',
         component: ArticleComponent,
         data: { breadcrumb: { alias: 'Article' } },
-      }
-    ]
-  }
+      },
+      { path: '**', component: PageNotFoundComponent },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

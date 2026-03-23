@@ -13,7 +13,6 @@ import { AddCertificateComponent } from './add-certificates/add-certificate.comp
 import { CertificatesComponent } from './certificates/certificates.component';
 import { DashboardComponent } from './dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
-import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { JournalLogComponent } from './journal-log/journal-log.component';
 import { AddJournalComponent } from './add-journal/add-journal.component';
 

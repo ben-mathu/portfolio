@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,8 +27,6 @@ import {
 } from '@angular/fire/firestore';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { SharedModule } from './shared/components/shared.module';
-import { HomeModule } from './pages/home/home.module';
-import { AdminModule } from './pages/admin/admin.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -38,11 +36,15 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MainWrapperComponent } from './pages/main-wrapper/main-wrapper.component';
+import { HomeModule } from './pages/main-wrapper/home/home.module';
+import { AdminModule } from './pages/main-wrapper/admin/admin.module';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent, MainWrapperComponent],
   bootstrap: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HomeModule,

@@ -1,0 +1,23 @@
+<button mat-button class="den" [routerLink]="['admin']"></button>
+
+<navbar
+  [headerData]="myDetails"
+  [isAuth]="isAuth"
+  [isDashboard]="isDashboard"
+  [auth]="auth"
+></navbar>
+
+<div class="site-wrapper container">
+  <div class="breadcrumb-container" style="margin: 10px">
+    <xng-breadcrumb [separator]="iconTemplate"></xng-breadcrumb>
+    <ng-template #iconTemplate>
+      <mat-icon>arrow_right</mat-icon>
+    </ng-template>
+  </div>
+
+  <div class="site-container">
+    <app-sidenav *ngIf="isAuth && isDashboard" [url]="url"></app-sidenav>
+    <router-outlet class="app-container"></router-outlet>
+  </div>
+</div>
+<custom-footer [myDetails]="myDetails"></custom-footer>

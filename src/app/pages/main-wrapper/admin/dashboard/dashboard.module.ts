@@ -26,7 +26,6 @@ import { AchievementsComponent } from './achievements/achievements.component';
 import { AddAchievementComponent } from './add-achievement/add-achievement.component';
 import { AddCertificateComponent } from './add-certificates/add-certificate.component';
 import { CertificatesComponent } from './certificates/certificates.component';
-import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { AddJournalComponent } from './add-journal/add-journal.component';
 import { JournalLogComponent } from './journal-log/journal-log.component';
 
