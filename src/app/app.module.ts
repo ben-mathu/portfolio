@@ -36,16 +36,19 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MainWrapperModule } from './pages/main-wrapper/main-wrapper.module';
+import { MainWrapperComponent } from './pages/main-wrapper/main-wrapper.component';
+import { HomeModule } from './pages/main-wrapper/home/home.module';
+import { AdminModule } from './pages/main-wrapper/admin/admin.module';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent, MainWrapperComponent],
   bootstrap: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    MainWrapperModule,
+    HomeModule,
+    AdminModule,
     MatIconModule,
     MatTabsModule,
     MatCardModule,

@@ -30,9 +30,9 @@ const adminRoutes: Routes = [
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
+      { path: '**', component: PageNotFoundComponent },
     ],
   },
-  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
