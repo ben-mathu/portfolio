@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,17 +36,16 @@ import {
 import { Utils } from './shared/utils/utils';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AdminModule } from './pages/main-wrapper/admin/admin.module';
-import { HomeModule } from './pages/main-wrapper/home/home.module';
+import { MainWrapperModule } from './pages/main-wrapper/main-wrapper.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   bootstrap: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
-    HomeModule,
-    AdminModule,
+    MainWrapperModule,
     MatIconModule,
     MatTabsModule,
     MatCardModule,

@@ -1,0 +1,26 @@
+@use '../../../styles/variables' as var;
+
+.site-container {
+  margin: 0 1em;
+  display: flex;
+  flex-direction: row;
+}
+
+.site-wrapper {
+  margin: 1em auto;
+  max-width: var.$max-width;
+  min-width: var.$min-width;
+}
+
+.breadcrumb-container {
+  margin: 1em;
+}
+
+.den {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 100% - 2;
+  left: 100% - 1.6;
+  cursor: pointer;
+}
