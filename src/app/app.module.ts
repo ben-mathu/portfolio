@@ -39,9 +39,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MainWrapperComponent } from './pages/main-wrapper/main-wrapper.component';
 import { HomeModule } from './pages/main-wrapper/home/home.module';
 import { AdminModule } from './pages/main-wrapper/admin/admin.module';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, MainWrapperComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
+    MainWrapperComponent,
+    PrivacyComponent,
+  ],
   bootstrap: [AppComponent],
   imports: [
     CommonModule,

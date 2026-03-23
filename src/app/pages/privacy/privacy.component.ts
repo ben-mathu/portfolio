@@ -9,8 +9,7 @@ import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-privacy',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MarkdownModule],
+  standalone: false,
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss'],
 })

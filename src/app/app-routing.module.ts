@@ -30,13 +30,13 @@ const routes: Routes = [
       },
     ],
   },
+  // {
+  //   path: 'privacy',
+  //   component: PrivacyComponent,
+  //   data: { breadcrumb: { alias: 'Privacy' } },
+  // },
   {
-    path: 'privacy',
-    component: PrivacyComponent,
-    data: { breadcrumb: { alias: 'Privacy' } },
-  },
-  {
-    path: 'privacy/:app',
+    path: ':app/privacy',
     component: PrivacyComponent,
     data: { breadcrumb: { alias: 'Privacy' } },
   },
