@@ -32,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'privacy/:app',
+    pathMatch: 'full',
     component: PrivacyComponent,
     data: { breadcrumb: { alias: 'Privacy' } },
   },
