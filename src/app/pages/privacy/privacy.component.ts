@@ -31,6 +31,8 @@ export class PrivacyComponent {
       this.title = 'Buddy - Home Financial Manager Privacy Policy';
     } else if (this.app == 'crypt') {
       this.title = 'Crypt Code Privacy Policy';
+    } else {
+      this.title = 'Privacy Policy';
     }
   }
 }

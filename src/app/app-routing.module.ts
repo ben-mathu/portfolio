@@ -32,12 +32,11 @@ const routes: Routes = [
   },
   {
     path: 'privacy',
-    redirectTo: 'privacy/hfms',
-    pathMatch: 'full',
+    component: PrivacyComponent,
+    data: { breadcrumb: { alias: 'Privacy' } },
   },
   {
     path: 'privacy/:app',
-    pathMatch: 'full',
     component: PrivacyComponent,
     data: { breadcrumb: { alias: 'Privacy' } },
   },
